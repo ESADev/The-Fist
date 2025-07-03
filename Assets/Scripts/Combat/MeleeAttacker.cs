@@ -2,10 +2,13 @@ using UnityEngine;
 using System;
 
 /// <summary>
-/// Handles melee attack logic by listening to UnitAIController events.
-/// Uses a DamageEffect to apply damage when in range and off cooldown.
+/// Handles melee attack logic. The component listens to a
+/// <see cref="UnitAIController"/> if present but can also be
+/// controlled manually (e.g. by player scripts) via
+/// <see cref="SetTarget"/> and <see cref="ClearTarget"/>.
+/// This decouples the attack behaviour from any specific
+/// movement or targeting implementation.
 /// </summary>
-[RequireComponent(typeof(UnitAIController))]
 public class MeleeAttacker : MonoBehaviour
 {
     // Shared stats asset provides attack rate and range
@@ -13,12 +16,47 @@ public class MeleeAttacker : MonoBehaviour
     [SerializeField] private MonoBehaviour effectSource;
 
     private IEffect _effect;
-    private UnitAIController _ai;
+    private UnitAIController _ai; // optional AI brain, may be null for player
     private GameObject _currentTarget;
     private float _cooldownTimer;
 
+    /// <summary>
+    /// Manually assign a target for this attacker.
+    /// Useful for player controlled units that do not use
+    /// <see cref="UnitAIController"/>.
+    /// </summary>
+    /// <param name="target">Target GameObject to attack.</param>
+    public void SetTarget(GameObject target)
+    {
+        _currentTarget = target;
+    }
+
+    /// <summary>
+    /// Clear the current target so the attacker stops attacking.
+    /// </summary>
+    public void ClearTarget()
+    {
+        _currentTarget = null;
+    }
+
+    /* Example usage for a player controlled unit:
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out var hit))
+            {
+                SetTarget(hit.collider.gameObject);
+            }
+        }
+    }
+    */
+
     private void Awake()
     {
+        // Grab the AI controller if one exists. Player controlled units
+        // might not have this component attached.
         _ai = GetComponent<UnitAIController>();
         _effect = effectSource as IEffect;
         if (stats == null)
@@ -67,12 +105,12 @@ public class MeleeAttacker : MonoBehaviour
 
     private void HandleTargetAcquired(GameObject target)
     {
-        _currentTarget = target;
+        SetTarget(target);
     }
 
     private void HandleTargetLost()
     {
-        _currentTarget = null;
+        ClearTarget();
     }
 
     private void PerformAttack()
