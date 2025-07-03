@@ -3,15 +3,17 @@ using UnityEngine;
 
 /// <summary>
 /// Brain component that handles target acquisition and basic movement.
-/// Uses ScriptableObject settings for data-driven behavior.
+/// Uses ScriptableObject stats for data-driven behavior.
+
 /// Communicates via events so other systems can react without tight coupling.
 /// </summary>
 [RequireComponent(typeof(FactionComponent))]
 public class UnitAIController : MonoBehaviour
 {
     public enum AIState { Moving, Fighting }
+    // Single stats asset drives all AI behaviour
+    [SerializeField] private MeleeUnitStatsSO stats;
 
-    [SerializeField] private UnitAISettingsSO settings;
     [SerializeField] private Transform longRangeDestination;
 
     private FactionComponent _faction;
@@ -31,7 +33,7 @@ public class UnitAIController : MonoBehaviour
     private void Awake()
     {
         _faction = GetComponent<FactionComponent>();
-        if (settings == null)
+        if (stats == null)
         {
             Debug.LogError("[UnitAIController] Settings asset not assigned.", this);
             enabled = false;
@@ -40,10 +42,10 @@ public class UnitAIController : MonoBehaviour
 
     private void Update()
     {
-        if (settings == null) return;
+        if (stats == null) return;
 
         _scanTimer += Time.deltaTime;
-        if (_scanTimer >= settings.scanInterval)
+        if (_scanTimer >= stats.scanInterval)
         {
             _scanTimer = 0f;
             ScanForTargets();
@@ -58,7 +60,7 @@ public class UnitAIController : MonoBehaviour
             MoveTowards(_currentTarget.transform.position);
 
             float distance = Vector3.Distance(transform.position, _currentTarget.transform.position);
-            if (distance > settings.aggroRadius)
+            if (distance > stats.aggroRadius)
             {
                 ClearTarget();
             }
@@ -68,7 +70,7 @@ public class UnitAIController : MonoBehaviour
     private void MoveTowards(Vector3 destination)
     {
         Vector3 dir = (destination - transform.position).normalized;
-        transform.position += dir * settings.moveSpeed * Time.deltaTime;
+        transform.position += dir * stats.moveSpeed * Time.deltaTime;
         if (dir != Vector3.zero)
         {
             Quaternion targetRot = Quaternion.LookRotation(dir);
@@ -78,7 +80,7 @@ public class UnitAIController : MonoBehaviour
 
     private void ScanForTargets()
     {
-        Collider[] hits = Physics.OverlapSphere(transform.position, settings.aggroRadius);
+        Collider[] hits = Physics.OverlapSphere(transform.position, stats.aggroRadius);
         float closestDist = float.MaxValue;
         GameObject closest = null;
 
