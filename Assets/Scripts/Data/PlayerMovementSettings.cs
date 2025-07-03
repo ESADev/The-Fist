@@ -14,4 +14,8 @@ public class PlayerMovementSettings : ScriptableObject
 
     // The speed at which the player rotates to face the movement direction.
     public float rotationSpeed = 10f;
+
+    // The smoothness factor for movement interpolation (higher = smoother, 0 = instant).
+    [Range(0f, 1f)]
+    public float movementSmoothness = 0.1f;
 }

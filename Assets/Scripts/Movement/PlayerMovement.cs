@@ -15,6 +15,8 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody _rb;
     private Vector2 _moveInput;
+    private Vector3 _currentVelocity; // Now represents velocity, not SmoothDamp's velocity
+    private Vector3 _targetPosition;
 
     private void Awake()
     {
@@ -74,21 +76,24 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         // --- MOVEMENT ---
-        // We create a 3D movement vector from the 2D input (x,y) -> (x,0,y).
-        Vector3 movementDirection = new Vector3(_moveInput.x, 0f, _moveInput.y);
+        Vector3 movementDirection = new Vector3(_moveInput.x, 0f, _moveInput.y).normalized;
+        Vector3 targetVelocity = movementDirection * movementSettings.moveSpeed;
 
-        // We move the transform based on the direction, speed, and delta time.
-        transform.position += movementDirection.normalized * (movementSettings.moveSpeed * Time.deltaTime);
+        // Smoothly interpolate the velocity
+        _currentVelocity = Vector3.Lerp(
+            _currentVelocity,
+            targetVelocity,
+            1f - Mathf.Pow(1f - movementSettings.movementSmoothness, Time.deltaTime * 60f)
+        );
+
+        // Move the player by velocity
+        transform.position += _currentVelocity * Time.deltaTime;
 
         // --- ROTATION ---
         if (movementDirection != Vector3.zero)
         {
-            // Create a rotation that looks in the direction of movement.
             Quaternion targetRotation = Quaternion.LookRotation(movementDirection);
-
-            // Smoothly interpolate from the current rotation to the target rotation.
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, movementSettings.rotationSpeed * Time.deltaTime);
-
             Debug.Log($"[PlayerMovement] Moving with direction: {movementDirection}");
         }
     }
