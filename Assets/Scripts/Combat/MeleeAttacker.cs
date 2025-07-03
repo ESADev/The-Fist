@@ -8,7 +8,8 @@ using System;
 [RequireComponent(typeof(UnitAIController))]
 public class MeleeAttacker : MonoBehaviour
 {
-    [SerializeField] private MeleeAttackSettingsSO settings;
+    // Shared stats asset provides attack rate and range
+    [SerializeField] private MeleeUnitStatsSO stats;
     [SerializeField] private MonoBehaviour effectSource;
 
     private IEffect _effect;
@@ -20,9 +21,9 @@ public class MeleeAttacker : MonoBehaviour
     {
         _ai = GetComponent<UnitAIController>();
         _effect = effectSource as IEffect;
-        if (settings == null)
+        if (stats == null)
         {
-            Debug.LogError("[MeleeAttacker] Settings asset not assigned.", this);
+            Debug.LogError("[MeleeAttacker] Stats asset not assigned.", this);
             enabled = false;
         }
         if (_effect == null)
@@ -57,10 +58,10 @@ public class MeleeAttacker : MonoBehaviour
         if (_currentTarget == null) return;
 
         float distance = Vector3.Distance(transform.position, _currentTarget.transform.position);
-        if (distance <= settings.attackRange && _cooldownTimer <= 0f)
+        if (distance <= stats.attackRange && _cooldownTimer <= 0f)
         {
             PerformAttack();
-            _cooldownTimer = settings.attackRate;
+            _cooldownTimer = stats.attackRate;
         }
     }
 
