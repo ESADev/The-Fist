@@ -4,15 +4,16 @@ using UnityEngine;
 /// <summary>
 /// Brain component that handles target acquisition and basic movement.
 /// Uses ScriptableObject stats for data-driven behavior.
+
 /// Communicates via events so other systems can react without tight coupling.
 /// </summary>
 [RequireComponent(typeof(FactionComponent))]
 public class UnitAIController : MonoBehaviour
 {
     public enum AIState { Moving, Fighting }
-
     // Single stats asset drives all AI behaviour
     [SerializeField] private MeleeUnitStatsSO stats;
+
     [SerializeField] private Transform longRangeDestination;
 
     private FactionComponent _faction;
