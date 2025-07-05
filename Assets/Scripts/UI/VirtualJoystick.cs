@@ -15,15 +15,27 @@ public class VirtualJoystick : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     [SerializeField] private RectTransform joystickBackground;
     [SerializeField] private RectTransform joystickHandle;
 
+    private Vector2 currentInput = Vector2.zero;
+    private bool isHeld = false;
+
     private void Start()
     {
         // Ensure the handle is centered initially
         joystickHandle.anchoredPosition = Vector2.zero;
     }
 
+    private void Update()
+    {
+        if (isHeld && InputManager.Instance != null)
+        {
+            InputManager.Instance.SetMovementInput(currentInput);
+        }
+    }
+
     public void OnPointerDown(PointerEventData eventData)
     {
         // When the user first presses on the joystick area, start tracking the drag
+        isHeld = true;
         OnDrag(eventData);
     }
 
@@ -51,17 +63,16 @@ public class VirtualJoystick : MonoBehaviour, IPointerDownHandler, IPointerUpHan
 
             // Normalize the input vector and send it to the InputManager
             Vector2 normalizedInput = joystickVector / (joystickBackground.sizeDelta / 2f);
-            if (InputManager.Instance != null)
-            {
-                InputManager.Instance.SetMovementInput(normalizedInput);
-            }
+            currentInput = normalizedInput;
         }
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
         // When the user lifts their finger/mouse, reset the handle and input
+        isHeld = false;
         joystickHandle.anchoredPosition = Vector2.zero;
+        currentInput = Vector2.zero;
         if (InputManager.Instance != null)
         {
             InputManager.Instance.SetMovementInput(Vector2.zero);
