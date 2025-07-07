@@ -6,21 +6,18 @@ using UnityEngine;
 /// It's decoupled from the input source; it doesn't care if the input comes from a keyboard,
 /// a joystick, or AI. It simply listens for an OnMove event from the InputManager.
 /// </summary>
-[RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
 {
     // A reference to the ScriptableObject holding our movement settings.
     // This makes the component data-driven.
     [SerializeField] private PlayerMovementSettings movementSettings;
 
-    private Rigidbody _rb;
     private Vector2 _moveInput;
     private Vector3 _currentVelocity; // Now represents velocity, not SmoothDamp's velocity
     private Vector3 _targetPosition;
 
     private void Awake()
     {
-        _rb = GetComponent<Rigidbody>();
         // This is a critical check. If the settings asset is not assigned in the inspector,
         // the player will not be able to move.
         if (movementSettings == null)
