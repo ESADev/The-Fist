@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "MovementStats", menuName = "TheFist/Movement Stats")]
 public class MovementStatsSO : ScriptableObject
 {
-    [Header("Speed Settings")]
+    [Header("Movement")]
 
     /// <summary>
     /// Base movement speed in units per second.
@@ -15,14 +15,15 @@ public class MovementStatsSO : ScriptableObject
     public float moveSpeed = 5f;
 
     /// <summary>
-    /// Maximum speed that the object can reach.
+    /// The speed used when turning toward the movement direction.
     /// </summary>
-    [Tooltip("Maximum speed that the object can reach.")]
-    public float maxSpeed = 10f;
+    [Tooltip("The speed used when turning toward the movement direction.")]
+    public float turnSpeed = 360f;
 
     /// <summary>
-    /// Rate at which the object accelerates.
+    /// Controls how smoothly the character moves. 0 means instant movement.
     /// </summary>
-    [Tooltip("Rate at which the object accelerates.")]
-    public float acceleration = 5f;
+    [Tooltip("Controls how smoothly the character moves. 0 means instant movement.")]
+    [Range(0f, 1f)]
+    public float movementSmoothness = 0.1f;
 }
