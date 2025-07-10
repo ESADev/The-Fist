@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,6 +27,11 @@ public class Attacker : MonoBehaviour
     /// Indicates whether the attacker is currently engaging a target.
     /// </summary>
     private bool isEngaging;
+
+    /// <summary>
+    /// Fired whenever this attacker performs an attack.
+    /// </summary>
+    public event Action<AttackDefinitionSO> OnAttackPerformed;
 
     private void Awake()
     {
@@ -186,6 +192,8 @@ public class Attacker : MonoBehaviour
         }
 
         attackCooldowns[attack] = attack.cooldown;
+
+        OnAttackPerformed?.Invoke(attack);
     }
 
     /// <summary>
