@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: PlayerMovementStats
   m_EditorClassIdentifier: 
   moveSpeed: 10
-  turnSpeed: 720
-  movementSmoothness: 0.2
+  turnSpeed: 360
+  movementSmoothness: 0.1
+  rotationSmoothness: 0.1

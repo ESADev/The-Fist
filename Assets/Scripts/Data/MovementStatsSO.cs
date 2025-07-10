@@ -21,16 +21,16 @@ public class MovementStatsSO : ScriptableObject
     public float turnSpeed = 360f;
 
     /// <summary>
-    /// Controls how smoothly the character moves. 0 means instant movement.
+    /// Controls how smoothly the character moves. 1 means instant movement.
     /// </summary>
-    [Tooltip("Controls how smoothly the character moves. 0 means instant movement.")]
+    [Tooltip("Controls how smoothly the character moves. 1 means instant movement.")]
     [Range(0f, 1f)]
     public float movementSmoothness = 0.1f;
 
     /// <summary>
-    /// Controls how smoothly the character rotates. 0 means instant rotation.
+    /// Controls how smoothly the character rotates. 1 means instant rotation.
     /// </summary>
-    [Tooltip("Controls how smoothly the character rotates. 0 means instant rotation.")]
+    [Tooltip("Controls how smoothly the character rotates. 1 means instant rotation.")]
     [Range(0f, 1f)]
     public float rotationSmoothness = 0.1f;
 }
