@@ -47,4 +47,11 @@ public class AttackDefinitionSO : ScriptableObject
     /// </summary>
     [Tooltip("Prefab spawned when executing a ranged attack. Null for melee attacks.")]
     public GameObject projectilePrefab;
+
+    /// <summary>
+    /// Movement speed for projectiles spawned by this attack.
+    /// Only used when <see cref="projectilePrefab"/> is assigned.
+    /// </summary>
+    [Tooltip("Movement speed of projectiles spawned by this attack.")]
+    public float projectileSpeed = 10f;
 }
