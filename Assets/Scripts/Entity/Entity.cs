@@ -7,6 +7,10 @@ using UnityEngine;
 [DefaultExecutionOrder(-1000)]
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Faction))]
+[RequireComponent(typeof(Health))]
+[RequireComponent(typeof(Attacker))]
+[RequireComponent(typeof(MovementController))]
+[RequireComponent(typeof(TargetScanner))]
 public class Entity : MonoBehaviour
 {
     [Header("Definition")]

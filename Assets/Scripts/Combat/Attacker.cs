@@ -6,12 +6,17 @@ using UnityEngine;
 /// Handles combat behaviour for an entity by executing attacks defined in an
 /// <see cref="AttackerProfileSO"/>.
 /// </summary>
-[RequireComponent(typeof(Collider))]
+// [RequireComponent(typeof(Collider))]
 public class Attacker : MonoBehaviour
 {
     [Header("Profile")]
     [Tooltip("Profile defining the attacks available to this attacker.")]
-    public AttackerProfileSO attackerProfile;
+    [HideInInspector] public AttackerProfileSO attackerProfile;
+
+    [Space]
+    [SerializeField]
+    [Tooltip("Collider used for attack interactions. If not set, will be auto-assigned from children.")]
+    private new Collider collider;
 
     /// <summary>
     /// Tracks remaining cooldown time for each attack.
@@ -35,6 +40,19 @@ public class Attacker : MonoBehaviour
 
     private void Awake()
     {
+        if (collider == null)
+        {
+            collider = GetComponentInChildren<Collider>();
+            if (collider != null)
+            {
+                Debug.Log($"[Attacker] No collider assigned on {gameObject.name}. Automatically assigned collider: {collider.gameObject.name}", this);
+            }
+            else
+            {
+                Debug.LogWarning($"[Attacker] No collider found on {gameObject.name} or its children.", this);
+            }
+        }
+
         if (attackerProfile == null)
         {
             Debug.LogError($"[Attacker] AttackerProfileSO is not assigned on {gameObject.name}.", this);

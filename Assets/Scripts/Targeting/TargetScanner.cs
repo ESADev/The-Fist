@@ -10,7 +10,7 @@ public class TargetScanner : MonoBehaviour
 {
     [Header("Configuration")]
     [Tooltip("Profile defining scan radius and update frequency.")]
-    public TargetScannerSO scannerProfile;
+    [HideInInspector] public TargetScannerSO scannerProfile;
 
     /// <summary>
     /// List of interactable targets currently detected within range.

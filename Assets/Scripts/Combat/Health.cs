@@ -8,7 +8,7 @@ public class Health : MonoBehaviour, IDestructible, IHealable
 {
     [Header("Stats")]
     [Tooltip("Configuration asset containing health values.")]
-    public HealthStatsSO stats;
+    [HideInInspector] public HealthStatsSO stats;
 
     /// <summary>
     /// Current amount of health.

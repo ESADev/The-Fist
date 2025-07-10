@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
             levelData = levels[currentLevelIndex];
         }
 
-        LevelManager levelManager = FindObjectOfType<LevelManager>();
+        LevelManager levelManager = FindFirstObjectByType<LevelManager>();
         if (levelManager != null)
         {
             levelManager.InitializeLevel(levelData);
