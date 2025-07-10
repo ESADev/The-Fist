@@ -40,6 +40,14 @@ public class AttackDefinitionSO : ScriptableObject
     [Tooltip("Cooldown time between consecutive uses in seconds.")]
     public float cooldown = 1f;
 
+    [Header("Animation")]
+
+    /// <summary>
+    /// Name of the animator trigger used when this attack is performed.
+    /// </summary>
+    [Tooltip("Name of the animator trigger used when this attack is performed.")]
+    public string animationTriggerName = "Attack";
+
     [Header("Projectiles")]
 
     /// <summary>

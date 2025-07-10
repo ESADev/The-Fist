@@ -1,0 +1,150 @@
+using System;
+using UnityEngine;
+
+/// <summary>
+/// Controls character animations by reacting to movement, attacks and death events.
+/// Requires <see cref="Animator"/> and <see cref="Entity"/> components on the same GameObject.
+/// </summary>
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(Entity))]
+public class CharacterAnimator : MonoBehaviour
+{
+    [Header("Parameters")]
+    [Tooltip("Animator float parameter used to represent movement speed.")]
+    [SerializeField] private string speedParameter = "Speed";
+
+    [Tooltip("Animator trigger parameter fired when an attack is performed.")]
+    [SerializeField] private string attackTriggerParameter = "Attack";
+
+    [Tooltip("Animator trigger parameter fired when the character dies.")]
+    [SerializeField] private string deathTriggerParameter = "Die";
+
+    // Component references
+    private Animator animator;
+    private Entity entity;
+    private Health health;
+    private MovementController movementController;
+    private Attacker attacker;
+
+    // Animator parameter hash IDs
+    private int speedParamID;
+    private int attackTriggerID;
+    private int deathTriggerID;
+
+    private Vector3 lastPosition;
+
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+        entity = GetComponent<Entity>();
+
+        if (animator == null)
+        {
+            Debug.LogError($"[CharacterAnimator] Animator component missing on {gameObject.name}.", this);
+            enabled = false;
+            return;
+        }
+
+        if (entity == null)
+        {
+            Debug.LogError($"[CharacterAnimator] Entity component missing on {gameObject.name}.", this);
+            enabled = false;
+            return;
+        }
+
+        // Cache components from entity
+        health = entity.Health;
+        movementController = entity.MovementController;
+        attacker = entity.Attacker;
+
+        speedParamID = Animator.StringToHash(speedParameter);
+        attackTriggerID = Animator.StringToHash(attackTriggerParameter);
+        deathTriggerID = Animator.StringToHash(deathTriggerParameter);
+
+        lastPosition = transform.position;
+    }
+
+    private void OnEnable()
+    {
+        if (health != null)
+        {
+            health.OnDied += HandleDeathAnimation;
+        }
+        else
+        {
+            Debug.LogWarning($"[CharacterAnimator] {gameObject.name} has no Health component to animate death.", this);
+        }
+
+        if (attacker != null)
+        {
+            attacker.OnAttackPerformed += HandleAttackAnimation;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (health != null)
+        {
+            health.OnDied -= HandleDeathAnimation;
+        }
+
+        if (attacker != null)
+        {
+            attacker.OnAttackPerformed -= HandleAttackAnimation;
+        }
+    }
+
+    private void Update()
+    {
+        UpdateMovementAnimation();
+    }
+
+    /// <summary>
+    /// Updates the movement animation by setting the speed parameter based on the character's velocity.
+    /// </summary>
+    private void UpdateMovementAnimation()
+    {
+        if (animator == null) return;
+
+        float velocity = (transform.position - lastPosition).magnitude / Mathf.Max(Time.deltaTime, 0.0001f);
+        float normalized = velocity;
+        if (movementController != null && movementController.CurrentSpeed > 0f)
+        {
+            normalized = velocity / movementController.CurrentSpeed;
+        }
+
+        animator.SetFloat(speedParamID, normalized);
+        lastPosition = transform.position;
+    }
+
+    /// <summary>
+    /// Triggers an attack animation using the trigger defined on the <see cref="AttackDefinitionSO"/>.
+    /// </summary>
+    /// <param name="attackData">Attack definition containing animation info.</param>
+    private void HandleAttackAnimation(AttackDefinitionSO attackData)
+    {
+        if (animator == null || attackData == null)
+        {
+            Debug.LogError("[CharacterAnimator] Cannot handle attack animation due to missing components or data.", this);
+            return;
+        }
+
+        string triggerName = string.IsNullOrWhiteSpace(attackData.animationTriggerName) ? attackTriggerParameter : attackData.animationTriggerName;
+        int triggerId = Animator.StringToHash(triggerName);
+        animator.SetTrigger(triggerId);
+    }
+
+    /// <summary>
+    /// Triggers the death animation when the attached <see cref="Health"/> component reports death.
+    /// </summary>
+    /// <param name="deadObject">The object that died.</param>
+    private void HandleDeathAnimation(GameObject deadObject)
+    {
+        if (deadObject != gameObject || animator == null)
+        {
+            return;
+        }
+
+        animator.SetTrigger(deathTriggerID);
+    }
+}
