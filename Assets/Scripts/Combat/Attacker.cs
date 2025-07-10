@@ -1,22 +1,244 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Basic component representing an entity that can deal damage.
+/// Handles combat behaviour for an entity by executing attacks defined in an
+/// <see cref="AttackerProfileSO"/>.
 /// </summary>
 [RequireComponent(typeof(Collider))]
 public class Attacker : MonoBehaviour
 {
-    [Header("Attack Settings")]
+    [Header("Profile")]
+    [Tooltip("Profile defining the attacks available to this attacker.")]
+    public AttackerProfileSO attackerProfile;
 
     /// <summary>
-    /// The amount of damage inflicted when attacking.
+    /// Tracks remaining cooldown time for each attack.
     /// </summary>
-    [Tooltip("The amount of damage inflicted when attacking.")]
-    public float attackPower = 10f;
+    private readonly Dictionary<AttackDefinitionSO, float> attackCooldowns = new Dictionary<AttackDefinitionSO, float>();
 
     /// <summary>
-    /// The faction this attacker belongs to.
+    /// Current engaged target. Null when not engaging anything.
     /// </summary>
-    [Tooltip("The faction this attacker belongs to.")]
-    public FactionType faction = FactionType.Player;
+    private GameObject currentTarget;
+
+    /// <summary>
+    /// Indicates whether the attacker is currently engaging a target.
+    /// </summary>
+    private bool isEngaging;
+
+    private void Awake()
+    {
+        if (attackerProfile == null)
+        {
+            Debug.LogError($"[Attacker] AttackerProfileSO is not assigned on {gameObject.name}.", this);
+            enabled = false;
+            return;
+        }
+
+        foreach (AttackDefinitionSO attack in attackerProfile.attacks)
+        {
+            if (attack != null && !attackCooldowns.ContainsKey(attack))
+            {
+                attackCooldowns.Add(attack, 0f);
+            }
+        }
+    }
+
+    private void Update()
+    {
+        UpdateCooldowns();
+
+        if (isEngaging)
+        {
+            HandleCombat();
+        }
+    }
+
+    /// <summary>
+    /// Reduces cooldown timers every frame.
+    /// </summary>
+    private void UpdateCooldowns()
+    {
+        List<AttackDefinitionSO> keys = new List<AttackDefinitionSO>(attackCooldowns.Keys);
+        foreach (AttackDefinitionSO attack in keys)
+        {
+            if (attackCooldowns[attack] > 0f)
+            {
+                attackCooldowns[attack] -= Time.deltaTime;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Begins combat engagement with a target.
+    /// </summary>
+    /// <param name="target">Target to attack.</param>
+    public void Engage(GameObject target)
+    {
+        if (target == null)
+        {
+            Debug.LogError("[Attacker] Engage called with null target.", this);
+            return;
+        }
+
+        currentTarget = target;
+        isEngaging = true;
+        Debug.Log($"[Attacker] {gameObject.name} engaging {target.name}");
+    }
+
+    /// <summary>
+    /// Stops combat engagement.
+    /// </summary>
+    public void Disengage()
+    {
+        isEngaging = false;
+        currentTarget = null;
+        Debug.Log($"[Attacker] {gameObject.name} disengaged");
+    }
+
+    /// <summary>
+    /// Selects the most suitable attack for the specified target.
+    /// </summary>
+    /// <param name="target">Potential attack target.</param>
+    /// <returns>Chosen attack definition or null if none available.</returns>
+    private AttackDefinitionSO SelectBestAttackForTarget(GameObject target)
+    {
+        if (target == null)
+        {
+            return null;
+        }
+
+        float distance = Vector3.Distance(transform.position, target.transform.position);
+        AttackDefinitionSO bestAttack = null;
+        float bestScore = float.MinValue;
+
+        foreach (AttackDefinitionSO attack in attackerProfile.attacks)
+        {
+            if (attack == null || !IsAttackReady(attack))
+            {
+                continue;
+            }
+
+            if (distance > attack.range)
+            {
+                continue;
+            }
+
+            float score = attack.damage / Mathf.Max(attack.cooldown, 0.01f);
+            if (score > bestScore)
+            {
+                bestScore = score;
+                bestAttack = attack;
+            }
+        }
+
+        return bestAttack;
+    }
+
+    /// <summary>
+    /// Handles combat logic executed each frame while engaging a target.
+    /// </summary>
+    private void HandleCombat()
+    {
+        if (currentTarget == null)
+        {
+            Disengage();
+            return;
+        }
+
+        AttackDefinitionSO attack = SelectBestAttackForTarget(currentTarget);
+        if (attack != null)
+        {
+            PerformAttack(attack, currentTarget);
+        }
+    }
+
+    /// <summary>
+    /// Determines if an attack is off cooldown and ready to use.
+    /// </summary>
+    /// <param name="attack">Attack definition.</param>
+    /// <returns>True if the attack can be executed.</returns>
+    private bool IsAttackReady(AttackDefinitionSO attack)
+    {
+        if (attack == null)
+        {
+            return false;
+        }
+
+        return !attackCooldowns.TryGetValue(attack, out float timeLeft) || timeLeft <= 0f;
+    }
+
+    /// <summary>
+    /// Executes the specified attack against a target and starts its cooldown.
+    /// </summary>
+    /// <param name="attack">Attack data.</param>
+    /// <param name="target">Target to attack.</param>
+    private void PerformAttack(AttackDefinitionSO attack, GameObject target)
+    {
+        if (attack.attackType == AttackType.Melee)
+        {
+            ExecuteMeleeAttack(attack, target);
+        }
+        else
+        {
+            ExecuteRangedAttack(attack, target);
+        }
+
+        attackCooldowns[attack] = attack.cooldown;
+    }
+
+    /// <summary>
+    /// Handles melee attack execution logic.
+    /// </summary>
+    /// <param name="attack">Attack being executed.</param>
+    /// <param name="target">Target receiving the attack.</param>
+    private void ExecuteMeleeAttack(AttackDefinitionSO attack, GameObject target)
+    {
+        Debug.Log($"[Attacker] {gameObject.name} performs melee attack {attack.attackName} on {target.name}");
+
+        if (target.TryGetComponent<Health>(out var health))
+        {
+            health.TakeDamage(attack.damage, gameObject, attack);
+        }
+        else
+        {
+            Debug.LogWarning($"[Attacker] Target {target.name} has no Health component.", this);
+        }
+    }
+
+    /// <summary>
+    /// Handles ranged attack execution logic.
+    /// </summary>
+    /// <param name="attack">Attack being executed.</param>
+    /// <param name="target">Target receiving the attack.</param>
+    private void ExecuteRangedAttack(AttackDefinitionSO attack, GameObject target)
+    {
+        Debug.Log($"[Attacker] {gameObject.name} performs ranged attack {attack.attackName} on {target.name}");
+
+        if (attack.projectilePrefab != null)
+        {
+            GameObject projectileObj = Instantiate(attack.projectilePrefab, transform.position, Quaternion.identity);
+            if (projectileObj.TryGetComponent<SimpleProjectile>(out var projectile))
+            {
+                projectile.Initialize(gameObject, target, attack);
+            }
+            else
+            {
+                Debug.LogWarning($"[Attacker] Projectile prefab {attack.projectilePrefab.name} lacks SimpleProjectile component.", projectileObj);
+                if (target.TryGetComponent<Health>(out var health))
+                {
+                    health.TakeDamage(attack.damage, gameObject, attack);
+                }
+            }
+        }
+        else if (target.TryGetComponent<Health>(out var health))
+        {
+            health.TakeDamage(attack.damage, gameObject, attack);
+        }
+        else
+        {
+            Debug.LogWarning($"[Attacker] Target {target.name} has no Health component.", this);
+        }
+    }
 }
