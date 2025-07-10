@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// Configuration profile used by <see cref="AIController"/> to evaluate and
+/// Configuration profile used by AI systems to evaluate and
 /// prioritize potential targets.
 /// </summary>
 [CreateAssetMenu(fileName = "AIProfile", menuName = "TheFist/AI Profile")]

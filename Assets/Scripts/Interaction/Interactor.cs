@@ -2,16 +2,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Handles automatic interactions for its GameObject using attached systems
-/// such as <see cref="TargetScanner"/> and <see cref="Attacker"/>.
-/// This component decides at runtime which interaction to perform with
-/// nearby objects.
+/// Universal brain that automatically performs interactions based on a
+/// <see cref="TargetScanner"/> perception system and an <see cref="Attacker"/>.
+/// It chooses the best target and commands the Attacker according to the
+/// assigned <see cref="InteractorProfileSO"/>.
 /// </summary>
 [RequireComponent(typeof(TargetScanner))]
 [RequireComponent(typeof(Attacker))]
 [RequireComponent(typeof(Faction))]
 public class Interactor : MonoBehaviour
 {
+    [Header("Profile")]
+    [Tooltip("Profile describing which interactions this interactor is allowed to perform.")]
+    public InteractorProfileSO interactorProfile;
+
     private TargetScanner scanner;
     private Attacker attacker;
     private Faction faction;
@@ -41,88 +45,79 @@ public class Interactor : MonoBehaviour
             Debug.LogError($"[Interactor] Missing Faction on {gameObject.name}", this);
             enabled = false;
         }
+
+        if (interactorProfile == null)
+        {
+            Debug.LogError($"[Interactor] InteractorProfileSO is not assigned on {gameObject.name}", this);
+            enabled = false;
+        }
     }
 
     private void Update()
     {
-        DecideAndPerformAutomaticAction();
+        Tick();
     }
 
     /// <summary>
-    /// Determines the best interaction for the current frame and executes it.
-    /// Attacking hostile targets is prioritized over all other actions.
+    /// Main update loop for deciding and performing automatic actions.
     /// </summary>
-    private void DecideAndPerformAutomaticAction()
+    public void Tick()
     {
-        if (scanner == null || attacker == null || faction == null)
+        if (scanner == null || attacker == null || faction == null || interactorProfile == null)
         {
             return;
         }
 
         List<IInteractable> targets = scanner.GetTargetsInRange();
-        if (targets.Count == 0)
+        GameObject bestTarget = DecideBestTarget(targets);
+
+        if (bestTarget != null && interactorProfile.canAttack)
+        {
+            attacker.Engage(bestTarget);
+        }
+        else
         {
             attacker.Disengage();
-            return;
         }
+    }
 
-        // 1. Attempt to attack hostile targets.
+    /// <summary>
+    /// Selects the nearest hostile <see cref="IDestructible"/> target.
+    /// </summary>
+    /// <param name="targets">Potential targets detected by the scanner.</param>
+    /// <returns>The best target GameObject or null if none found.</returns>
+    private GameObject DecideBestTarget(List<IInteractable> targets)
+    {
+        GameObject bestTarget = null;
+        float bestSqr = float.PositiveInfinity;
+
         foreach (IInteractable target in targets)
         {
             if (target == null) { continue; }
-
-            Component component = target as Component;
-            if (component == null) { continue; }
+            if (!(target is Component component)) { continue; }
 
             GameObject targetGO = component.gameObject;
             Faction targetFaction = targetGO.GetComponent<Faction>();
-            FactionType targetType = targetFaction != null ? targetFaction.CurrentFaction : FactionType.Neutral;
-
-            if (targetType != faction.CurrentFaction && (targetGO.GetComponent<IDestructible>() != null || targetGO.GetComponent<Health>() != null))
+            if (targetFaction != null && targetFaction.CurrentFaction == faction.CurrentFaction)
             {
-                attacker.Engage(targetGO);
-                Debug.Log($"[Interactor] Attacking {targetGO.name}");
-                return;
+                // Skip friendly targets
+                continue;
+            }
+
+            bool destructible = targetGO.GetComponent<IDestructible>() != null || targetGO.GetComponent<Health>() != null;
+            if (!destructible)
+            {
+                continue;
+            }
+
+            float sqr = (targetGO.transform.position - transform.position).sqrMagnitude;
+            if (sqr < bestSqr)
+            {
+                bestSqr = sqr;
+                bestTarget = targetGO;
             }
         }
 
-        // 2. Interact with friendly objects.
-        foreach (IInteractable target in targets)
-        {
-            if (target == null) { continue; }
-
-            Component component = target as Component;
-            if (component == null) { continue; }
-
-            GameObject targetGO = component.gameObject;
-            Faction targetFaction = targetGO.GetComponent<Faction>();
-            FactionType targetType = targetFaction != null ? targetFaction.CurrentFaction : FactionType.Neutral;
-
-            if (targetType == faction.CurrentFaction)
-            {
-                if (targetGO.TryGetComponent<IUpgradable>(out var upgradable) && upgradable.CanUpgrade())
-                {
-                    upgradable.Upgrade();
-                    Debug.Log($"[Interactor] Upgraded {targetGO.name}");
-                    return;
-                }
-
-                if (targetGO.TryGetComponent<IUnlockable>(out var unlockable) && unlockable.CanUnlock())
-                {
-                    unlockable.Unlock();
-                    Debug.Log($"[Interactor] Unlocked {targetGO.name}");
-                    return;
-                }
-            }
-
-            if (targetGO.TryGetComponent<ICollectible>(out var collectible))
-            {
-                collectible.Collect(this);
-                Debug.Log($"[Interactor] Collected {targetGO.name}");
-                return;
-            }
-        }
-
-        attacker.Disengage();
+        return bestTarget;
     }
 }
