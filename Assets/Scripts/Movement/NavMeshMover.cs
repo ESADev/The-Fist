@@ -49,7 +49,7 @@ public class NavMeshMover : MonoBehaviour, IMoveable
         if (direction != Vector3.zero)
         {
             Quaternion targetRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, stats.turnSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 1f - Mathf.Pow(1f - stats.rotationSmoothness, Time.deltaTime * 60f));
         }
     }
 

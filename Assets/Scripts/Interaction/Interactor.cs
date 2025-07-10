@@ -14,7 +14,7 @@ public class Interactor : MonoBehaviour
 {
     [Header("Profile")]
     [Tooltip("Profile describing which interactions this interactor is allowed to perform.")]
-    public InteractorProfileSO interactorProfile;
+    [HideInInspector] public InteractorProfileSO interactorProfile;
 
     private TargetScanner scanner;
     private Attacker attacker;

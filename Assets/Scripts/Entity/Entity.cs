@@ -11,6 +11,7 @@ using UnityEngine;
 [RequireComponent(typeof(Attacker))]
 [RequireComponent(typeof(MovementController))]
 [RequireComponent(typeof(TargetScanner))]
+[RequireComponent(typeof(Interactor))]
 public class Entity : MonoBehaviour
 {
     [Header("Definition")]
@@ -42,6 +43,11 @@ public class Entity : MonoBehaviour
     /// </summary>
     public TargetScanner TargetScanner { get; private set; }
 
+    /// <summary>
+    /// Gets the <see cref="Interactor"/> component attached to this entity if present.
+    /// </summary>
+    public Interactor Interactor { get; private set; }
+
     private void Awake()
     {
         CacheComponents();
@@ -58,6 +64,7 @@ public class Entity : MonoBehaviour
         Attacker = GetComponent<Attacker>();
         MovementController = GetComponent<MovementController>();
         TargetScanner = GetComponent<TargetScanner>();
+        Interactor = GetComponent<Interactor>();
     }
 
     /// <summary>
@@ -114,6 +121,15 @@ public class Entity : MonoBehaviour
         else if (characterDefinition.targetScanner != null)
         {
             Debug.LogWarning($"[Entity] {gameObject.name} has a target scanner profile but no TargetScanner component.", this);
+        }
+
+        if (Interactor != null)
+        {
+            Interactor.interactorProfile = characterDefinition.interactorProfile;
+        }
+        else if (characterDefinition.interactorProfile != null)
+        {
+            Debug.LogWarning($"[Entity] {gameObject.name} has an interactor profile but no Interactor component.", this);
         }
     }
 }

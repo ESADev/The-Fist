@@ -55,6 +55,12 @@ public class CharacterDefinitionSO : ScriptableObject
     [Tooltip("Configuration asset describing how this character scans for targets.")]
     public TargetScannerSO targetScanner;
 
+    /// <summary>
+    /// Configuration profile defining what automatic interactions this character can perform.
+    /// </summary>
+    [Tooltip("Configuration profile defining what automatic interactions this character can perform.")]
+    public InteractorProfileSO interactorProfile;
+
     [Header("Presentation")]
 
     /// <summary>
