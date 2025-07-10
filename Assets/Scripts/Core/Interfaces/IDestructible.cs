@@ -1,3 +1,5 @@
+using UnityEngine;
+
 /// <summary>
 /// Defines behaviour for objects that can take damage and be destroyed.
 /// </summary>
