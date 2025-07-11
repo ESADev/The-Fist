@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0b2cd1f939ea1a41979a24b58f84dce, type: 3}
   m_Name: PlayerCharacterDefinition
   m_EditorClassIdentifier: 
-  characterName: New Character
+  characterName: Player
   characterPrefab: {fileID: 0}
-  faction: 2
+  faction: 0
   healthStats: {fileID: 11400000, guid: e33f65e01c48e414db3f9b8a1db8ef59, type: 2}
   movementStats: {fileID: 11400000, guid: 80831b8c5412a474ba0822efb25be95a, type: 2}
   attackerProfile: {fileID: 11400000, guid: 0494e8112552ec94fa888046c95caee3, type: 2}

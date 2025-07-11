@@ -50,7 +50,7 @@ public class PlayerInputHandler : MonoBehaviour
         Vector3 worldDirection = new Vector3(movement.x, 0f, movement.y).normalized;
         if (worldDirection.sqrMagnitude > 0f)
         {
-            Debug.Log($"[PlayerInputHandler] Moving in direction {worldDirection}");
+            //Debug.Log($"[PlayerInputHandler] Moving in direction {worldDirection}");
         }
         movementController.MoveInDirection(worldDirection);
     }

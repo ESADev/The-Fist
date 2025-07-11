@@ -54,7 +54,7 @@ public class InputManager : MonoBehaviour
 
         if (finalMovementInput.magnitude > 0.01f)
         {
-            Debug.Log($"[InputManager] Final input for this frame: {finalMovementInput}");
+            //Debug.Log($"[InputManager] Final input for this frame: {finalMovementInput}");
         }
 
         // Only invoke the event if there is a listener
