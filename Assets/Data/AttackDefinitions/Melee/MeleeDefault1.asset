@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12f10fc6fc2061842830838ad56e51ad, type: 3}
   m_Name: MeleeDefault1
   m_EditorClassIdentifier: 
-  attackName: Default 1
+  attackName: MeleeDefault1
   attackType: 0
   damage: 10
   range: 1

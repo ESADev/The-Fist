@@ -8,10 +8,6 @@ using UnityEngine;
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Faction))]
 [RequireComponent(typeof(Health))]
-[RequireComponent(typeof(Attacker))]
-[RequireComponent(typeof(MovementController))]
-[RequireComponent(typeof(TargetScanner))]
-[RequireComponent(typeof(Interactor))]
 public class Entity : MonoBehaviour
 {
     [Header("Definition")]

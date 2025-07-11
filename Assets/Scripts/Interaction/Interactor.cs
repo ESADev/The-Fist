@@ -44,6 +44,7 @@ public class Interactor : MonoBehaviour
         {
             Debug.LogError($"[Interactor] Missing Faction on {gameObject.name}", this);
             enabled = false;
+            return;
         }
 
         if (interactorProfile == null)
@@ -68,7 +69,7 @@ public class Interactor : MonoBehaviour
             return;
         }
 
-        List<IInteractable> targets = scanner.GetTargetsInRange();
+        List<Entity> targets = scanner.GetTargetsInRange();
         GameObject bestTarget = DecideBestTarget(targets);
 
         if (bestTarget != null && interactorProfile.canAttack)
@@ -82,27 +83,27 @@ public class Interactor : MonoBehaviour
     }
 
     /// <summary>
-    /// Selects the nearest hostile <see cref="IDestructible"/> target.
+    /// Selects the nearest hostile <see cref="IDestructible"/> target. If no hostile targets are found,
+    /// selects the nearest friendly <see cref="IDestructible"/> target.
     /// </summary>
     /// <param name="targets">Potential targets detected by the scanner.</param>
     /// <returns>The best target GameObject or null if none found.</returns>
-    private GameObject DecideBestTarget(List<IInteractable> targets)
+    private GameObject DecideBestTarget(List<Entity> targets)
     {
-        GameObject bestTarget = null;
-        float bestSqr = float.PositiveInfinity;
+        GameObject bestEnemyTarget = null;
+        float bestEnemySqr = float.PositiveInfinity;
 
-        foreach (IInteractable target in targets)
+        GameObject bestFriendTarget = null;
+        float bestFriendSqr = float.PositiveInfinity;
+
+        foreach (Entity target in targets)
         {
             if (target == null) { continue; }
             if (!(target is Component component)) { continue; }
 
             GameObject targetGO = component.gameObject;
             Faction targetFaction = targetGO.GetComponent<Faction>();
-            if (targetFaction != null && targetFaction.CurrentFaction == faction.CurrentFaction)
-            {
-                // Skip friendly targets
-                continue;
-            }
+            bool isFriend = targetFaction != null && targetFaction.CurrentFaction == faction.CurrentFaction;
 
             bool destructible = targetGO.GetComponent<IDestructible>() != null || targetGO.GetComponent<Health>() != null;
             if (!destructible)
@@ -111,13 +112,26 @@ public class Interactor : MonoBehaviour
             }
 
             float sqr = (targetGO.transform.position - transform.position).sqrMagnitude;
-            if (sqr < bestSqr)
+
+            if (!isFriend)
             {
-                bestSqr = sqr;
-                bestTarget = targetGO;
+                if (sqr < bestEnemySqr)
+                {
+                    bestEnemySqr = sqr;
+                    bestEnemyTarget = targetGO;
+                }
+            }
+            else
+            {
+                if (sqr < bestFriendSqr)
+                {
+                    bestFriendSqr = sqr;
+                    bestFriendTarget = targetGO;
+                }
             }
         }
 
-        return bestTarget;
+        // Prefer enemy targets, fallback to friend if no enemies found
+        return bestEnemyTarget != null ? bestEnemyTarget : bestFriendTarget;
     }
 }

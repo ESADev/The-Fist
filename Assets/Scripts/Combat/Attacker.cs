@@ -133,7 +133,28 @@ public class Attacker : MonoBehaviour
             return null;
         }
 
-        float distance = Vector3.Distance(transform.position, target.transform.position);
+        // Calculate distance to the closest point on the target's collider
+        Collider[] targetColliders = target.GetComponentsInChildren<Collider>();
+        float distance;
+        
+        if (targetColliders.Length > 0)
+        {
+            float minDistance = float.MaxValue;
+            foreach (Collider col in targetColliders)
+            {
+            Vector3 closestPoint = col.ClosestPoint(transform.position);
+            float currentDistance = Vector3.Distance(transform.position, closestPoint);
+            minDistance = Mathf.Min(minDistance, currentDistance);
+            }
+            distance = minDistance;
+        }
+        else
+        {
+            // Fallback to center-to-center if no collider found
+            distance = Vector3.Distance(transform.position, target.transform.position);
+            Debug.LogWarning($"[Attacker] Target {target.name} has no Collider components. Using center-to-center distance.", this);
+        }
+        
         AttackDefinitionSO bestAttack = null;
         float bestScore = float.MinValue;
 

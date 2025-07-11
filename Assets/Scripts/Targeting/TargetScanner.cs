@@ -15,7 +15,7 @@ public class TargetScanner : MonoBehaviour
     /// <summary>
     /// List of interactable targets currently detected within range.
     /// </summary>
-    private readonly List<IInteractable> targetsInRange = new List<IInteractable>();
+    private readonly List<Entity> targetsInRange = new List<Entity>();
 
     private float nextScanTime;
 
@@ -49,12 +49,10 @@ public class TargetScanner : MonoBehaviour
         Collider[] hits = Physics.OverlapSphere(transform.position, scannerProfile.detectionRadius);
         foreach (Collider hit in hits)
         {
-            if (hit.gameObject == gameObject) { continue; }
+            var entity = hit.GetComponentInParent<Entity>();
+            if (entity == null || gameObject.GetComponentInParent<Entity>() == entity || entity.Health.IsDead) { continue; }
 
-            var interactable = hit.GetComponent(typeof(IInteractable)) as IInteractable;
-            if (interactable == null) { continue; }
-
-            targetsInRange.Add(interactable);
+            targetsInRange.Add(entity);
         }
 
         Debug.Log($"[TargetScanner] {targetsInRange.Count} targets detected by {gameObject.name}");
@@ -65,19 +63,19 @@ public class TargetScanner : MonoBehaviour
     /// Returns all currently detected interactable targets.
     /// </summary>
     /// <returns>List of targets in range.</returns>
-    public List<IInteractable> GetTargetsInRange()
+    public List<Entity> GetTargetsInRange()
     {
-        return new List<IInteractable>(targetsInRange);
+        return new List<Entity>(targetsInRange);
     }
 
     /// <summary>
     /// Returns the closest interactable target regardless of type.
     /// </summary>
     /// <returns>The nearest target or null if none exist.</returns>
-    public IInteractable GetNearestTarget()
+    public Entity GetNearestTarget()
     {
         float closestSqr = float.PositiveInfinity;
-        IInteractable closest = null;
+        Entity closest = null;
         foreach (var target in targetsInRange)
         {
             if (target == null) { continue; }
