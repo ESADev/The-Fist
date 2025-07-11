@@ -3,18 +3,14 @@ using UnityEngine;
 
 /// <summary>
 /// Controls character animations by reacting to movement, attacks and death events.
-/// Requires <see cref="Animator"/> and <see cref="Entity"/> components on the same GameObject.
+/// Requires <see cref="Animator"/> component on the same GameObject and <see cref="Entity"/> component on the parent GameObject.
 /// </summary>
 [RequireComponent(typeof(Animator))]
-[RequireComponent(typeof(Entity))]
 public class CharacterAnimator : MonoBehaviour
 {
     [Header("Parameters")]
     [Tooltip("Animator float parameter used to represent movement speed.")]
     [SerializeField] private string speedParameter = "Speed";
-
-    [Tooltip("Animator trigger parameter fired when an attack is performed.")]
-    [SerializeField] private string attackTriggerParameter = "Attack";
 
     [Tooltip("Animator trigger parameter fired when the character dies.")]
     [SerializeField] private string deathTriggerParameter = "Die";
@@ -28,7 +24,6 @@ public class CharacterAnimator : MonoBehaviour
 
     // Animator parameter hash IDs
     private int speedParamID;
-    private int attackTriggerID;
     private int deathTriggerID;
 
     private Vector3 lastPosition;
@@ -36,7 +31,12 @@ public class CharacterAnimator : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        entity = GetComponent<Entity>();
+
+        entity = GetComponentInParent<Entity>();
+        if (entity == null)
+        {
+            Debug.LogError($"[CharacterAnimator] Failed to find Entity component in parent of {gameObject.name}.", this);
+        }
 
         if (animator == null)
         {
@@ -58,7 +58,6 @@ public class CharacterAnimator : MonoBehaviour
         attacker = entity.Attacker;
 
         speedParamID = Animator.StringToHash(speedParameter);
-        attackTriggerID = Animator.StringToHash(attackTriggerParameter);
         deathTriggerID = Animator.StringToHash(deathTriggerParameter);
 
         lastPosition = transform.position;
@@ -129,7 +128,7 @@ public class CharacterAnimator : MonoBehaviour
             return;
         }
 
-        string triggerName = string.IsNullOrWhiteSpace(attackData.animationTriggerName) ? attackTriggerParameter : attackData.animationTriggerName;
+        string triggerName = attackData.animationTriggerName;
         int triggerId = Animator.StringToHash(triggerName);
         animator.SetTrigger(triggerId);
     }

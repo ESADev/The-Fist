@@ -135,9 +135,9 @@ GameObject:
   - component: {fileID: 256350064}
   - component: {fileID: 256350063}
   - component: {fileID: 256350062}
+  - component: {fileID: 256350071}
   - component: {fileID: 256350070}
   - component: {fileID: 256350069}
-  - component: {fileID: 256350071}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1684,6 +1684,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2087190217}
+  - component: {fileID: 2087190219}
+  - component: {fileID: 2087190218}
   m_Layer: 0
   m_Name: Visuals
   m_TagString: Untagged
@@ -1707,6 +1709,42 @@ Transform:
   - {fileID: 2079896285814344086}
   m_Father: {fileID: 256350061}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2087190218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2087190216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c33a1062b22403da1ee5d7acefeabd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedParameter: Speed
+  deathTriggerParameter: Die
+--- !u!95 &2087190219
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2087190216}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 4ebddd681d6bc474ebad5b5f5e9a60e9, type: 3}
+  m_Controller: {fileID: 9100000, guid: 61d34bdcbd6fdec47a8e07e265f59b17, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2127400858
 GameObject:
   m_ObjectHideFlags: 0
