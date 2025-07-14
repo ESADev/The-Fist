@@ -47,6 +47,13 @@ public class Interactor : MonoBehaviour
             return;
         }
 
+        // Don't check for interactorProfile here - it may be assigned by Entity during initialization
+    }
+
+    public void Initialize(InteractorProfileSO profile)
+    {
+        interactorProfile = profile;
+
         if (interactorProfile == null)
         {
             Debug.LogError($"[Interactor] InteractorProfileSO is not assigned on {gameObject.name}", this);
@@ -70,11 +77,42 @@ public class Interactor : MonoBehaviour
         }
 
         List<Entity> targets = scanner.GetTargetsInRange();
-        GameObject bestTarget = DecideBestTarget(targets);
+        Entity bestTarget = DecideBestTarget(targets);
 
-        if (bestTarget != null && interactorProfile.canAttack)
+        if (bestTarget != null)
         {
-            attacker.Engage(bestTarget);
+            if (interactorProfile.canAttack && bestTarget.Faction.CurrentFaction != faction.CurrentFaction)
+            {
+                attacker.Engage(bestTarget.gameObject);
+            }
+            else
+            {
+                attacker.Disengage();
+                if (interactorProfile.canInteract && bestTarget.GetComponent<IInteractable>() != null)
+                {
+                    // Attempt to interact with the target
+                    bestTarget.GetComponent<IInteractable>().Interact(this);
+                }
+                else if (interactorProfile.canUnlock && bestTarget.GetComponent<IUnlockable>() != null)
+                {
+                    // Attempt to unlock the target
+                    bestTarget.GetComponent<IUnlockable>().Unlock(this);
+                }
+                else if (interactorProfile.canUpgrade && bestTarget.GetComponent<IUpgradeable>() != null)
+                {
+                    // Attempt to upgrade the target
+                    bestTarget.GetComponent<IUpgradeable>().Upgrade(this);
+                }
+                else if (interactorProfile.canCollect && bestTarget.GetComponent<ICollectible>() != null)
+                {
+                    // Attempt to collect the target
+                    bestTarget.GetComponent<ICollectible>().Collect(this);
+                }
+                else
+                {
+                    Debug.Log($"[Interactor] No valid interaction available for {bestTarget.name} on {gameObject.name}", this);
+                }
+            }
         }
         else
         {
@@ -88,12 +126,12 @@ public class Interactor : MonoBehaviour
     /// </summary>
     /// <param name="targets">Potential targets detected by the scanner.</param>
     /// <returns>The best target GameObject or null if none found.</returns>
-    private GameObject DecideBestTarget(List<Entity> targets)
+    private Entity DecideBestTarget(List<Entity> targets)
     {
-        GameObject bestEnemyTarget = null;
+        Entity bestEnemyTarget = null;
         float bestEnemySqr = float.PositiveInfinity;
 
-        GameObject bestFriendTarget = null;
+        Entity bestFriendTarget = null;
         float bestFriendSqr = float.PositiveInfinity;
 
         foreach (Entity target in targets)
@@ -101,24 +139,23 @@ public class Interactor : MonoBehaviour
             if (target == null) { continue; }
             if (!(target is Component component)) { continue; }
 
-            GameObject targetGO = component.gameObject;
-            Faction targetFaction = targetGO.GetComponent<Faction>();
+            Faction targetFaction = target.Faction;
             bool isFriend = targetFaction != null && targetFaction.CurrentFaction == faction.CurrentFaction;
 
-            bool destructible = targetGO.GetComponent<IDestructible>() != null || targetGO.GetComponent<Health>() != null;
+            bool destructible = target.GetComponent<IDestructible>() != null || target.Health != null;
             if (!destructible)
             {
                 continue;
             }
 
-            float sqr = (targetGO.transform.position - transform.position).sqrMagnitude;
+            float sqr = (target.transform.position - transform.position).sqrMagnitude;
 
             if (!isFriend)
             {
                 if (sqr < bestEnemySqr)
                 {
                     bestEnemySqr = sqr;
-                    bestEnemyTarget = targetGO;
+                    bestEnemyTarget = target;
                 }
             }
             else
@@ -126,7 +163,7 @@ public class Interactor : MonoBehaviour
                 if (sqr < bestFriendSqr)
                 {
                     bestFriendSqr = sqr;
-                    bestFriendTarget = targetGO;
+                    bestFriendTarget = target;
                 }
             }
         }

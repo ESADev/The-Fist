@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: BuildingDefault1Enemy
   characterPrefab: {fileID: 0}
-  faction: 1
+  faction: 0
   healthStats: {fileID: 11400000, guid: c40bb3840c2ecdf4b983651c595e27e0, type: 2}
   movementStats: {fileID: 11400000, guid: b70faea529afc144aad4057bc51cf0dc, type: 2}
   attackerProfile: {fileID: 11400000, guid: c97f29afaf6783f44b64ed068d9f8aca, type: 2}

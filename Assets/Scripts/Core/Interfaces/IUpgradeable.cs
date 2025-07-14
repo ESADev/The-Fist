@@ -1,7 +1,7 @@
 /// <summary>
 /// Provides upgrade functionality for an object.
 /// </summary>
-public interface IUpgradable
+public interface IUpgradeable
 {
     /// <summary>
     /// Determines whether the object can currently be upgraded.
@@ -12,7 +12,7 @@ public interface IUpgradable
     /// <summary>
     /// Executes the upgrade process.
     /// </summary>
-    void Upgrade();
+    void Upgrade(Interactor interactor = null);
 
     /// <summary>
     /// Gets the current upgrade level of the object.

@@ -78,4 +78,9 @@ public class CharacterControllerMover : MonoBehaviour, IMoveable
     {
         currentVelocity = Vector3.zero;
     }
+
+    public void MoveTo(Transform destinationTransform)
+    {
+        throw new System.NotImplementedException();
+    }
 }

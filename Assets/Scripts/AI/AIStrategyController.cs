@@ -34,8 +34,14 @@ public class AIStrategyController : MonoBehaviour
 
         if (movementController != null)
         {
+            if (!movementController.enabled)
+            {
+                Debug.LogWarning($"[AIStrategyController] MovementController is disabled on {gameObject.name}, cannot move", this);
+                return;
+            }
+            
             Debug.Log($"[AIStrategyController] Moving towards {strategicTarget.name}");
-            movementController.MoveTo(strategicTarget.position);
+            movementController.MoveTo(strategicTarget.transform);
         }
     }
 }

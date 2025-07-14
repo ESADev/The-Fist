@@ -30,12 +30,9 @@ public class Health : MonoBehaviour, IDestructible, IHealable
     /// </summary>
     public event Action<GameObject> OnDied;
 
-    private void Awake()
+    public void Initialize(HealthStatsSO healthStats)
     {
-        if (stats == null)
-        {
-            TryAutoAssignStats();
-        }
+        stats = healthStats;
 
         if (stats == null)
         {
@@ -46,33 +43,6 @@ public class Health : MonoBehaviour, IDestructible, IHealable
 
         CurrentHealth = stats.maxHealth;
         IsDead = false;
-    }
-
-    /// <summary>
-    /// Attempts to automatically assign the <see cref="stats"/> field by looking for an Entity component.
-    /// </summary>
-    private void TryAutoAssignStats()
-    {
-        // Entity component does not exist yet. Use reflection to fetch a field or property named "healthStats" if present.
-        Component entityComponent = GetComponent("Entity");
-        if (entityComponent == null)
-        {
-            return;
-        }
-
-        var entityType = entityComponent.GetType();
-        var statsField = entityType.GetField("healthStats");
-        if (statsField != null && statsField.GetValue(entityComponent) is HealthStatsSO soField)
-        {
-            stats = soField;
-            return;
-        }
-
-        var statsProperty = entityType.GetProperty("healthStats") ?? entityType.GetProperty("HealthStats");
-        if (statsProperty != null && statsProperty.GetValue(entityComponent) is HealthStatsSO soProperty)
-        {
-            stats = soProperty;
-        }
     }
 
     /// <summary>

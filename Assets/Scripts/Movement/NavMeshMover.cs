@@ -9,6 +9,7 @@ public class NavMeshMover : MonoBehaviour, IMoveable
 {
     private NavMeshAgent agent;
     private MovementStatsSO stats;
+    Transform target;
 
     private void Awake()
     {
@@ -17,6 +18,15 @@ public class NavMeshMover : MonoBehaviour, IMoveable
         {
             Debug.LogError($"[NavMeshMover] Missing NavMeshAgent on {gameObject.name}", this);
             enabled = false;
+        }
+    }
+
+    void Update()
+    {
+        // Refresh target destination if it exists
+        if (target != null)
+        {
+            RefreshTargetDestination();
         }
     }
 
@@ -65,6 +75,16 @@ public class NavMeshMover : MonoBehaviour, IMoveable
     }
 
     /// <summary>
+    /// Moves the agent toward a destination after assigning the target.
+    /// </summary>
+    /// <param name="destinationTransform"></param>
+    public void MoveTo(Transform destinationTransform)
+    {
+        target = destinationTransform;
+        MoveTo(destinationTransform.position);
+    }
+
+    /// <summary>
     /// Sets a new movement speed.
     /// </summary>
     /// <param name="newSpeed">Speed value.</param>
@@ -81,5 +101,16 @@ public class NavMeshMover : MonoBehaviour, IMoveable
     {
         agent.isStopped = true;
         agent.velocity = Vector3.zero;
+    }
+
+    /// <summary>
+    /// Refreshes the target destination if it exists.
+    /// </summary>
+    void RefreshTargetDestination()
+    {
+        if (target != null)
+        {
+            MoveTo(target);
+        }
     }
 }

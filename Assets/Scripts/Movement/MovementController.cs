@@ -28,6 +28,13 @@ public class MovementController : MonoBehaviour
     /// <param name="stats">Movement configuration asset.</param>
     public void Initialize(MovementStatsSO stats)
     {
+        if (stats == null)
+        {
+            Debug.LogError($"[MovementController] Movement stats are null for {gameObject.name}", this);
+            enabled = false;
+            return;
+        }
+
         if (mover == null)
         {
             mover = GetComponent<IMoveable>();
@@ -36,11 +43,12 @@ public class MovementController : MonoBehaviour
         if (mover == null)
         {
             Debug.LogError($"[MovementController] No IMoveable component found on {gameObject.name}", this);
+            enabled = false;
             return;
         }
 
         mover.Initialize(stats);
-        CurrentSpeed = stats != null ? stats.moveSpeed : 0f;
+        CurrentSpeed = stats.moveSpeed;
     }
 
     /// <summary>
@@ -67,5 +75,14 @@ public class MovementController : MonoBehaviour
     public void Stop()
     {
         mover?.Stop();
+    }
+
+    /// <summary>
+    /// Moves the character toward a specific destination using a Transform reference.
+    /// </summary>
+    /// <param name="destinationTransform"></param>
+    public void MoveTo(Transform destinationTransform)
+    {
+        mover?.MoveTo(destinationTransform);
     }
 }

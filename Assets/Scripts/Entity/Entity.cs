@@ -4,7 +4,6 @@ using UnityEngine;
 /// Central hub component that aggregates common gameplay systems for a unit.
 /// It configures attached components using data from a <see cref="CharacterDefinitionSO"/>.
 /// </summary>
-[DefaultExecutionOrder(-1000)]
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Faction))]
 [RequireComponent(typeof(Health))]
@@ -12,7 +11,23 @@ public class Entity : MonoBehaviour
 {
     [Header("Definition")]
     [Tooltip("Character definition containing configuration data for this entity.")]
-    public CharacterDefinitionSO characterDefinition;
+    [SerializeField] private CharacterDefinitionSO _characterDefinition;
+
+    /// <summary>
+    /// Gets or sets the character definition. Setting this value automatically initializes the entity.
+    /// </summary>
+    public CharacterDefinitionSO characterDefinition
+    {
+        get => _characterDefinition;
+        set
+        {
+            _characterDefinition = value;
+            if (value != null && Application.isPlaying)
+            {
+                InitializeFromDefinition();
+            }
+        }
+    }
 
     /// <summary>
     /// Gets the <see cref="Faction"/> component attached to this entity.
@@ -47,6 +62,16 @@ public class Entity : MonoBehaviour
     private void Awake()
     {
         CacheComponents();
+
+        if (_characterDefinition == null)
+        {
+            Debug.LogError($"[Entity] CharacterDefinitionSO is not assigned on {gameObject.name}. Entity initialization will be skipped.", this);
+            return;
+        }
+    }
+
+    private void Start()
+    {
         InitializeFromDefinition();
     }
 
@@ -70,7 +95,7 @@ public class Entity : MonoBehaviour
     {
         if (characterDefinition == null)
         {
-            Debug.LogError($"[Entity] CharacterDefinitionSO is not assigned on {gameObject.name}.", this);
+            Debug.LogWarning($"[Entity] Cannot initialize {gameObject.name} - CharacterDefinitionSO is not assigned.", this);
             return;
         }
 
@@ -85,7 +110,7 @@ public class Entity : MonoBehaviour
 
         if (Health != null)
         {
-            Health.stats = characterDefinition.healthStats;
+            Health.Initialize(characterDefinition.healthStats);
         }
         else if (characterDefinition.healthStats != null)
         {
@@ -103,7 +128,7 @@ public class Entity : MonoBehaviour
 
         if (Attacker != null)
         {
-            Attacker.attackerProfile = characterDefinition.attackerProfile;
+            Attacker.Initialize(characterDefinition.attackerProfile);
         }
         else if (characterDefinition.attackerProfile != null)
         {
@@ -112,7 +137,7 @@ public class Entity : MonoBehaviour
 
         if (TargetScanner != null)
         {
-            TargetScanner.scannerProfile = characterDefinition.targetScanner;
+            TargetScanner.Initialize(characterDefinition.targetScanner);
         }
         else if (characterDefinition.targetScanner != null)
         {
@@ -121,11 +146,26 @@ public class Entity : MonoBehaviour
 
         if (Interactor != null)
         {
-            Interactor.interactorProfile = characterDefinition.interactorProfile;
+            Interactor.Initialize(characterDefinition.interactorProfile);
         }
         else if (characterDefinition.interactorProfile != null)
         {
             Debug.LogWarning($"[Entity] {gameObject.name} has an interactor profile but no Interactor component.", this);
         }
+    }
+
+    /// <summary>
+    /// Manually triggers reinitialization of the entity. Useful when the characterDefinition 
+    /// is assigned at runtime or when you need to refresh the configuration.
+    /// </summary>
+    public void Reinitialize()
+    {
+        if (_characterDefinition == null)
+        {
+            Debug.LogWarning($"[Entity] Cannot reinitialize {gameObject.name} - CharacterDefinitionSO is not assigned.", this);
+            return;
+        }
+
+        InitializeFromDefinition();
     }
 }

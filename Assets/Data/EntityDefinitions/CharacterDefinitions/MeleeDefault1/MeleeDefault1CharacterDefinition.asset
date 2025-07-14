@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0b2cd1f939ea1a41979a24b58f84dce, type: 3}
+  m_Name: MeleeDefault1CharacterDefinition
+  m_EditorClassIdentifier: 
+  characterName: MeleeDefault1
+  characterPrefab: {fileID: 0}
+  faction: 1
+  healthStats: {fileID: 11400000, guid: d25b9718c36310f46bb3d96aae3a0c50, type: 2}
+  movementStats: {fileID: 11400000, guid: 654eeb95f5be2504b8c998e45868860f, type: 2}
+  attackerProfile: {fileID: 11400000, guid: da75c644852c370468374efdc9430aaf, type: 2}
+  targetScanner: {fileID: 11400000, guid: 6ce63cc27bab1a54fa3fb73016e1f446, type: 2}
+  interactorProfile: {fileID: 11400000, guid: 50dde4430a701b44c988604dba20734b, type: 2}
+  characterPortrait: {fileID: 0}

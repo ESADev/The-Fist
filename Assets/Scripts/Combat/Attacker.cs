@@ -53,6 +53,16 @@ public class Attacker : MonoBehaviour
             }
         }
 
+        // Don't check for attackerProfile here - it may be assigned by Entity during initialization
+    }
+
+    /// <summary>
+    /// Initializes the attacker with the specified profile.
+    /// </summary>
+    public void Initialize(AttackerProfileSO profile)
+    {
+        attackerProfile = profile;
+
         if (attackerProfile == null)
         {
             Debug.LogError($"[Attacker] AttackerProfileSO is not assigned on {gameObject.name}.", this);
@@ -60,6 +70,11 @@ public class Attacker : MonoBehaviour
             return;
         }
 
+        InitializeAttacks();
+    }
+
+    private void InitializeAttacks()
+    {
         foreach (AttackDefinitionSO attack in attackerProfile.attacks)
         {
             if (attack != null && !attackCooldowns.ContainsKey(attack))

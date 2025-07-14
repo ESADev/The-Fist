@@ -21,6 +21,13 @@ public class TargetScanner : MonoBehaviour
 
     private void Awake()
     {
+        // Don't check for scannerProfile here - it may be assigned by Entity during initialization
+    }
+
+    public void Initialize(TargetScannerSO profile)
+    {
+        scannerProfile = profile;
+
         if (scannerProfile == null)
         {
             Debug.LogError($"[TargetScanner] Scanner profile is not assigned on {gameObject.name}", this);

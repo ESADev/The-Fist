@@ -24,6 +24,12 @@ public interface IMoveable
     void MoveTo(Vector3 destination);
 
     /// <summary>
+    /// Moves the object toward a specific destination using a Transform reference.
+    /// </summary>
+    /// <param name="destinationTransform">Destination transform.</param>
+    void MoveTo(Transform destinationTransform);
+
+    /// <summary>
     /// Sets the current movement speed.
     /// </summary>
     /// <param name="newSpeed">The new speed value.</param>
