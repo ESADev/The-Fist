@@ -39,4 +39,9 @@ public interface IMoveable
     /// Immediately stops any movement.
     /// </summary>
     void Stop();
+
+    /// <summary>
+    /// Immediately continues movement towards a destination.
+    /// </summary>
+    void Continue();
 }

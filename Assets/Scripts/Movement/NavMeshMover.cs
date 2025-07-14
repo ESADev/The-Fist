@@ -113,4 +113,10 @@ public class NavMeshMover : MonoBehaviour, IMoveable
             MoveTo(target);
         }
     }
+
+    public void Continue()
+    {
+        agent.isStopped = false;
+        RefreshTargetDestination();
+    }
 }

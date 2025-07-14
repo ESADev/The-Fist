@@ -79,6 +79,16 @@ public class Interactor : MonoBehaviour
         List<Entity> targets = scanner.GetTargetsInRange();
         Entity bestTarget = DecideBestTarget(targets);
 
+        HandleTargetInteraction(bestTarget);
+    }
+
+    /// <summary>
+    /// Handles interaction with the best target based on the interactor profile.  
+    /// If the target is hostile, it will engage with the Attacker.
+    /// If the target is friendly, it will attempt to perform other interactions iteratively.
+    /// </summary>
+    void HandleTargetInteraction(Entity bestTarget)
+    {
         if (bestTarget != null)
         {
             if (interactorProfile.canAttack && bestTarget.Faction.CurrentFaction != faction.CurrentFaction)

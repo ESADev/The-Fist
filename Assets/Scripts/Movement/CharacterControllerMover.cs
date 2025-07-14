@@ -83,4 +83,9 @@ public class CharacterControllerMover : MonoBehaviour, IMoveable
     {
         throw new System.NotImplementedException();
     }
+
+    public void Continue()
+    {
+        throw new System.NotImplementedException();
+    }
 }

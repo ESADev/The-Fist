@@ -78,6 +78,14 @@ public class MovementController : MonoBehaviour
     }
 
     /// <summary>
+    /// Immediately continues movement toward the current destination.
+    /// </summary>
+    public void Continue()
+    {
+        mover?.Continue();
+    }
+
+    /// <summary>
     /// Moves the character toward a specific destination using a Transform reference.
     /// </summary>
     /// <param name="destinationTransform"></param>
