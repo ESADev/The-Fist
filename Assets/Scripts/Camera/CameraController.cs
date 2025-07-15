@@ -18,15 +18,18 @@ public class CameraController : MonoBehaviour
     [Tooltip("The camera to control.")]
     [SerializeField] private Camera _camera;
 
-    [Header("Debug")]
-    [Tooltip("A debug slider to control the zoom level in the inspector.")]
-    [Range(0f, 1f)]
-    [SerializeField] private float debugZoomSlider = 0f;
+    [Header("Speed-Based Zoom")]
+    [Tooltip("Enable automatic zoom based on player movement speed.")]
+    [SerializeField] private bool enableSpeedZoom = true;
+
+    [Tooltip("Speed threshold above which zoom starts changing.")]
+    [SerializeField] private float speedThreshold = 0.25f;
 
     private Vector3 _cameraOffset;
     private Vector3 _velocity = Vector3.zero;
     private float _targetZoom;
     private float _lastMoveTime;
+    private float _speedBasedZoom = 0f;
 
     private void Awake()
     {
@@ -65,6 +68,24 @@ public class CameraController : MonoBehaviour
         }
 
         _targetZoom = _camera.orthographicSize;
+    }
+
+    private void OnEnable()
+    {
+        if (enableSpeedZoom)
+        {
+            GameEvents.OnPlayerSpeedChanged += HandlePlayerSpeedChanged;
+            Debug.Log("[CameraController] Subscribed to OnPlayerSpeedChanged event");
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (enableSpeedZoom)
+        {
+            GameEvents.OnPlayerSpeedChanged -= HandlePlayerSpeedChanged;
+            Debug.Log("[CameraController] Unsubscribed from OnPlayerSpeedChanged event");
+        }
     }
 
     private void LateUpdate()
@@ -106,23 +127,35 @@ public class CameraController : MonoBehaviour
     /// </summary>
     private void HandleZoom()
     {
-        // Update zoom based on the debug slider
-        SetZoom(debugZoomSlider);
+        _targetZoom = Mathf.Lerp(settings.minZoom, settings.maxZoom, _speedBasedZoom);
 
         _camera.orthographicSize = Mathf.Lerp(_camera.orthographicSize, _targetZoom, settings.zoomSpeed * Time.deltaTime);
     }
 
     /// <summary>
-    /// Sets the desired zoom level as a normalized value (0 to 1).
-    /// This provides a protected interface for external scripts to control the zoom.
+    /// Handles player speed changes for speed-based camera zoom.
     /// </summary>
-    /// <param name="normalizedZoom">The desired zoom level, from 0 (min) to 1 (max).</param>
-    public void SetZoom(float normalizedZoom)
+    /// <param name="currentSpeed">Current player movement speed.</param>
+    /// <param name="maxSpeed">Maximum player movement speed.</param>
+    private void HandlePlayerSpeedChanged(float currentSpeed, float maxSpeed)
     {
-        // Clamp the input value to ensure it's within the valid range.
-        normalizedZoom = Mathf.Clamp01(normalizedZoom);
+        if (!enableSpeedZoom || maxSpeed <= 0f)
+        {
+            Debug.LogWarning($"[CameraController] Invalid speed values - current: {currentSpeed}, max: {maxSpeed}");
+            return;
+        }
 
-        // Linearly interpolate between the min and max zoom levels.
-        _targetZoom = Mathf.Lerp(settings.minZoom, settings.maxZoom, normalizedZoom);
+        // Only apply speed zoom above threshold
+        if (currentSpeed > speedThreshold)
+        {
+            // Map speed to zoom level (0 to 1) - higher speed = more zoom out
+            float speedRatio = Mathf.Clamp01(currentSpeed / maxSpeed);
+            _speedBasedZoom = speedRatio;
+            Debug.Log($"[CameraController] Speed-based zoom: {_speedBasedZoom:F2} (speed: {currentSpeed:F1}/{maxSpeed:F1})");
+        }
+        else
+        {
+            _speedBasedZoom = 0f;
+        }
     }
 }

@@ -7,6 +7,8 @@ using UnityEngine;
 public class PlayerInputHandler : MonoBehaviour
 {
     private MovementController movementController;
+    private float currentInputSpeed = 0f;
+    private float lastAnnouncedSpeed = -1f;
 
     private void Awake()
     {
@@ -48,6 +50,17 @@ public class PlayerInputHandler : MonoBehaviour
     private void HandleMove(Vector2 movement)
     {
         Vector3 worldDirection = new Vector3(movement.x, 0f, movement.y).normalized;
+
+        // Calculate input speed
+        currentInputSpeed = worldDirection.magnitude;
+
+        // Announce speed changes for camera zoom
+        if (Mathf.Abs(currentInputSpeed - lastAnnouncedSpeed) > 0.1f)
+        {
+            GameEvents.TriggerOnPlayerSpeedChanged(currentInputSpeed, 1f);
+            lastAnnouncedSpeed = currentInputSpeed;
+        }
+
         if (worldDirection.sqrMagnitude > 0f)
         {
             //Debug.Log($"[PlayerInputHandler] Moving in direction {worldDirection}");

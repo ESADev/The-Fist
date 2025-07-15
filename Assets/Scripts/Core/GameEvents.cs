@@ -34,6 +34,12 @@ public static class GameEvents
     /// </summary>
     public static event Action OnDefeat;
 
+    /// <summary>
+    /// Fired when the player's movement speed changes.
+    /// Parameters: current speed, max speed.
+    /// </summary>
+    public static event Action<float, float> OnPlayerSpeedChanged;
+
 
     /// <summary>
     /// Invokes the <see cref="OnUnitDamaged"/> event.
@@ -88,5 +94,16 @@ public static class GameEvents
     {
         Debug.Log("[GameEvents] Defeat occurred");
         OnDefeat?.Invoke();
+    }
+
+    /// <summary>
+    /// Invokes the <see cref="OnPlayerSpeedChanged"/> event.
+    /// </summary>
+    /// <param name="currentSpeed">Current player movement speed.</param>
+    /// <param name="maxSpeed">Maximum player movement speed.</param>
+    public static void TriggerOnPlayerSpeedChanged(float currentSpeed, float maxSpeed)
+    {
+        Debug.Log($"[GameEvents] Player speed changed: {currentSpeed:F2}/{maxSpeed:F2}");
+        OnPlayerSpeedChanged?.Invoke(currentSpeed, maxSpeed);
     }
 }

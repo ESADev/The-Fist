@@ -15,5 +15,5 @@ MonoBehaviour:
   followSpeed: 4
   centerDelay: 1
   zoomSpeed: 3
-  minZoom: 15
-  maxZoom: 50
+  minZoom: 20
+  maxZoom: 30

@@ -139,7 +139,7 @@ public class CharacterAnimator : MonoBehaviour
     /// <param name="deadObject">The object that died.</param>
     private void HandleDeathAnimation(GameObject deadObject)
     {
-        if (deadObject != gameObject || animator == null)
+        if (deadObject.GetComponentInParent<Entity>() != entity || animator == null)
         {
             return;
         }

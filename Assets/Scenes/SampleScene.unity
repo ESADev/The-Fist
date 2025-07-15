@@ -2727,7 +2727,8 @@ MonoBehaviour:
   settings: {fileID: 11400000, guid: e72e108062144ea409150971b78bd969, type: 2}
   target: {fileID: 256350061}
   _camera: {fileID: 330585545}
-  debugZoomSlider: 0
+  enableSpeedZoom: 1
+  speedThreshold: 0.25
 --- !u!1 &1021853664
 GameObject:
   m_ObjectHideFlags: 0
