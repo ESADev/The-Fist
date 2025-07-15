@@ -55,9 +55,9 @@ public class Entity : MonoBehaviour
     public TargetScanner TargetScanner { get; private set; }
 
     /// <summary>
-    /// Gets the <see cref="Interactor"/> component attached to this entity if present.
+    /// Gets the <see cref="AutoInteractor"/> component attached to this entity if present.
     /// </summary>
-    public Interactor Interactor { get; private set; }
+    public AutoInteractor Interactor { get; private set; }
 
     private void Awake()
     {
@@ -85,7 +85,7 @@ public class Entity : MonoBehaviour
         Attacker = GetComponent<Attacker>();
         MovementController = GetComponent<MovementController>();
         TargetScanner = GetComponent<TargetScanner>();
-        Interactor = GetComponent<Interactor>();
+        Interactor = GetComponent<AutoInteractor>();
     }
 
     /// <summary>
@@ -150,7 +150,7 @@ public class Entity : MonoBehaviour
         }
         else if (characterDefinition.interactorProfile != null)
         {
-            Debug.LogWarning($"[Entity] {gameObject.name} has an interactor profile but no Interactor component.", this);
+            Debug.LogWarning($"[Entity] {gameObject.name} has an interactor profile but no AutoInteractor component.", this);
         }
     }
 

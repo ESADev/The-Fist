@@ -11,7 +11,7 @@ public enum AIMovementState
     MovingStrategic,
 
     /// <summary>
-    /// Focusing on a tactical target announced by an <see cref="Interactor"/>.
+    /// Focusing on a tactical target announced by an <see cref="AutoInteractor"/>.
     /// </summary>
     EngagingTactical
 }

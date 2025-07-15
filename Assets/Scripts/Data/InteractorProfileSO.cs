@@ -2,7 +2,7 @@ using UnityEngine;
 
 /// <summary>
 /// Configuration profile that defines what automatic interactions an
-/// <see cref="Interactor"/> is allowed to perform.
+/// <see cref="AutoInteractor"/> is allowed to perform.
 /// </summary>
 [CreateAssetMenu(fileName = "InteractorProfile", menuName = "TheFist/Interactor Profile")]
 public class InteractorProfileSO : ScriptableObject

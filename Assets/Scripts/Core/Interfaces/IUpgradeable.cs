@@ -12,7 +12,7 @@ public interface IUpgradeable
     /// <summary>
     /// Executes the upgrade process.
     /// </summary>
-    void Upgrade(Interactor interactor = null);
+    void Upgrade(AutoInteractor interactor = null);
 
     /// <summary>
     /// Gets the current upgrade level of the object.
