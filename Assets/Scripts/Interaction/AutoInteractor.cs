@@ -33,12 +33,14 @@ public class AutoInteractor : MonoBehaviour
     private TargetScanner scanner;
     private Attacker attacker;
     private Faction faction;
+    private Entity entity;
 
     private void Awake()
     {
         scanner = GetComponent<TargetScanner>();
         attacker = GetComponent<Attacker>();
         faction = GetComponent<Faction>();
+        entity = GetComponent<Entity>();
 
         if (scanner == null)
         {
@@ -57,6 +59,13 @@ public class AutoInteractor : MonoBehaviour
         if (faction == null)
         {
             Debug.LogError($"[AutoInteractor] Missing Faction on {gameObject.name}", this);
+            enabled = false;
+            return;
+        }
+
+        if (entity == null)
+        {
+            Debug.LogError($"[AutoInteractor] Missing Entity on {gameObject.name}", this);
             enabled = false;
             return;
         }
@@ -91,6 +100,11 @@ public class AutoInteractor : MonoBehaviour
     /// </summary>
     public void Tick()
     {
+        if (entity != null && entity.CurrentState != EntityState.Active)
+        {
+            return;
+        }
+
         if (scanner == null || attacker == null || faction == null || interactorProfile == null)
         {
             return;

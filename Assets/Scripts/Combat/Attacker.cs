@@ -33,6 +33,8 @@ public class Attacker : MonoBehaviour
     /// </summary>
     private bool isEngaging;
 
+    private Entity entity;
+
     /// <summary>
     /// Fired whenever this attacker performs an attack.
     /// </summary>
@@ -40,6 +42,14 @@ public class Attacker : MonoBehaviour
 
     private void Awake()
     {
+        entity = GetComponent<Entity>();
+
+        if (entity == null)
+        {
+            Debug.LogError($"[Attacker] Missing Entity on {gameObject.name}", this);
+            enabled = false;
+        }
+
         if (collider == null)
         {
             collider = GetComponentInChildren<Collider>();
@@ -86,6 +96,11 @@ public class Attacker : MonoBehaviour
 
     private void Update()
     {
+        if (entity != null && entity.CurrentState != EntityState.Active)
+        {
+            return;
+        }
+
         UpdateCooldowns();
 
         if (isEngaging)

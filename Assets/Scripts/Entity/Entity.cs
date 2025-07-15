@@ -59,14 +59,41 @@ public class Entity : MonoBehaviour
     /// </summary>
     public AutoInteractor Interactor { get; private set; }
 
+    /// <summary>
+    /// Gets the current state of this entity.
+    /// </summary>
+    public EntityState CurrentState { get; private set; }
+
     private void Awake()
     {
         CacheComponents();
+
+        CurrentState = EntityState.Active;
 
         if (_characterDefinition == null)
         {
             Debug.LogError($"[Entity] CharacterDefinitionSO is not assigned on {gameObject.name}. Entity initialization will be skipped.", this);
             return;
+        }
+    }
+
+    private void OnEnable()
+    {
+        if (Health != null)
+        {
+            Health.OnDied += HandleComponentDeath;
+        }
+        else
+        {
+            Debug.LogError($"[Entity] Health component missing on {gameObject.name}.", this);
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (Health != null)
+        {
+            Health.OnDied -= HandleComponentDeath;
         }
     }
 
@@ -152,6 +179,21 @@ public class Entity : MonoBehaviour
         {
             Debug.LogWarning($"[Entity] {gameObject.name} has an interactor profile but no AutoInteractor component.", this);
         }
+    }
+
+    /// <summary>
+    /// Handles the death event from the Health component and updates the state.
+    /// </summary>
+    /// <param name="deadObject">The object that died.</param>
+    private void HandleComponentDeath(GameObject deadObject)
+    {
+        if (deadObject != gameObject)
+        {
+            return;
+        }
+
+        CurrentState = EntityState.Dead;
+        Debug.Log($"[Entity] {gameObject.name} entered Dead state.", this);
     }
 
     /// <summary>

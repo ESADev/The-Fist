@@ -9,6 +9,7 @@ using System;
 [RequireComponent(typeof(MovementController))]
 [RequireComponent(typeof(AutoInteractor))]
 [RequireComponent(typeof(Attacker))]
+[RequireComponent(typeof(Entity))]
 public class AIMovementBrain : MonoBehaviour
 {
     [Header("Strategy")]
@@ -18,6 +19,7 @@ public class AIMovementBrain : MonoBehaviour
     private MovementController movementController;
     private AutoInteractor interactor;
     private Attacker attacker;
+    private Entity entity;
     private GameObject tacticalTarget;
     private AIMovementState currentState = AIMovementState.MovingStrategic;
     private float tacticalRange = 1f;
@@ -27,6 +29,7 @@ public class AIMovementBrain : MonoBehaviour
         movementController = GetComponent<MovementController>();
         interactor = GetComponent<AutoInteractor>();
         attacker = GetComponent<Attacker>();
+        entity = GetComponent<Entity>();
 
         if (movementController == null)
         {
@@ -43,6 +46,12 @@ public class AIMovementBrain : MonoBehaviour
         if (attacker == null)
         {
             Debug.LogError($"[AIMovementBrain] Missing Attacker on {gameObject.name}", this);
+            enabled = false;
+        }
+
+        if (entity == null)
+        {
+            Debug.LogError($"[AIMovementBrain] Missing Entity on {gameObject.name}", this);
             enabled = false;
         }
 
@@ -93,6 +102,11 @@ public class AIMovementBrain : MonoBehaviour
 
     private void Update()
     {
+        if (entity != null && entity.CurrentState != EntityState.Active)
+        {
+            return;
+        }
+
         if (!IsMovementControllerValid())
         {
             return;
