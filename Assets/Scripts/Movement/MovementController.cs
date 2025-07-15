@@ -3,9 +3,11 @@ using UnityEngine;
 /// <summary>
 /// Provides a common API for moving characters using a pluggable <see cref="IMoveable"/> implementation.
 /// </summary>
+[RequireComponent(typeof(Entity))]
 public class MovementController : MonoBehaviour
 {
     private IMoveable mover;
+    private Entity entity;
 
     /// <summary>
     /// Current movement speed in units per second.
@@ -15,9 +17,17 @@ public class MovementController : MonoBehaviour
     private void Awake()
     {
         mover = GetComponent<IMoveable>();
+        entity = GetComponent<Entity>();
+
         if (mover == null)
         {
             Debug.LogError($"[MovementController] IMoveable component not found on {gameObject.name}", this);
+            enabled = false;
+        }
+
+        if (entity == null)
+        {
+            Debug.LogError($"[MovementController] Entity component missing on {gameObject.name}", this);
             enabled = false;
         }
     }
@@ -57,6 +67,11 @@ public class MovementController : MonoBehaviour
     /// <param name="direction">Normalized direction vector.</param>
     public void MoveInDirection(Vector3 direction)
     {
+        if (entity == null || entity.CurrentState != EntityState.Active)
+        {
+            return;
+        }
+
         mover?.MoveInDirection(direction);
     }
 
@@ -66,6 +81,11 @@ public class MovementController : MonoBehaviour
     /// <param name="destination">World space destination.</param>
     public void MoveTo(Vector3 destination)
     {
+        if (entity == null || entity.CurrentState != EntityState.Active)
+        {
+            return;
+        }
+
         mover?.MoveTo(destination);
     }
 
@@ -74,6 +94,11 @@ public class MovementController : MonoBehaviour
     /// </summary>
     public void Stop()
     {
+        if (entity == null || entity.CurrentState != EntityState.Active)
+        {
+            return;
+        }
+
         mover?.Stop();
     }
 
@@ -82,6 +107,11 @@ public class MovementController : MonoBehaviour
     /// </summary>
     public void Continue()
     {
+        if (entity == null || entity.CurrentState != EntityState.Active)
+        {
+            return;
+        }
+
         mover?.Continue();
     }
 
@@ -91,6 +121,11 @@ public class MovementController : MonoBehaviour
     /// <param name="destinationTransform"></param>
     public void MoveTo(Transform destinationTransform)
     {
+        if (entity == null || entity.CurrentState != EntityState.Active)
+        {
+            return;
+        }
+
         mover?.MoveTo(destinationTransform);
     }
 
@@ -100,6 +135,11 @@ public class MovementController : MonoBehaviour
     /// <param name="stoppingDistance">The stopping distance value.</param>
     public void SetStoppingDistance(float stoppingDistance)
     {
+        if (entity == null || entity.CurrentState != EntityState.Active)
+        {
+            return;
+        }
+
         mover?.SetStoppingDistance(stoppingDistance);
     }
 }
