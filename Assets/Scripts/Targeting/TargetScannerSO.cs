@@ -13,7 +13,7 @@ public class TargetScannerSO : ScriptableObject
     /// Maximum distance at which this scanner can detect targets.
     /// </summary>
     [Tooltip("Maximum distance at which this scanner can detect targets.")]
-    public float detectionRadius = 5f;
+    public float detectionRadius = 15f;
 
     /// <summary>
     /// How often, in seconds, the scanner checks for targets.

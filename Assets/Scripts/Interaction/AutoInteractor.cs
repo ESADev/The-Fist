@@ -64,6 +64,12 @@ public class AutoInteractor : MonoBehaviour
         // Don't check for interactorProfile here - it may be assigned by Entity during initialization
     }
 
+    /// <summary>
+    /// Initializes the AutoInteractor with a specific InteractorProfileSO.
+    /// /// This should be called before the first update to ensure proper functionality.
+    /// </summary>
+    /// <param name="profile">The InteractorProfileSO to use for this interactor.</param>
+    /// <exception cref="ArgumentNullException">Thrown if profile is null.</exception>
     public void Initialize(InteractorProfileSO profile)
     {
         interactorProfile = profile;

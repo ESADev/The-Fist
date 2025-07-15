@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3081431e96c4c6468cae5044346bfe0, type: 3}
   m_Name: MeleeDefault1TargetScanner
   m_EditorClassIdentifier: 
-  detectionRadius: 5
+  detectionRadius: 15
   scanFrequency: 0.25

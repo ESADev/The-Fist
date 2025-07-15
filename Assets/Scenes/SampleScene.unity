@@ -1150,7 +1150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3baf01a2a367b8c43829fdb77b23ae5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  strategicTarget: {fileID: 256350061}
+  strategicTarget: {fileID: 529265839}
 --- !u!1 &385575714
 GameObject:
   m_ObjectHideFlags: 0
@@ -1448,7 +1448,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1913234668241034785, guid: 2159b70beebf79b418aea1a859514fb4, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3496228121881631642, guid: 2159b70beebf79b418aea1a859514fb4, type: 3}
       propertyPath: _characterDefinition
@@ -1500,7 +1500,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7709707087268109719, guid: 2159b70beebf79b418aea1a859514fb4, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7709707087268109719, guid: 2159b70beebf79b418aea1a859514fb4, type: 3}
       propertyPath: m_IsActive
@@ -1508,7 +1508,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8239306811728340800, guid: 2159b70beebf79b418aea1a859514fb4, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1539,6 +1539,11 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!4 &529265839 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7042021250793152159, guid: 2159b70beebf79b418aea1a859514fb4, type: 3}
+  m_PrefabInstance: {fileID: 529265833}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &534077797
 GameObject:
   m_ObjectHideFlags: 0
