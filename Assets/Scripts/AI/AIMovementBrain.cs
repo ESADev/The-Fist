@@ -104,6 +104,8 @@ public class AIMovementBrain : MonoBehaviour
     {
         if (entity != null && entity.CurrentState != EntityState.Active)
         {
+            movementController.Stop();
+            Debug.Log($"[AIMovementBrain] Entity {gameObject.name} is not active, stopping movement.", this);
             return;
         }
 

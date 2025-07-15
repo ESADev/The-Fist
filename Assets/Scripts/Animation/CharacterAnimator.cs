@@ -145,5 +145,9 @@ public class CharacterAnimator : MonoBehaviour
         }
 
         animator.SetTrigger(deathTriggerID);
+
+        // Disable itself after death animation is triggered
+        enabled = false;
+        Debug.Log($"[CharacterAnimator] {gameObject.name} has died and triggered death animation.");
     }
 }

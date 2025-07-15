@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   followSpeed: 4
   centerDelay: 1
-  zoomSpeed: 3
-  minZoom: 20
+  zoomSpeed: 1
+  minZoom: 15
   maxZoom: 30

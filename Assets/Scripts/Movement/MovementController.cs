@@ -67,11 +67,6 @@ public class MovementController : MonoBehaviour
     /// <param name="direction">Normalized direction vector.</param>
     public void MoveInDirection(Vector3 direction)
     {
-        if (entity == null || entity.CurrentState != EntityState.Active)
-        {
-            return;
-        }
-
         mover?.MoveInDirection(direction);
     }
 
@@ -81,7 +76,7 @@ public class MovementController : MonoBehaviour
     /// <param name="destination">World space destination.</param>
     public void MoveTo(Vector3 destination)
     {
-        if (entity == null || entity.CurrentState != EntityState.Active)
+        if(EntityIsDead())
         {
             return;
         }
@@ -94,11 +89,6 @@ public class MovementController : MonoBehaviour
     /// </summary>
     public void Stop()
     {
-        if (entity == null || entity.CurrentState != EntityState.Active)
-        {
-            return;
-        }
-
         mover?.Stop();
     }
 
@@ -107,7 +97,7 @@ public class MovementController : MonoBehaviour
     /// </summary>
     public void Continue()
     {
-        if (entity == null || entity.CurrentState != EntityState.Active)
+        if(EntityIsDead())
         {
             return;
         }
@@ -121,7 +111,7 @@ public class MovementController : MonoBehaviour
     /// <param name="destinationTransform"></param>
     public void MoveTo(Transform destinationTransform)
     {
-        if (entity == null || entity.CurrentState != EntityState.Active)
+        if(EntityIsDead())
         {
             return;
         }
@@ -135,11 +125,28 @@ public class MovementController : MonoBehaviour
     /// <param name="stoppingDistance">The stopping distance value.</param>
     public void SetStoppingDistance(float stoppingDistance)
     {
-        if (entity == null || entity.CurrentState != EntityState.Active)
+        if(EntityIsDead())
         {
             return;
         }
 
         mover?.SetStoppingDistance(stoppingDistance);
+    }
+
+    /// <summary>
+    /// Checks if the entity is active and stops movement if not.
+    /// </summary>
+    bool EntityIsDead()
+    {
+        if (entity == null || entity.CurrentState != EntityState.Active)
+        {
+            Stop();
+            Debug.Log("[MovementController] Entity is not active, stopping movement.", this);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
