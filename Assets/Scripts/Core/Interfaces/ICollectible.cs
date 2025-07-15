@@ -1,5 +1,5 @@
 /// <summary>
-/// Defines an item that can be collected by an <see cref="Interactor"/>.
+/// Defines an item that can be collected by an <see cref="AutoInteractor"/>.
 /// </summary>
 public interface ICollectible
 {
@@ -7,5 +7,5 @@ public interface ICollectible
     /// Called when the item is collected.
     /// </summary>
     /// <param name="collector">The interactor collecting the item.</param>
-    void Collect(Interactor collector);
+    void Collect(AutoInteractor collector);
 }

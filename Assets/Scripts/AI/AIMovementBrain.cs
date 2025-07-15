@@ -7,16 +7,16 @@ using System;
 /// handles targeting or attacking.
 /// </summary>
 [RequireComponent(typeof(MovementController))]
-[RequireComponent(typeof(Interactor))]
+[RequireComponent(typeof(AutoInteractor))]
 [RequireComponent(typeof(Attacker))]
-public class AIStrategyController : MonoBehaviour
+public class AIMovementBrain : MonoBehaviour
 {
     [Header("Strategy")]
     [Tooltip("Ultimate destination for this AI unit when play begins.")]
     public Transform strategicTarget;
 
     private MovementController movementController;
-    private Interactor interactor;
+    private AutoInteractor interactor;
     private Attacker attacker;
     private GameObject tacticalTarget;
     private AIMovementState currentState = AIMovementState.MovingStrategic;
@@ -25,24 +25,24 @@ public class AIStrategyController : MonoBehaviour
     private void Awake()
     {
         movementController = GetComponent<MovementController>();
-        interactor = GetComponent<Interactor>();
+        interactor = GetComponent<AutoInteractor>();
         attacker = GetComponent<Attacker>();
 
         if (movementController == null)
         {
-            Debug.LogError($"[AIStrategyController] Missing MovementController on {gameObject.name}", this);
+            Debug.LogError($"[AIMovementBrain] Missing MovementController on {gameObject.name}", this);
             enabled = false;
         }
 
         if (interactor == null)
         {
-            Debug.LogError($"[AIStrategyController] Missing Interactor on {gameObject.name}", this);
+            Debug.LogError($"[AIMovementBrain] Missing AutoInteractor on {gameObject.name}", this);
             enabled = false;
         }
 
         if (attacker == null)
         {
-            Debug.LogError($"[AIStrategyController] Missing Attacker on {gameObject.name}", this);
+            Debug.LogError($"[AIMovementBrain] Missing Attacker on {gameObject.name}", this);
             enabled = false;
         }
 
@@ -80,13 +80,13 @@ public class AIStrategyController : MonoBehaviour
     {
         if (strategicTarget == null)
         {
-            Debug.LogError($"[AIStrategyController] Strategic target not assigned on {gameObject.name}", this);
+            Debug.LogError($"[AIMovementBrain] Strategic target not assigned on {gameObject.name}", this);
             return;
         }
 
         if (movementController != null && movementController.enabled)
         {
-            Debug.Log($"[AIStrategyController] Moving towards {strategicTarget.name}");
+            Debug.Log($"[AIMovementBrain] Moving towards {strategicTarget.name}");
             movementController.MoveTo(strategicTarget.transform);
         }
     }
@@ -137,14 +137,14 @@ public class AIStrategyController : MonoBehaviour
         tacticalTarget = target;
         currentState = AIMovementState.EngagingTactical;
         UpdateTacticalRange();
-        Debug.Log($"[AIStrategyController] Tactical target acquired: {target.name}");
+        Debug.Log($"[AIMovementBrain] Tactical target acquired: {target.name}");
     }
 
     private void HandleTargetLost()
     {
         tacticalTarget = null;
         currentState = AIMovementState.MovingStrategic;
-        Debug.Log($"[AIStrategyController] Tactical target lost for {gameObject.name}");
+        Debug.Log($"[AIMovementBrain] Tactical target lost for {gameObject.name}");
     }
 
     /// <summary>

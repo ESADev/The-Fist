@@ -12,7 +12,7 @@ using System;
 [RequireComponent(typeof(Attacker))]
 [RequireComponent(typeof(Faction))]
 
-public class Interactor : MonoBehaviour
+public class AutoInteractor : MonoBehaviour
 {
     [Header("Profile")]
     [Tooltip("Profile describing which interactions this interactor is allowed to perform.")]
@@ -42,21 +42,21 @@ public class Interactor : MonoBehaviour
 
         if (scanner == null)
         {
-            Debug.LogError($"[Interactor] Missing TargetScanner on {gameObject.name}", this);
+            Debug.LogError($"[AutoInteractor] Missing TargetScanner on {gameObject.name}", this);
             enabled = false;
             return;
         }
 
         if (attacker == null)
         {
-            Debug.LogError($"[Interactor] Missing Attacker on {gameObject.name}", this);
+            Debug.LogError($"[AutoInteractor] Missing Attacker on {gameObject.name}", this);
             enabled = false;
             return;
         }
 
         if (faction == null)
         {
-            Debug.LogError($"[Interactor] Missing Faction on {gameObject.name}", this);
+            Debug.LogError($"[AutoInteractor] Missing Faction on {gameObject.name}", this);
             enabled = false;
             return;
         }
@@ -70,7 +70,7 @@ public class Interactor : MonoBehaviour
 
         if (interactorProfile == null)
         {
-            Debug.LogError($"[Interactor] InteractorProfileSO is not assigned on {gameObject.name}", this);
+            Debug.LogError($"[AutoInteractor] InteractorProfileSO is not assigned on {gameObject.name}", this);
             enabled = false;
         }
     }
@@ -113,14 +113,14 @@ public class Interactor : MonoBehaviour
         if (newTarget != null)
         {
             currentTarget = newTarget;
-            Debug.Log($"[Interactor] New target acquired: {currentTarget.name}", this);
+            Debug.Log($"[AutoInteractor] New target acquired: {currentTarget.name}", this);
             OnNewTargetAcquired?.Invoke(currentTarget);
         }
         else
         {
             if (currentTarget != null)
             {
-                Debug.Log($"[Interactor] Target lost by {gameObject.name}", this);
+                Debug.Log($"[AutoInteractor] Target lost by {gameObject.name}", this);
                 OnTargetLost?.Invoke();
             }
             currentTarget = null;
@@ -165,7 +165,7 @@ public class Interactor : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log($"[Interactor] No valid interaction available for {bestTarget.name} on {gameObject.name}", this);
+                    Debug.Log($"[AutoInteractor] No valid interaction available for {bestTarget.name} on {gameObject.name}", this);
                 }
             }
         }

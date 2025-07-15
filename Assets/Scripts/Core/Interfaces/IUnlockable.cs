@@ -11,7 +11,7 @@ public interface IUnlockable
     /// <summary>
     /// Unlocks the object.
     /// </summary>
-    void Unlock(Interactor interactor = null);
+    void Unlock(AutoInteractor interactor = null);
 
     /// <summary>
     /// Determines whether the object can be unlocked.

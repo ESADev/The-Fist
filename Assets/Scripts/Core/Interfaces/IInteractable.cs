@@ -1,5 +1,5 @@
 /// <summary>
-/// Represents an object that can be interacted with by an <see cref="Interactor"/>.
+/// Represents an object that can be interacted with by an <see cref="AutoInteractor"/>.
 /// </summary>
 public interface IInteractable
 {
@@ -7,5 +7,5 @@ public interface IInteractable
     /// Called when an interactor attempts to interact with this object.
     /// </summary>
     /// <param name="interactor">The interacting entity.</param>
-    void Interact(Interactor interactor);
+    void Interact(AutoInteractor interactor);
 }
