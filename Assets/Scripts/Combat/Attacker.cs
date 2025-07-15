@@ -197,6 +197,17 @@ public class Attacker : MonoBehaviour
     }
 
     /// <summary>
+    /// Determines the range of the best attack currently available for the specified target.
+    /// </summary>
+    /// <param name="target">Potential attack target.</param>
+    /// <returns>Range of the chosen attack or 0 if none are in range.</returns>
+    public float GetBestAttackRange(GameObject target)
+    {
+        AttackDefinitionSO attack = SelectBestAttackForTarget(target);
+        return attack != null ? attack.range : 0f;
+    }
+
+    /// <summary>
     /// Handles combat logic executed each frame while engaging a target.
     /// </summary>
     private void HandleCombat()

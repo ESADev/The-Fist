@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 /// <summary>
 /// Universal brain that automatically performs interactions based on a
@@ -10,11 +11,24 @@ using UnityEngine;
 [RequireComponent(typeof(TargetScanner))]
 [RequireComponent(typeof(Attacker))]
 [RequireComponent(typeof(Faction))]
+
 public class Interactor : MonoBehaviour
 {
     [Header("Profile")]
     [Tooltip("Profile describing which interactions this interactor is allowed to perform.")]
     [HideInInspector] public InteractorProfileSO interactorProfile;
+
+    /// <summary>
+    /// Fired when a new tactical target has been acquired.
+    /// </summary>
+    public event Action<GameObject> OnNewTargetAcquired;
+
+    /// <summary>
+    /// Fired when the current tactical target is lost.
+    /// </summary>
+    public event Action OnTargetLost;
+
+    private GameObject currentTarget;
 
     private TargetScanner scanner;
     private Attacker attacker;
@@ -79,7 +93,38 @@ public class Interactor : MonoBehaviour
         List<Entity> targets = scanner.GetTargetsInRange();
         Entity bestTarget = DecideBestTarget(targets);
 
+        HandleTargetChange(bestTarget != null ? bestTarget.gameObject : null);
+
         HandleTargetInteraction(bestTarget);
+    }
+
+    /// <summary>
+    /// Handles updating <see cref="currentTarget"/> and broadcasting the
+    /// appropriate events when the target changes.
+    /// </summary>
+    /// <param name="newTarget">The newly selected target or null.</param>
+    private void HandleTargetChange(GameObject newTarget)
+    {
+        if (newTarget == currentTarget)
+        {
+            return;
+        }
+
+        if (newTarget != null)
+        {
+            currentTarget = newTarget;
+            Debug.Log($"[Interactor] New target acquired: {currentTarget.name}", this);
+            OnNewTargetAcquired?.Invoke(currentTarget);
+        }
+        else
+        {
+            if (currentTarget != null)
+            {
+                Debug.Log($"[Interactor] Target lost by {gameObject.name}", this);
+                OnTargetLost?.Invoke();
+            }
+            currentTarget = null;
+        }
     }
 
     /// <summary>
