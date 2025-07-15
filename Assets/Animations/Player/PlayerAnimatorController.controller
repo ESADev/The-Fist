@@ -50,7 +50,7 @@ AnimatorStateTransition:
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
-  m_CanTransitionToSelf: 1
+  m_CanTransitionToSelf: 0
 --- !u!1102 &-255224748421518814
 AnimatorState:
   serializedVersion: 6
@@ -126,7 +126,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: MeleeDefault1
-  m_Speed: 1.3333334
+  m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 8341817987714039946}

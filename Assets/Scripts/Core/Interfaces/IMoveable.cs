@@ -44,4 +44,10 @@ public interface IMoveable
     /// Immediately continues movement towards a destination.
     /// </summary>
     void Continue();
+
+    /// <summary>
+    /// Sets the stopping distance for the movement.
+    /// </summary>
+    /// <param name="stoppingDistance">The stopping distance value.</param>
+    void SetStoppingDistance(float stoppingDistance);
 }

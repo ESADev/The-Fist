@@ -79,12 +79,31 @@ public class CharacterControllerMover : MonoBehaviour, IMoveable
         currentVelocity = Vector3.zero;
     }
 
+    /// <summary>
+    /// Moves the character to a specific transform.
+    /// This method is not implemented in this mover.
+    /// </summary>
+    /// <param name="destinationTransform">The transform to move towards.</param>
     public void MoveTo(Transform destinationTransform)
     {
         throw new System.NotImplementedException();
     }
 
+    /// <summary>
+    /// Continues the character's movement after a stop or pause.
+    /// This method is not implemented in this mover.
+    /// </summary>
+    /// <exception cref="System.NotImplementedException"></exception>
     public void Continue()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    /// <summary>
+    /// Sets the stopping distance for the mover.
+    /// This method is not implemented in this mover.
+    /// </summary>
+    public void SetStoppingDistance(float stoppingDistance)
     {
         throw new System.NotImplementedException();
     }

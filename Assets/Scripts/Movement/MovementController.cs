@@ -93,4 +93,13 @@ public class MovementController : MonoBehaviour
     {
         mover?.MoveTo(destinationTransform);
     }
+
+    /// <summary>
+    /// Sets the stopping distance for the mover.
+    /// </summary>
+    /// <param name="stoppingDistance">The stopping distance value.</param>
+    public void SetStoppingDistance(float stoppingDistance)
+    {
+        mover?.SetStoppingDistance(stoppingDistance);
+    }
 }

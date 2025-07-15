@@ -43,6 +43,7 @@ public class NavMeshMover : MonoBehaviour, IMoveable
         }
         this.stats = stats;
         agent.speed = stats.moveSpeed;
+        agent.acceleration = stats.movementSmoothness * 500f;
         agent.angularSpeed = stats.turnSpeed;
     }
 
@@ -118,5 +119,14 @@ public class NavMeshMover : MonoBehaviour, IMoveable
     {
         agent.isStopped = false;
         RefreshTargetDestination();
+    }
+
+    /// <summary>
+    /// Sets the stopping distance for the agent.
+    /// </summary>
+    /// <param name="stoppingDistance">The stopping distance value.</param>
+    public void SetStoppingDistance(float stoppingDistance)
+    {
+        agent.stoppingDistance = stoppingDistance;
     }
 }

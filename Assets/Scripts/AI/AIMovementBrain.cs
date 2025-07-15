@@ -93,45 +93,100 @@ public class AIMovementBrain : MonoBehaviour
 
     private void Update()
     {
-        if (movementController == null || !movementController.enabled)
+        if (!IsMovementControllerValid())
         {
             return;
         }
 
+        UpdateCurrentStateLogic();
+        ExecuteMovementBehavior();
+    }
+
+    /// <summary>
+    /// Checks if the movement controller is valid and enabled.
+    /// </summary>
+    /// <returns>True if the movement controller can be used, false otherwise.</returns>
+    private bool IsMovementControllerValid()
+    {
+        return movementController != null && movementController.enabled;
+    }
+
+    /// <summary>
+    /// Updates logic specific to the current AI movement state.
+    /// </summary>
+    private void UpdateCurrentStateLogic()
+    {
         if (currentState == AIMovementState.EngagingTactical)
         {
             UpdateTacticalRange();
         }
+    }
 
+    /// <summary>
+    /// Executes movement behavior based on the current AI state.
+    /// </summary>
+    private void ExecuteMovementBehavior()
+    {
         switch (currentState)
         {
             case AIMovementState.EngagingTactical:
-                if (tacticalTarget == null)
-                {
-                    currentState = AIMovementState.MovingStrategic;
-                    break;
-                }
-
-                float distance = Vector3.Distance(transform.position, tacticalTarget.transform.position);
-                if (distance <= tacticalRange)
-                {
-                    movementController.Stop();
-                }
-                else
-                {
-                    movementController.MoveTo(tacticalTarget.transform.position);
-                }
+                HandleTacticalEngagement();
                 break;
 
             case AIMovementState.MovingStrategic:
-                if (strategicTarget != null)
-                {
-                    movementController.MoveTo(strategicTarget.transform.position);
-                }
+                HandleStrategicMovement();
                 break;
         }
     }
 
+    /// <summary>
+    /// Handles movement behavior when engaging a tactical target.
+    /// </summary>
+    private void HandleTacticalEngagement()
+    {
+        if (tacticalTarget == null)
+        {
+            currentState = AIMovementState.MovingStrategic;
+            return;
+        }
+
+        float distanceToTarget = Vector3.Distance(transform.position, tacticalTarget.transform.position);
+        
+        if (IsWithinTacticalRange(distanceToTarget))
+        {
+            movementController.Stop();
+        }
+        else
+        {
+
+            movementController.MoveTo(tacticalTarget.transform);
+        }
+    }
+
+    /// <summary>
+    /// Handles movement behavior when moving towards the strategic target.
+    /// </summary>
+    private void HandleStrategicMovement()
+    {
+        if (strategicTarget != null)
+        {
+            movementController.MoveTo(strategicTarget.transform.position);
+        }
+    }
+
+    /// <summary>
+    /// Determines if the current distance is within tactical engagement range.
+    /// </summary>
+    /// <param name="distance">The distance to check.</param>
+    /// <returns>True if within tactical range, false otherwise.</returns>
+    private bool IsWithinTacticalRange(float distance)
+    {
+        return distance <= tacticalRange;
+    }
+
+    /// <summary>
+    /// Handles the event when a new tactical target is acquired.
+    /// </summary>
     private void HandleTargetAcquired(GameObject target)
     {
         tacticalTarget = target;
@@ -140,6 +195,9 @@ public class AIMovementBrain : MonoBehaviour
         Debug.Log($"[AIMovementBrain] Tactical target acquired: {target.name}");
     }
 
+    /// <summary>
+    /// Handles the event when a tactical target is lost.
+    /// </summary>
     private void HandleTargetLost()
     {
         tacticalTarget = null;

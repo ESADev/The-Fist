@@ -15,8 +15,8 @@ MonoBehaviour:
   attackName: MeleeDefault1
   attackType: 0
   damage: 10
-  range: 1
-  cooldown: 0.75
+  range: 2
+  cooldown: 1
   animationTriggerName: MeleeDefault1
   projectilePrefab: {fileID: 0}
   projectileSpeed: 10
