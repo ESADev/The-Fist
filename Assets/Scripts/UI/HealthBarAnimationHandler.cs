@@ -317,14 +317,14 @@ public class HealthBarAnimationHandler : MonoBehaviour
 
     /// <summary>
     /// Updates visibility based on the current UI health level.
-    /// Shows when health is not full, hides when health is full (based on UI display, not actual health).
+    /// Shows when health is between 0 and 1, hides when health is full or zero (based on UI display, not actual health).
     /// </summary>
     private void UpdateVisibilityBasedOnHealth()
     {
         // Use the lower of the two percentages to determine if we should be visible
         // This ensures we don't hide before both bars reach full
         float displayedHealthLevel = Mathf.Min(currentHealthPercentage, currentEffectPercentage);
-        bool shouldBeVisible = displayedHealthLevel < 1f;
+        bool shouldBeVisible = displayedHealthLevel > 0f && displayedHealthLevel < 1f;
         
         if (shouldBeVisible && !isVisible)
         {
