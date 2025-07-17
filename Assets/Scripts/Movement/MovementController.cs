@@ -14,6 +14,15 @@ public class MovementController : MonoBehaviour
     /// </summary>
     public float CurrentSpeed { get; private set; }
 
+    /// <summary>
+    /// Gets the current movement speed of the entity.
+    /// </summary>
+    /// <returns>The current movement speed in units per second.</returns>
+    public float GetCurrentSpeed()
+    {
+        return CurrentSpeed;
+    }
+
     private void Awake()
     {
         mover = GetComponent<IMoveable>();
