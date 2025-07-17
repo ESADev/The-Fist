@@ -21,9 +21,9 @@ public class Health : MonoBehaviour, IDestructible, IHealable
     public bool IsDead { get; private set; }
 
     /// <summary>
-    /// Fired whenever the health value changes. Parameters are current health and maximum health.
+    /// Fired whenever the health value changes. Parameters are current health, max health, and whether the entity is dead.
     /// </summary>
-    public event Action<float, float> OnHealthChanged;
+    public event Action<float, float, bool> OnHealthChanged;
 
     /// <summary>
     /// Fired when the entity dies.
@@ -63,7 +63,7 @@ public class Health : MonoBehaviour, IDestructible, IHealable
 
         Debug.Log($"[Health] {gameObject.name} took {finalDamage} damage from {(attacker != null ? attacker.name : "Unknown")}. Remaining health: {CurrentHealth}/{stats.maxHealth}");
 
-        OnHealthChanged?.Invoke(CurrentHealth, stats.maxHealth);
+        OnHealthChanged?.Invoke(CurrentHealth, stats.maxHealth, true);
 
         DamageInfo damageInfo = new DamageInfo(attacker, gameObject, finalDamage, attackData);
         GameEvents.TriggerOnUnitDamaged(damageInfo);
@@ -91,7 +91,7 @@ public class Health : MonoBehaviour, IDestructible, IHealable
         if (Math.Abs(CurrentHealth - previousHealth) > Mathf.Epsilon)
         {
             Debug.Log($"[Health] {gameObject.name} healed for {healAmount}. Current health: {CurrentHealth}/{stats.maxHealth}");
-            OnHealthChanged?.Invoke(CurrentHealth, stats.maxHealth);
+            OnHealthChanged?.Invoke(CurrentHealth, stats.maxHealth, false);
         }
     }
 

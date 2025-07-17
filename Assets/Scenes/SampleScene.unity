@@ -167,6 +167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speedParameter: Speed
   deathTriggerParameter: Die
+  damageTriggerParameter: TakeDamage
 --- !u!95 &4836063
 Animator:
   serializedVersion: 7
@@ -818,7 +819,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 25
+  orthographic size: 15
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2705,7 +2706,7 @@ Transform:
   m_GameObject: {fileID: 998183203}
   serializedVersion: 2
   m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 1.83, y: 17.831944, z: -21.968056}
+  m_LocalPosition: {x: 1.83, y: 12.57, z: -16.71}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4560,6 +4561,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speedParameter: Speed
   deathTriggerParameter: Die
+  damageTriggerParameter: TakeDamage
 --- !u!95 &2087190219
 Animator:
   serializedVersion: 7

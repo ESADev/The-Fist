@@ -15,6 +15,9 @@ public class CharacterAnimator : MonoBehaviour
     [Tooltip("Animator trigger parameter fired when the character dies.")]
     [SerializeField] private string deathTriggerParameter = "Die";
 
+    [Tooltip("Animator trigger parameter fired when the character takes damage.")]
+    [SerializeField] private string damageTriggerParameter = "TakeDamage";
+
     // Component references
     private Animator animator;
     private Entity entity;
@@ -25,6 +28,7 @@ public class CharacterAnimator : MonoBehaviour
     // Animator parameter hash IDs
     private int speedParamID;
     private int deathTriggerID;
+    private int damageTriggerID;
 
     private Vector3 lastPosition;
 
@@ -59,6 +63,7 @@ public class CharacterAnimator : MonoBehaviour
 
         speedParamID = Animator.StringToHash(speedParameter);
         deathTriggerID = Animator.StringToHash(deathTriggerParameter);
+        damageTriggerID = Animator.StringToHash(damageTriggerParameter);
 
         lastPosition = transform.position;
     }
@@ -68,6 +73,7 @@ public class CharacterAnimator : MonoBehaviour
         if (health != null)
         {
             health.OnDied += HandleDeathAnimation;
+            health.OnHealthChanged += HandleHealthChangeAnimation;
         }
         else
         {
@@ -85,6 +91,7 @@ public class CharacterAnimator : MonoBehaviour
         if (health != null)
         {
             health.OnDied -= HandleDeathAnimation;
+            health.OnHealthChanged -= HandleHealthChangeAnimation;
         }
 
         if (attacker != null)
@@ -149,5 +156,23 @@ public class CharacterAnimator : MonoBehaviour
         // Disable itself after death animation is triggered
         enabled = false;
         Debug.Log($"[CharacterAnimator] {gameObject.name} has died and triggered death animation.");
+    }
+
+    /// <summary>
+    /// Handles health change animation by triggering the damage animation parameter.
+    /// </summary>
+    private void HandleHealthChangeAnimation(float currentHealth, float maxHealth, bool isDamaged)
+    {
+        if (animator == null || health.CurrentHealth <= 0f) return;
+
+        if (!isDamaged)
+            {
+                return; // Only trigger damage animation on actual damage
+            }
+            else
+            {
+                animator.SetTrigger(damageTriggerID);
+            }
+        Debug.Log($"[CharacterAnimator] {gameObject.name} health changed, animation triggered. Current health: {currentHealth}/{maxHealth}");
     }
 }
