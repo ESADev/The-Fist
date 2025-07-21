@@ -30,7 +30,7 @@ public class EntityAnimator : MonoBehaviour
     private Health health;
     private Attacker attacker;
     private MovementController movementController;
-    private IUpgradeable upgradeable;
+    private IUpgradable upgradeable;
     private IUnlockable unlockable;
 
     private int speedParamId;
@@ -71,8 +71,10 @@ public class EntityAnimator : MonoBehaviour
             movementController = GetComponent<MovementController>();
         }
 
-        // Get upgrade and unlock components if they exist (modular approach)
-        upgradeable = GetComponentInParent<IUpgradeable>() ?? GetComponent<IUpgradeable>();
+        // Get upgrade component if it exists (modular approach)
+        upgradeable = GetComponentInParent<IUpgradable>() ?? GetComponent<IUpgradable>();
+
+        // Get unlockable component if it exists
         unlockable = GetComponentInParent<IUnlockable>() ?? GetComponent<IUnlockable>();
 
         speedParamId = Animator.StringToHash(speedParameter);
@@ -112,7 +114,7 @@ public class EntityAnimator : MonoBehaviour
             upgradeable.OnUpgraded += HandleUpgradeAnimation;
         }
 
-        // Subscribe to unlock events if the component exists (modular approach)
+        // Subscribe to unlock events if the component exists
         if (unlockable != null)
         {
             unlockable.OnUnlocked += HandleUnlockAnimation;
@@ -138,7 +140,7 @@ public class EntityAnimator : MonoBehaviour
             upgradeable.OnUpgraded -= HandleUpgradeAnimation;
         }
 
-        // Unsubscribe from unlock events if the component exists (modular approach)
+        // Unsubscribe from unlock events if the component exists
         if (unlockable != null)
         {
             unlockable.OnUnlocked -= HandleUnlockAnimation;
