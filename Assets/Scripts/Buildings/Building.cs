@@ -4,7 +4,7 @@ using UnityEngine;
 /// Central component that controls building progression and lock state.
 /// </summary>
 [DisallowMultipleComponent]
-public class Building : MonoBehaviour, IUpgradable, IUnlockable
+public class Building : MonoBehaviour
 {
     [Header("Building Data")]
     /// <summary>
@@ -27,17 +27,6 @@ public class Building : MonoBehaviour, IUpgradable, IUnlockable
     /// </summary>
     private BuildingSlot _ownerSlot;
 
-    /// <summary>
-    /// Fired when the building is upgraded.
-    /// Parameters: the upgraded GameObject and new level.
-    /// </summary>
-    public event System.Action<GameObject, int> OnUpgraded;
-
-    /// <summary>
-    /// Fired when the building is unlocked.
-    /// Parameters: the unlocked GameObject.
-    /// </summary>
-    public event System.Action<GameObject> OnUnlocked;
 
     /// <summary>
     /// Gets the current upgrade level of this building.
@@ -66,7 +55,10 @@ public class Building : MonoBehaviour, IUpgradable, IUnlockable
         }
     }
 
-    /// <inheritdoc/>
+    /// <summary>
+    /// Determines whether this building can be upgraded.
+    /// </summary>
+    /// <returns>True if an upgrade is allowed.</returns>
     public bool CanUpgrade()
     {
         if (buildingData == null)
@@ -83,7 +75,10 @@ public class Building : MonoBehaviour, IUpgradable, IUnlockable
         return ResourceManager.Instance != null && ResourceManager.Instance.CanAfford(ResourceType.Gold, nextLevel.cost);
     }
 
-    /// <inheritdoc/>
+    /// <summary>
+    /// Delegates the upgrade request to the owning <see cref="BuildingSlot"/>.
+    /// </summary>
+    /// <param name="interactor">Interactor requesting the upgrade.</param>
     public void Upgrade(AutoInteractor interactor = null)
     {
         if (_ownerSlot == null)
@@ -95,7 +90,10 @@ public class Building : MonoBehaviour, IUpgradable, IUnlockable
         _ownerSlot.UpgradeBuilding();
     }
 
-    /// <inheritdoc/>
+    /// <summary>
+    /// Determines whether this building can be unlocked.
+    /// </summary>
+    /// <returns>True if unlocking is possible.</returns>
     public bool CanUnlock()
     {
         if (buildingData == null || !isLocked)
@@ -113,7 +111,10 @@ public class Building : MonoBehaviour, IUpgradable, IUnlockable
         return ResourceManager.Instance != null && ResourceManager.Instance.CanAfford(ResourceType.Gold, levelData.cost);
     }
 
-    /// <inheritdoc/>
+    /// <summary>
+    /// Unlocks the building if possible.
+    /// </summary>
+    /// <param name="interactor">Interactor requesting the unlock.</param>
     public void Unlock(AutoInteractor interactor = null)
     {
         if (!CanUnlock())
@@ -125,8 +126,6 @@ public class Building : MonoBehaviour, IUpgradable, IUnlockable
         BuildingLevelData levelData = buildingData.levels[0];
         ResourceManager.Instance.SpendResource(ResourceType.Gold, levelData.cost);
         isLocked = false;
-        GameEvents.TriggerOnObjectUnlocked(gameObject);
-        OnUnlocked?.Invoke(gameObject);
         Debug.Log($"[Building] {gameObject.name} unlocked.", this);
     }
 }
