@@ -102,6 +102,7 @@ public class NavMeshMover : MonoBehaviour, IMoveable
     {
         agent.isStopped = true;
         agent.velocity = Vector3.zero;
+        agent.updateRotation = false;
         Debug.Log($"[NavMeshMover] {gameObject.name} has stopped moving.");
     }
 
@@ -119,6 +120,7 @@ public class NavMeshMover : MonoBehaviour, IMoveable
     public void Continue()
     {
         agent.isStopped = false;
+        agent.updateRotation = true;
         RefreshTargetDestination();
     }
 

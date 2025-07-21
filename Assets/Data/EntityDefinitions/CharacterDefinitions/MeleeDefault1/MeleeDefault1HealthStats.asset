@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a33fc2e454271a49880cd2a75b1cc4d, type: 3}
   m_Name: MeleeDefault1HealthStats
   m_EditorClassIdentifier: 
-  maxHealth: 50
+  maxHealth: 150
   armor: 0

@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a33fc2e454271a49880cd2a75b1cc4d, type: 3}
-  m_Name: BuildingDefault1HealthStats
+  m_Script: {fileID: 11500000, guid: cea64f13721577443ab019bc88445f30, type: 3}
+  m_Name: RangedDefault1MovementStats
   m_EditorClassIdentifier: 
-  maxHealth: 500
-  armor: 0
+  moveSpeed: 7.5
+  turnSpeed: 720
+  movementSmoothness: 0.1
+  rotationSmoothness: 0.1

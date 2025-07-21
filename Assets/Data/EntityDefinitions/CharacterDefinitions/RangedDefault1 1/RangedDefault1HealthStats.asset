@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5a33fc2e454271a49880cd2a75b1cc4d, type: 3}
-  m_Name: BuildingDefault1HealthStats
+  m_Name: RangedDefault1HealthStats
   m_EditorClassIdentifier: 
-  maxHealth: 500
+  maxHealth: 50
   armor: 0

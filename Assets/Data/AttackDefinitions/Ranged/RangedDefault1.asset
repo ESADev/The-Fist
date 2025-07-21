@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c08f9f5a1f04c2ab8d29fdeef87b153, type: 3}
+  m_Name: RangedDefault1
+  m_EditorClassIdentifier: 
+  attackName: RangedDefault1
+  damage: 10
+  range: 10
+  cooldown: 2
+  animationClipName: RangedDefault1
+  projectilePrefab: {fileID: 7601502823605475754, guid: ad429a6fe8765f847961560b8c6a6333, type: 3}
+  projectileSpeed: 10

@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a33fc2e454271a49880cd2a75b1cc4d, type: 3}
-  m_Name: BuildingDefault1HealthStats
+  m_Script: {fileID: 11500000, guid: 62caa1ee785053e45b795ae9e2fce764, type: 3}
+  m_Name: RangedDefault1AttackerProfile
   m_EditorClassIdentifier: 
-  maxHealth: 500
-  armor: 0
+  attacks:
+  - {fileID: 11400000, guid: d5a77edee00895841a99f1c3d14c8cff, type: 2}

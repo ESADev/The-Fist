@@ -243,7 +243,17 @@ public class AutoInteractor : MonoBehaviour
             }
         }
 
-        // Prefer enemy targets, fallback to friend if no enemies found
-        return bestEnemyTarget != null ? bestEnemyTarget : bestFriendTarget;
+        if (bestEnemyTarget != null)
+        {
+            return bestEnemyTarget;
+        }
+        else if (bestFriendTarget != null && interactorProfile.canInteract)
+        {
+            return bestFriendTarget;
+        }
+        else
+        {
+            return null; // No valid targets found
+        }
     }
 }

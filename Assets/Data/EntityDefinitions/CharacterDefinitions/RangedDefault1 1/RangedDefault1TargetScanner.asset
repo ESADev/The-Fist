@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a33fc2e454271a49880cd2a75b1cc4d, type: 3}
-  m_Name: BuildingDefault1HealthStats
+  m_Script: {fileID: 11500000, guid: a3081431e96c4c6468cae5044346bfe0, type: 3}
+  m_Name: RangedDefault1TargetScanner
   m_EditorClassIdentifier: 
-  maxHealth: 500
-  armor: 0
+  detectionRadius: 15
+  scanFrequency: 0.25
