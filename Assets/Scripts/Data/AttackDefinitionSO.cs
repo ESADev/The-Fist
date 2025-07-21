@@ -3,8 +3,7 @@ using UnityEngine;
 /// <summary>
 /// Defines a single attack used by an entity.
 /// </summary>
-[CreateAssetMenu(fileName = "AttackDefinition", menuName = "TheFist/Attack Definition")]
-public class AttackDefinitionSO : ScriptableObject
+public abstract class AttackDefinitionSO : ScriptableObject
 {
     [Header("General")]
 
@@ -15,10 +14,9 @@ public class AttackDefinitionSO : ScriptableObject
     public string attackName = "New Attack";
 
     /// <summary>
-    /// Classification of the attack behaviour.
+    /// Type of attack represented by this definition.
     /// </summary>
-    [Tooltip("Classification of the attack behaviour.")]
-    public AttackType attackType = AttackType.Melee;
+    public abstract AttackType AttackType { get; }
 
     [Header("Stats")]
 
@@ -49,18 +47,4 @@ public class AttackDefinitionSO : ScriptableObject
     [Tooltip("Name of the animation clip in Resources folder to play directly (without using animator states).")]
     public string animationClipName;
 
-    [Header("Projectiles")]
-
-    /// <summary>
-    /// Prefab spawned when executing a ranged attack. Null for melee attacks.
-    /// </summary>
-    [Tooltip("Prefab spawned when executing a ranged attack. Null for melee attacks.")]
-    public GameObject projectilePrefab;
-
-    /// <summary>
-    /// Movement speed for projectiles spawned by this attack.
-    /// Only used when <see cref="projectilePrefab"/> is assigned.
-    /// </summary>
-    [Tooltip("Movement speed of projectiles spawned by this attack.")]
-    public float projectileSpeed = 10f;
 }
