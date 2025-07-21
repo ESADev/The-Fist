@@ -30,10 +30,14 @@ public class EntityAnimator : MonoBehaviour
     private Health health;
     private Attacker attacker;
     private MovementController movementController;
+    private IUpgradeable upgradeable;
+    private IUnlockable unlockable;
 
     private int speedParamId;
     private int deathTriggerId;
     private int damageTriggerId;
+    private int upgradeTriggerId;
+    private int unlockTriggerId;
     private Vector3 lastPosition;
     private bool isDead = false;
 
@@ -67,9 +71,15 @@ public class EntityAnimator : MonoBehaviour
             movementController = GetComponent<MovementController>();
         }
 
+        // Get upgrade and unlock components if they exist (modular approach)
+        upgradeable = GetComponentInParent<IUpgradeable>() ?? GetComponent<IUpgradeable>();
+        unlockable = GetComponentInParent<IUnlockable>() ?? GetComponent<IUnlockable>();
+
         speedParamId = Animator.StringToHash(speedParameter);
         deathTriggerId = Animator.StringToHash(deathTriggerParameter);
         damageTriggerId = Animator.StringToHash(damageTriggerParameter);
+        upgradeTriggerId = Animator.StringToHash(upgradeTriggerParameter);
+        unlockTriggerId = Animator.StringToHash(unlockTriggerParameter);
 
         lastPosition = transform.position;
 
@@ -95,6 +105,18 @@ public class EntityAnimator : MonoBehaviour
             health.OnDied += HandleDeathAnimation;
             health.OnHealthChanged += HandleHealthChangeAnimation;
         }
+
+        // Subscribe to upgrade events if the component exists (modular approach)
+        if (upgradeable != null)
+        {
+            upgradeable.OnUpgraded += HandleUpgradeAnimation;
+        }
+
+        // Subscribe to unlock events if the component exists (modular approach)
+        if (unlockable != null)
+        {
+            unlockable.OnUnlocked += HandleUnlockAnimation;
+        }
     }
 
     private void OnDisable()
@@ -108,6 +130,18 @@ public class EntityAnimator : MonoBehaviour
         {
             health.OnDied -= HandleDeathAnimation;
             health.OnHealthChanged -= HandleHealthChangeAnimation;
+        }
+
+        // Unsubscribe from upgrade events if the component exists (modular approach)
+        if (upgradeable != null)
+        {
+            upgradeable.OnUpgraded -= HandleUpgradeAnimation;
+        }
+
+        // Unsubscribe from unlock events if the component exists (modular approach)
+        if (unlockable != null)
+        {
+            unlockable.OnUnlocked -= HandleUnlockAnimation;
         }
     }
 
@@ -275,5 +309,48 @@ public class EntityAnimator : MonoBehaviour
         
         Debug.Log($"[EntityAnimator] Attack animation '{currentAttackClip?.name}' completed on {gameObject.name}.");
         currentAttackClip = null;
+    }
+
+    /// <summary>
+    /// Handles upgrade animation when the entity is upgraded.
+    /// </summary>
+    /// <param name="upgradedObject">The GameObject that was upgraded.</param>
+    /// <param name="newLevel">The new upgrade level.</param>
+    private void HandleUpgradeAnimation(GameObject upgradedObject, int newLevel)
+    {
+        if (upgradedObject != gameObject && !upgradedObject.transform.IsChildOf(transform) && !transform.IsChildOf(upgradedObject.transform))
+        {
+            return; // Not our object
+        }
+
+        if (animator == null || isDead)
+        {
+            Debug.LogWarning($"[EntityAnimator] Cannot play upgrade animation: animator is null or entity is dead on {gameObject.name}.", this);
+            return;
+        }
+
+        animator.SetTrigger(upgradeTriggerId);
+        Debug.Log($"[EntityAnimator] {gameObject.name} upgrade animation triggered. New level: {newLevel}");
+    }
+
+    /// <summary>
+    /// Handles unlock animation when the entity is unlocked.
+    /// </summary>
+    /// <param name="unlockedObject">The GameObject that was unlocked.</param>
+    private void HandleUnlockAnimation(GameObject unlockedObject)
+    {
+        if (unlockedObject != gameObject && !unlockedObject.transform.IsChildOf(transform) && !transform.IsChildOf(unlockedObject.transform))
+        {
+            return; // Not our object
+        }
+
+        if (animator == null || isDead)
+        {
+            Debug.LogWarning($"[EntityAnimator] Cannot play unlock animation: animator is null or entity is dead on {gameObject.name}.", this);
+            return;
+        }
+
+        animator.SetTrigger(unlockTriggerId);
+        Debug.Log($"[EntityAnimator] {gameObject.name} unlock animation triggered.");
     }
 }

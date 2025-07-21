@@ -40,6 +40,18 @@ public static class GameEvents
     /// </summary>
     public static event Action<float, float> OnPlayerSpeedChanged;
 
+    /// <summary>
+    /// Fired when an object is upgraded.
+    /// Parameters: the upgraded GameObject, the new level.
+    /// </summary>
+    public static event Action<GameObject, int> OnObjectUpgraded;
+
+    /// <summary>
+    /// Fired when an object is unlocked.
+    /// Parameters: the unlocked GameObject.
+    /// </summary>
+    public static event Action<GameObject> OnObjectUnlocked;
+
 
     /// <summary>
     /// Invokes the <see cref="OnUnitDamaged"/> event.
@@ -105,5 +117,38 @@ public static class GameEvents
     {
         Debug.Log($"[GameEvents] Player speed changed: {currentSpeed:F2}/{maxSpeed:F2}");
         OnPlayerSpeedChanged?.Invoke(currentSpeed, maxSpeed);
+    }
+
+    /// <summary>
+    /// Invokes the <see cref="OnObjectUpgraded"/> event.
+    /// </summary>
+    /// <param name="upgradedObject">The GameObject that was upgraded.</param>
+    /// <param name="newLevel">The new upgrade level.</param>
+    public static void TriggerOnObjectUpgraded(GameObject upgradedObject, int newLevel)
+    {
+        if (upgradedObject == null)
+        {
+            Debug.LogError("[GameEvents] TriggerOnObjectUpgraded called with null object.");
+            return;
+        }
+
+        Debug.Log($"[GameEvents] Object upgraded: {upgradedObject.name} -> Level {newLevel}");
+        OnObjectUpgraded?.Invoke(upgradedObject, newLevel);
+    }
+
+    /// <summary>
+    /// Invokes the <see cref="OnObjectUnlocked"/> event.
+    /// </summary>
+    /// <param name="unlockedObject">The GameObject that was unlocked.</param>
+    public static void TriggerOnObjectUnlocked(GameObject unlockedObject)
+    {
+        if (unlockedObject == null)
+        {
+            Debug.LogError("[GameEvents] TriggerOnObjectUnlocked called with null object.");
+            return;
+        }
+
+        Debug.Log($"[GameEvents] Object unlocked: {unlockedObject.name}");
+        OnObjectUnlocked?.Invoke(unlockedObject);
     }
 }
