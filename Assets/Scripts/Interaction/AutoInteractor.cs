@@ -173,10 +173,10 @@ public class AutoInteractor : MonoBehaviour
                     // Attempt to unlock the target
                     bestTarget.GetComponent<IUnlockable>().Unlock(this);
                 }
-                else if (interactorProfile.canUpgrade && bestTarget.GetComponent<IUpgradeable>() != null)
+                else if (interactorProfile.canUpgrade && bestTarget.GetComponent<IUpgradable>() != null)
                 {
                     // Attempt to upgrade the target
-                    bestTarget.GetComponent<IUpgradeable>().Upgrade(this);
+                    bestTarget.GetComponent<IUpgradable>().Upgrade(this);
                 }
                 else if (interactorProfile.canCollect && bestTarget.GetComponent<ICollectible>() != null)
                 {

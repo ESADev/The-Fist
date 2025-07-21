@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Provides upgrade functionality for an object.
 /// </summary>
-public interface IUpgradeable
+public interface IUpgradable
 {
     /// <summary>
     /// Fired when an upgrade is performed on this object.

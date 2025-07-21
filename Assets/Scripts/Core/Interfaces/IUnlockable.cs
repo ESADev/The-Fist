@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 /// <summary>
@@ -10,7 +9,7 @@ public interface IUnlockable
     /// Fired when this object is unlocked.
     /// Parameters: the unlocked GameObject.
     /// </summary>
-    event Action<GameObject> OnUnlocked;
+    event System.Action<GameObject> OnUnlocked;
 
     /// <summary>
     /// Gets a value indicating whether the object is currently locked.
@@ -18,13 +17,13 @@ public interface IUnlockable
     bool IsLocked { get; }
 
     /// <summary>
-    /// Unlocks the object.
-    /// </summary>
-    void Unlock(AutoInteractor interactor = null);
-
-    /// <summary>
     /// Determines whether the object can be unlocked.
     /// </summary>
     /// <returns>True if unlocking is possible.</returns>
     bool CanUnlock();
+
+    /// <summary>
+    /// Unlocks the object.
+    /// </summary>
+    void Unlock(AutoInteractor interactor = null);
 }
