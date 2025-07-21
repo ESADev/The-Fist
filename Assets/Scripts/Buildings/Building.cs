@@ -23,6 +23,11 @@ public class Building : MonoBehaviour, IUpgradable, IUnlockable
     private bool isLocked = true;
 
     /// <summary>
+    /// Slot that owns this building instance.
+    /// </summary>
+    private BuildingSlot _ownerSlot;
+
+    /// <summary>
     /// Fired when the building is upgraded.
     /// Parameters: the upgraded GameObject and new level.
     /// </summary>
@@ -43,6 +48,15 @@ public class Building : MonoBehaviour, IUpgradable, IUnlockable
     /// Gets a value indicating whether the building is locked.
     /// </summary>
     public bool IsLocked => isLocked;
+
+    /// <summary>
+    /// Assigns the owning <see cref="BuildingSlot"/> that manages this building.
+    /// </summary>
+    /// <param name="owner">The owning slot.</param>
+    public void SetOwner(BuildingSlot owner)
+    {
+        _ownerSlot = owner;
+    }
 
     private void Awake()
     {
@@ -72,20 +86,13 @@ public class Building : MonoBehaviour, IUpgradable, IUnlockable
     /// <inheritdoc/>
     public void Upgrade(AutoInteractor interactor = null)
     {
-        if (!CanUpgrade())
+        if (_ownerSlot == null)
         {
-            Debug.LogWarning($"[Building] Cannot upgrade {gameObject.name}.", this);
+            Debug.LogError($"[Building] Upgrade called but owner slot is null on {gameObject.name}.", this);
             return;
         }
 
-        BuildingLevelData nextLevel = buildingData.levels[currentLevel];
-        ResourceManager.Instance.SpendResource(ResourceType.Gold, nextLevel.cost);
-        GameObject newPrefab = nextLevel.prefab;
-        Instantiate(newPrefab, transform.position, transform.rotation);
-        GameEvents.TriggerOnObjectUpgraded(gameObject, currentLevel + 1);
-        OnUpgraded?.Invoke(gameObject, currentLevel + 1);
-        Debug.Log($"[Building] {gameObject.name} upgraded to level {currentLevel + 1}.", this);
-        Destroy(gameObject);
+        _ownerSlot.UpgradeBuilding();
     }
 
     /// <inheritdoc/>
