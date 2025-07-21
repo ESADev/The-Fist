@@ -129,7 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4836061}
   - component: {fileID: 4836063}
-  - component: {fileID: 4836062}
+  - component: {fileID: 4836064}
   m_Layer: 0
   m_Name: Visuals
   m_TagString: Untagged
@@ -154,21 +154,6 @@ Transform:
   - {fileID: 1390102674}
   m_Father: {fileID: 355726393}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4836062
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4836060}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c33a1062b22403da1ee5d7acefeabd0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speedParameter: Speed
-  deathTriggerParameter: Die
-  damageTriggerParameter: TakeDamage
 --- !u!95 &4836063
 Animator:
   serializedVersion: 7
@@ -191,6 +176,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4836064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4836060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d91a5ec5e3e69fa4789c548290f3f77d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedParameter: Speed
+  deathTriggerParameter: Die
+  damageTriggerParameter: TakeDamage
 --- !u!1 &29105760
 GameObject:
   m_ObjectHideFlags: 0
@@ -5261,7 +5261,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2087190217}
   - component: {fileID: 2087190219}
-  - component: {fileID: 2087190218}
+  - component: {fileID: 2087190220}
   m_Layer: 0
   m_Name: Visuals
   m_TagString: Untagged
@@ -5286,21 +5286,6 @@ Transform:
   - {fileID: 440247017}
   m_Father: {fileID: 256350061}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2087190218
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2087190216}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c33a1062b22403da1ee5d7acefeabd0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speedParameter: Speed
-  deathTriggerParameter: Die
-  damageTriggerParameter: TakeDamage
 --- !u!95 &2087190219
 Animator:
   serializedVersion: 7
@@ -5323,6 +5308,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2087190220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2087190216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d91a5ec5e3e69fa4789c548290f3f77d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedParameter: Speed
+  deathTriggerParameter: Die
+  damageTriggerParameter: TakeDamage
 --- !u!1 &2090195998
 GameObject:
   m_ObjectHideFlags: 0

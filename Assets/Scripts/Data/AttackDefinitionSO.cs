@@ -48,6 +48,13 @@ public class AttackDefinitionSO : ScriptableObject
     [Tooltip("Name of the animator trigger used when this attack is performed.")]
     public string animationTriggerName = "Attack";
 
+    /// <summary>
+    /// Name of the animation clip to load from Resources folder and play directly.
+    /// If not empty, this will override the animator trigger approach.
+    /// </summary>
+    [Tooltip("Name of the animation clip in Resources folder to play directly (without using animator states).")]
+    public string animationClipName;
+
     [Header("Projectiles")]
 
     /// <summary>
