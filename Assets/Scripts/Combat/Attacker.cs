@@ -262,7 +262,7 @@ public class Attacker : MonoBehaviour
     /// <param name="target">Target to attack.</param>
     private void PerformAttack(AttackDefinitionSO attack, GameObject target)
     {
-        if (attack.attackType == AttackType.Melee)
+        if (attack.AttackType == AttackType.Melee)
         {
             ExecuteMeleeAttack(attack, target);
         }
@@ -304,16 +304,18 @@ public class Attacker : MonoBehaviour
     {
         Debug.Log($"[Attacker] {gameObject.name} performs ranged attack {attack.attackName} on {target.name}");
 
-        if (attack.projectilePrefab != null)
+        RangedAttackDefinitionSO ranged = attack as RangedAttackDefinitionSO;
+
+        if (ranged != null && ranged.projectilePrefab != null)
         {
-            GameObject projectileObj = Instantiate(attack.projectilePrefab, transform.position, Quaternion.identity);
+            GameObject projectileObj = Instantiate(ranged.projectilePrefab, transform.position, Quaternion.identity);
             if (projectileObj.TryGetComponent<SimpleProjectile>(out var projectile))
             {
-                projectile.Initialize(gameObject, target, attack);
+                projectile.Initialize(gameObject, target, ranged);
             }
             else
             {
-                Debug.LogWarning($"[Attacker] Projectile prefab {attack.projectilePrefab.name} lacks SimpleProjectile component.", projectileObj);
+                Debug.LogWarning($"[Attacker] Projectile prefab {ranged.projectilePrefab.name} lacks SimpleProjectile component.", projectileObj);
                 if (target.TryGetComponent<Health>(out var health))
                 {
                     health.TakeDamage(attack.damage, gameObject, attack);

@@ -9,7 +9,7 @@ public class SimpleProjectile : MonoBehaviour
 
     private GameObject target;
     private GameObject attacker;
-    private AttackDefinitionSO attackData;
+    private RangedAttackDefinitionSO attackData;
 
     /// <summary>
     /// Initializes the projectile with its attacker, target and attack data.
@@ -17,7 +17,7 @@ public class SimpleProjectile : MonoBehaviour
     /// <param name="attacker">Origin of the projectile.</param>
     /// <param name="target">Target to hit.</param>
     /// <param name="attackData">Attack definition used for damage calculation.</param>
-    public void Initialize(GameObject attacker, GameObject target, AttackDefinitionSO attackData)
+    public void Initialize(GameObject attacker, GameObject target, RangedAttackDefinitionSO attackData)
     {
         if (target == null || attackData == null)
         {
