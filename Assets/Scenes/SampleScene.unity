@@ -164,7 +164,7 @@ Animator:
   m_GameObject: {fileID: 4836060}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 4ebddd681d6bc474ebad5b5f5e9a60e9, type: 3}
-  m_Controller: {fileID: 9100000, guid: 61d34bdcbd6fdec47a8e07e265f59b17, type: 2}
+  m_Controller: {fileID: 9100000, guid: f494528a1f881d24fbc5e8c0122d8470, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -191,6 +191,8 @@ MonoBehaviour:
   speedParameter: Speed
   deathTriggerParameter: Die
   damageTriggerParameter: TakeDamage
+  upgradeTriggerParameter: Upgrade
+  unlockTriggerParameter: Unlock
 --- !u!1 &29105760
 GameObject:
   m_ObjectHideFlags: 0
@@ -5296,7 +5298,7 @@ Animator:
   m_GameObject: {fileID: 2087190216}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 4ebddd681d6bc474ebad5b5f5e9a60e9, type: 3}
-  m_Controller: {fileID: 9100000, guid: 61d34bdcbd6fdec47a8e07e265f59b17, type: 2}
+  m_Controller: {fileID: 9100000, guid: f494528a1f881d24fbc5e8c0122d8470, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -5323,6 +5325,8 @@ MonoBehaviour:
   speedParameter: Speed
   deathTriggerParameter: Die
   damageTriggerParameter: TakeDamage
+  upgradeTriggerParameter: Upgrade
+  unlockTriggerParameter: Unlock
 --- !u!1 &2090195998
 GameObject:
   m_ObjectHideFlags: 0

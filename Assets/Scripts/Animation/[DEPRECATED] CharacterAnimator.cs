@@ -135,9 +135,9 @@ public class CharacterAnimator : MonoBehaviour
             return;
         }
 
-        string triggerName = attackData.animationTriggerName;
-        int triggerId = Animator.StringToHash(triggerName);
-        animator.SetTrigger(triggerId);
+        //string triggerName = attackData.animationTriggerName;
+        //int triggerId = Animator.StringToHash(triggerName);
+        //animator.SetTrigger(triggerId);
     }
 
     /// <summary>

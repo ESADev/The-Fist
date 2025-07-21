@@ -156,11 +156,6 @@ public class EntityAnimator : MonoBehaviour
         {
             PlayAttackAnimationClip(attackData.animationClipName);
         }
-        else
-        {
-            // Fallback to traditional animator trigger approach
-            animator.SetTrigger(attackData.animationTriggerName);
-        }
     }
 
     /// <summary>
@@ -223,7 +218,7 @@ public class EntityAnimator : MonoBehaviour
         }
 
         // Load the animation clip from Resources
-        AnimationClip clip = Resources.Load<AnimationClip>(clipName);
+        AnimationClip clip = Resources.Load<AnimationClip>("Animations/Attack/" + clipName);
         if (clip == null)
         {
             Debug.LogError($"[EntityAnimator] Could not load animation clip '{clipName}' from Resources folder.", this);

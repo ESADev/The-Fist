@@ -41,7 +41,7 @@ public class FaceCamera : MonoBehaviour
             // Final fallback to any active camera
             if (targetCamera == null)
             {
-                targetCamera = FindObjectOfType<Camera>();
+                targetCamera = FindFirstObjectByType<Camera>();
             }
         }
 
