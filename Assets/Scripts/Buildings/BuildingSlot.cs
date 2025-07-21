@@ -179,7 +179,6 @@ public class BuildingSlot : MonoBehaviour, IUpgradable, IUnlockable
 
         GameEvents.TriggerOnObjectUpgraded(_currentBuildingInstance, currentBuilding.CurrentLevel + 1);
         OnUpgraded?.Invoke(_currentBuildingInstance, currentBuilding.CurrentLevel + 1);
-
         Destroy(_currentBuildingInstance);
 
         _currentBuildingInstance = Instantiate(nextLevel.prefab, transform.position, transform.rotation, transform);
