@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67465aa076243524c976db4a96e89f09, type: 3}
+  m_Name: UnitSpawner
+  m_EditorClassIdentifier: 
+  buildingName: UnitSpawner
+  levels:
+  - cost: 0
+    prefab: {fileID: 3271522608372443415, guid: f8b89394857e31749a6aeb99d61f3f0e, type: 3}
+  - cost: 0
+    prefab: {fileID: 3223596697398813924, guid: 61a52a8478261f64b885f7ae278336d2, type: 3}

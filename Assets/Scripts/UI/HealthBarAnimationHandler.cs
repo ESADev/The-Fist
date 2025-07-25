@@ -57,7 +57,7 @@ public class HealthBarAnimationHandler : MonoBehaviour
     private float currentHealthPercentage = 1f;
     private float currentEffectPercentage = 1f;
     private bool isInitialized = false;
-    private bool isVisible = true;
+    private bool isVisible = false;
 
     private void Awake()
     {
