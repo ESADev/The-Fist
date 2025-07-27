@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d9a5969691dba845877d0a52b6d9397, type: 3}
+  m_Name: UnityGLTFSettings
+  m_EditorClassIdentifier: 
+  packageVersion: 
+  shaderStrippingSettings:
+    stripPassesFromAllShaders: 0
+    stripPasses: 0
+  ImportPlugins:
+  - {fileID: -835829318192472992}
+  - {fileID: -6160577299525531697}
+  - {fileID: 874004154029776206}
+  - {fileID: -1378596980448416495}
+  - {fileID: -4015957478356472475}
+  - {fileID: -4957211702596405408}
+  - {fileID: 2901846911828720053}
+  - {fileID: 2803966900895253151}
+  - {fileID: 7587917709083548453}
+  - {fileID: 5061892375650981591}
+  - {fileID: -2241204174382065386}
+  - {fileID: -3567612168215022059}
+  ExportPlugins:
+  - {fileID: -1649465379498786402}
+  - {fileID: -8452481468698850538}
+  - {fileID: 3814637070913791499}
+  - {fileID: 1355808108333287734}
+  - {fileID: 6158880990334796003}
+  - {fileID: -5884518381504575574}
+  - {fileID: 7636092265931569391}
+  - {fileID: -8961709237292180194}
+  - {fileID: -6940785493742891169}
+  - {fileID: 1392707488496275059}
+  - {fileID: 7069930471739915982}
+  - {fileID: 3014728484876638631}
+  - {fileID: -509778805868831131}
+  - {fileID: 6826952170356055735}
+  exportNames: 1
+  exportFullPath: 0
+  EditorExportTransformMode: 0
+  EditorExportFileFormat: 0
+  useMainCameraVisibility: 1
+  exportDisabledGameObjects: 0
+  tryExportTexturesFromDisk: 0
+  useTextureFileTypeHeuristic: 1
+  defaultJpegQuality: 90
+  exportAnimations: 1
+  bakeAnimationSpeed: 1
+  uniqueAnimationNames: 0
+  bakeSkinnedMeshes: 0
+  blendShapeExportProperties: -1
+  blendShapeExportSparseAccessors: 1
+  exportVertexColors: 1
+  UseCaching: 1

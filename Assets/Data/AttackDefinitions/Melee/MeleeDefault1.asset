@@ -16,4 +16,4 @@ MonoBehaviour:
   damage: 10
   range: 2
   cooldown: 1
-  animationClipName: MeleeDefault1
+  animationClipName: Lvl1Punch

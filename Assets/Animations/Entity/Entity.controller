@@ -213,8 +213,8 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Unlock
-  m_Speed: 1
+  m_Name: Born
+  m_Speed: 1.5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -1577095221806428632}
@@ -340,7 +340,7 @@ BlendTree:
     m_Motion: {fileID: 7400000, guid: 197dcd8f77292e3459f320ebeaf75cb9, type: 2}
     m_Threshold: 1
     m_Position: {x: 0, y: 0}
-    m_TimeScale: 1
+    m_TimeScale: 0.45
     m_CycleOffset: 0
     m_DirectBlendParameter: Speed
     m_Mirror: 0
