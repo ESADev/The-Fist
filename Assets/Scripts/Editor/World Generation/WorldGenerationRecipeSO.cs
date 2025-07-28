@@ -7,7 +7,15 @@ public class WorldGenerationRecipeSO : ScriptableObject
     [Header("Global Area Settings")]
     [Tooltip("The radius of the generation path.")]
     public float pathRadius = 10.0f;
-    
+
+    [Header("Density Scalar")]
+    [Tooltip("An overall scalar that adjusts the density of all prefab placements.")]
+    public float densityScalar = 1.0f;
+
+    [Header("Exclusion Zone")]
+    [Tooltip("Radius around the start and end points where no objects will be generated.")]
+    public float nonGeneratableCenterRadius = 0.0f;
+
     [Header("Object Profiles")]
     [Tooltip("The list of all prefabs and their individual settings to be placed.")]
     public List<PropProfile> prefabProfiles;

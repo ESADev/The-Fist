@@ -45,6 +45,12 @@ public class HealthBarAnimationHandler : MonoBehaviour
     [Tooltip("Auto-hide when health is full. If false, visibility must be controlled manually.")]
     [SerializeField] private bool autoHideWhenFull = true;
 
+    [Tooltip("Alpha goal for fully visible state")]
+    [SerializeField] private float visibleValue = 1f;
+
+    [Tooltip("Alpha goal for fully hidden state")]
+    [SerializeField] private float hiddenValue = 0f;
+
     [Header("Components")]
     [Tooltip("CanvasGroup component for controlling visibility. If null, will try to find one on this GameObject.")]
     [SerializeField] private CanvasGroup canvasGroup;
@@ -286,8 +292,8 @@ public class HealthBarAnimationHandler : MonoBehaviour
         isVisible = true;
         canvasGroup.interactable = true;
         canvasGroup.blocksRaycasts = true;
-        
-        currentVisibilityTween = canvasGroup.DOFade(1f, visibilityAnimationDuration)
+
+        currentVisibilityTween = canvasGroup.DOFade(visibleValue, visibilityAnimationDuration)
             .SetEase(visibilityEase);
     }
 
@@ -305,8 +311,8 @@ public class HealthBarAnimationHandler : MonoBehaviour
         }
         
         isVisible = false;
-        
-        currentVisibilityTween = canvasGroup.DOFade(0f, visibilityAnimationDuration)
+
+        currentVisibilityTween = canvasGroup.DOFade(hiddenValue, visibilityAnimationDuration)
             .SetEase(visibilityEase)
             .OnComplete(() =>
             {

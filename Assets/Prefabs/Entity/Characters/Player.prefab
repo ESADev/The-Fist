@@ -4019,6 +4019,7 @@ GameObject:
   - component: {fileID: 8958139912817012171}
   - component: {fileID: 8533704213675443190}
   - component: {fileID: 2587056919882328461}
+  - component: {fileID: 5704887413861092773}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -4176,11 +4177,25 @@ CharacterController:
   serializedVersion: 3
   m_Height: 2.4
   m_Radius: 0.6
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_SlopeLimit: 0
+  m_StepOffset: 0
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1.2, z: 0}
+--- !u!114 &5704887413861092773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9110108307384180276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86643b849d2b0b14088940ee2d9b2b39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravity: -9.81
+  updateRate: 6
 --- !u!1001 &7763770740690908027
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4215,7 +4230,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 878975365291224134, guid: cc3ea9c40462e0b489e4e7affc3a82af, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 878975365291224134, guid: cc3ea9c40462e0b489e4e7affc3a82af, type: 3}
       propertyPath: m_SizeDelta.y
@@ -4272,10 +4287,6 @@ PrefabInstance:
     - target: {fileID: 1400715875804918516, guid: cc3ea9c40462e0b489e4e7affc3a82af, type: 3}
       propertyPath: m_Name
       value: EntityCanvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 2855293395835383833, guid: cc3ea9c40462e0b489e4e7affc3a82af, type: 3}
-      propertyPath: m_PresetInfoIsWorld
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

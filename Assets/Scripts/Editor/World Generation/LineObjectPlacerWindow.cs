@@ -79,7 +79,7 @@ public class LineObjectPlacerWindow : EditorWindow
         foreach (var profile in activeRecipe.prefabProfiles)
         {
             if(profile.prefabVariants.Count == 0) continue;
-            int numAttempts = Mathf.RoundToInt(profile.density * totalArea);
+            int numAttempts = Mathf.RoundToInt(profile.density * totalArea * activeRecipe.densityScalar);
             for (int i = 0; i < numAttempts; i++)
             {
                 attemptDeck.Add(profile);
@@ -128,6 +128,17 @@ public class LineObjectPlacerWindow : EditorWindow
             }
 
             if (profile.distanceDistribution == null || (float)random.NextDouble() > profile.distanceDistribution.Evaluate(normalizedDistanceForCurve)) continue;
+            
+            // Check if the position is within the non-generatable center radius
+            if (activeRecipe.nonGeneratableCenterRadius > 0)
+            {
+                float distanceToStart = Vector3.Distance(potentialPosition, startPos);
+                float distanceToEnd = Vector3.Distance(potentialPosition, endPos);
+                if (distanceToStart < activeRecipe.nonGeneratableCenterRadius || distanceToEnd < activeRecipe.nonGeneratableCenterRadius)
+                {
+                    continue;
+                }
+            }
             
             if (profile.usePerlinFilter)
             {
