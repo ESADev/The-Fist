@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a2687dc9f913c640a860cea51f28056, type: 3}
   m_Name: WorldRecipe
   m_EditorClassIdentifier: 
-  pathRadius: 200
+  pathRadius: 100
   prefabProfiles:
   - name: Tree
     prefabVariants:
