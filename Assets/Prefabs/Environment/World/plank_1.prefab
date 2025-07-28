@@ -117,6 +117,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6626728679523068947}
+  - component: {fileID: -8902710525992443394}
   m_Layer: 0
   m_Name: plank_1
   m_TagString: Untagged
@@ -140,3 +141,18 @@ Transform:
   - {fileID: 7061969148424004321}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-8902710525992443394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7071947662209258790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 582c8ec8d50f3c445b2e3dfeda02d6e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxRotation: {x: 2.5, y: 360, z: 2.5}
+  minScale: 0.75
+  maxScale: 1.25

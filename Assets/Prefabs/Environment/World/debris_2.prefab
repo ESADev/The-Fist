@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4445210899577441705}
+  - component: {fileID: 6506905856570967501}
   m_Layer: 0
   m_Name: debris_2
   m_TagString: Untagged
@@ -32,6 +33,21 @@ Transform:
   - {fileID: 5803782270537502148}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6506905856570967501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737046612520279645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 582c8ec8d50f3c445b2e3dfeda02d6e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxRotation: {x: 2.5, y: 360, z: 2.5}
+  minScale: 0.75
+  maxScale: 1.25
 --- !u!1 &3745128603897852235
 GameObject:
   m_ObjectHideFlags: 0

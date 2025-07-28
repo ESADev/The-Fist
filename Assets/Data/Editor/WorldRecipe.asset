@@ -1,0 +1,904 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a2687dc9f913c640a860cea51f28056, type: 3}
+  m_Name: WorldRecipe
+  m_EditorClassIdentifier: 
+  pathRadius: 200
+  prefabProfiles:
+  - name: Tree
+    prefabVariants:
+    - {fileID: 1168258566624380352, guid: d854b196f9a5bef4c9b26df3de3815fa, type: 3}
+    - {fileID: 4404007347677312506, guid: df776cc21e398b144b858f2adc3cb657, type: 3}
+    - {fileID: 6572838980635459116, guid: 36b42a484ddfbb9459c1ed497987fe78, type: 3}
+    - {fileID: 9080026237227050034, guid: 8c713b0193023724d8ea8f95222834b5, type: 3}
+    - {fileID: 3366119311159871970, guid: 564a2cbbf2083c449a45fee2fe3dfbd9, type: 3}
+    - {fileID: 3345335377183351295, guid: 935ab7ce1ba69e643b8441c36fd35ea6, type: 3}
+    - {fileID: 7222999266317391365, guid: a8b843c5810ef4446ae0760ed090379d, type: 3}
+    - {fileID: 1235956616086927249, guid: ba4e317a9ab83284388740c88af1517e, type: 3}
+    - {fileID: 7713581354360893870, guid: a6afe2384f229494a87be04023ea9b0a, type: 3}
+    density: 0.18
+    distanceDistribution:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0.25
+        value: 0
+        inSlope: 0
+        outSlope: 10.666667
+        tangentMode: 65
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 8
+        inSlope: 10.666667
+        outSlope: 0
+        tangentMode: 5
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    checkForIntersections: 1
+    usePerlinFilter: 1
+    perlinScale: 0.05
+    perlinThreshold: 0.5
+  - name: Flower
+    prefabVariants:
+    - {fileID: 5569276601258502523, guid: e113a8c52ca938f4cb0573df6bf66dbf, type: 3}
+    - {fileID: 7751984035999929941, guid: f320ba7130aaeb946b8c229f65225272, type: 3}
+    - {fileID: 5468663554846002109, guid: b3a452f216ac54e4eb83ba82e7c8b286, type: 3}
+    - {fileID: 7079161995261465910, guid: 1c5c979a37bf92c4ca60792dd6534afc, type: 3}
+    - {fileID: 2904978444169595565, guid: 3b4de7c2a1769ef49ae0ddaf4c449302, type: 3}
+    - {fileID: 2783667607768018759, guid: d1355d7051e8fc64d818cc349d0cdf49, type: 3}
+    - {fileID: 956292426081913851, guid: 8491002588afd2442a48e42d5d672f8d, type: 3}
+    density: 0.035
+    distanceDistribution:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: -0.056599274
+        outSlope: 0
+        tangentMode: 65
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.049
+        value: 0
+        inSlope: -0
+        outSlope: 2499.9949
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.05
+        value: 2.5
+        inSlope: 2499.9949
+        outSlope: -2.631579
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: -2.631579
+        outSlope: -2.631579
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    checkForIntersections: 1
+    usePerlinFilter: 1
+    perlinScale: 0.0125
+    perlinThreshold: 0.5
+  - name: Bush
+    prefabVariants:
+    - {fileID: 2473235330282750899, guid: 31ed9bee6170569448563c3023841f3b, type: 3}
+    - {fileID: 6471093625872192122, guid: cf159f939b3af754b8936b485d48c442, type: 3}
+    - {fileID: 1503780294929170305, guid: a70965a0c0960d34fba35e8a19faaca3, type: 3}
+    density: 0.015
+    distanceDistribution:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: -0.056599274
+        outSlope: 0
+        tangentMode: 65
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.049
+        value: 0
+        inSlope: -0
+        outSlope: 2499.9949
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.05
+        value: 2.5
+        inSlope: 2499.9949
+        outSlope: -2.631579
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: -2.631579
+        outSlope: -2.631579
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    checkForIntersections: 1
+    usePerlinFilter: 1
+    perlinScale: 0.025
+    perlinThreshold: 0.5
+  - name: Grass
+    prefabVariants:
+    - {fileID: 6615216461292012441, guid: 0c1b1e87c4787974aa786a7e8fa8b346, type: 3}
+    - {fileID: 5333855148769566101, guid: 818426e12cd52db41abcc1b99eccd877, type: 3}
+    - {fileID: 5084455607909978836, guid: fd363cdb1041d2a4287c03a1e0646aba, type: 3}
+    - {fileID: 4973288738560953216, guid: 898f4a1cc6425cf45b138c0ce2c2639e, type: 3}
+    - {fileID: 6164838163425925417, guid: fdc7e0dbcd5587b4ba502ee1b0049a41, type: 3}
+    - {fileID: 4013188225686902959, guid: e3a486afb1dd39d41a50bc008b92e7b5, type: 3}
+    - {fileID: 6750129195246845565, guid: cfcfa7af14ef14f4a8b321654367d342, type: 3}
+    - {fileID: 1859804809029977934, guid: 092809af41aa26d46a9b471fbfd822d1, type: 3}
+    density: 0.32
+    distanceDistribution:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: -0.056599274
+        outSlope: 0
+        tangentMode: 65
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.049
+        value: 0
+        inSlope: -0
+        outSlope: 2499.9949
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.05
+        value: 2.5
+        inSlope: 2499.9949
+        outSlope: -2.631579
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: -2.631579
+        outSlope: -2.631579
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    checkForIntersections: 1
+    usePerlinFilter: 1
+    perlinScale: 0.1
+    perlinThreshold: 0.5
+  - name: Herb
+    prefabVariants:
+    - {fileID: 4577781375799881374, guid: 7401056095be8584b8bc7f1712dc3cbc, type: 3}
+    - {fileID: 7689041938778286554, guid: a19a0e20c3b2c7f48bda6f4d6c157c00, type: 3}
+    - {fileID: 3954514655841174613, guid: ae65b3ab4cc72c641957bb587cb08348, type: 3}
+    density: 0.06
+    distanceDistribution:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: -0.056599274
+        outSlope: 0
+        tangentMode: 65
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.049
+        value: 0
+        inSlope: -0
+        outSlope: 2499.9949
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.05
+        value: 2.5
+        inSlope: 2499.9949
+        outSlope: -2.631579
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: -2.631579
+        outSlope: -2.631579
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    checkForIntersections: 1
+    usePerlinFilter: 1
+    perlinScale: 0.05
+    perlinThreshold: 0.5
+  - name: Pebbles
+    prefabVariants:
+    - {fileID: 4071672555363407512, guid: 6c9b0becad6bc7c4895f8a98abea78c0, type: 3}
+    - {fileID: 9190682078983704326, guid: 94565ed96c9099d47959a2dd746eeeb6, type: 3}
+    - {fileID: 7723235073528445667, guid: 901abded2fb53864a9c17b8eab3b55a6, type: 3}
+    - {fileID: 3110336143081706990, guid: c085b76b62c09994b8227d7d058eb47f, type: 3}
+    - {fileID: 8572273110428672894, guid: e6286d96bc7808d45b384e8500cf2a3a, type: 3}
+    - {fileID: 2953781600376229684, guid: 3c2d6bfe5b0e78e42bafcfbd79fe52e0, type: 3}
+    density: 0.24
+    distanceDistribution:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: -0.056599274
+        outSlope: 0
+        tangentMode: 65
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.049
+        value: 0
+        inSlope: -0
+        outSlope: 2499.9949
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.05
+        value: 2.5
+        inSlope: 2499.9949
+        outSlope: -2.631579
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: -2.631579
+        outSlope: -2.631579
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    checkForIntersections: 1
+    usePerlinFilter: 1
+    perlinScale: 0.05
+    perlinThreshold: 0.5
+  - name: Rock
+    prefabVariants:
+    - {fileID: 4710114978106627845, guid: d44c4d73f4156d84fad3e427c0b278d5, type: 3}
+    - {fileID: 6530473840945404700, guid: 3a511002753b5ce4b83175e8ab0fdf4f, type: 3}
+    - {fileID: 1161204657810404279, guid: f8b3d5990bf46e449a91ea3ea25a7fa2, type: 3}
+    - {fileID: 1720324910421056402, guid: 0f565e8a656887f49aca03e728e756dd, type: 3}
+    - {fileID: 2805715077412503318, guid: f8f5cfe673167e74f8fb8869de5180da, type: 3}
+    - {fileID: 673928880811606630, guid: c4a2af502c9881d4d9d55bf59f0917b3, type: 3}
+    density: 0.04
+    distanceDistribution:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: -0.011908765
+        outSlope: 0
+        tangentMode: 65
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.049
+        value: 0
+        inSlope: -0
+        outSlope: 24.903341
+        tangentMode: 5
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.05
+        value: 1
+        inSlope: 999.998
+        outSlope: 0
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    checkForIntersections: 1
+    usePerlinFilter: 1
+    perlinScale: 0.1
+    perlinThreshold: 0.5
+  - name: Tree stump
+    prefabVariants:
+    - {fileID: 3870653618819171301, guid: 35ac6f0e9319f804b85155e068aabc3a, type: 3}
+    - {fileID: 8484702610112752299, guid: 23ed74e2536bc4c488458f78ec4c2e3e, type: 3}
+    - {fileID: 6667492669960266790, guid: 5ab04c9c752575443b8d2eee0ae681a2, type: 3}
+    density: 0.02
+    distanceDistribution:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: -0.056599274
+        outSlope: 0
+        tangentMode: 65
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.049
+        value: 0
+        inSlope: -0
+        outSlope: 2499.9949
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.05
+        value: 2.5
+        inSlope: 2499.9949
+        outSlope: -2.631579
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: -2.631579
+        outSlope: -2.631579
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    checkForIntersections: 1
+    usePerlinFilter: 1
+    perlinScale: 0.0125
+    perlinThreshold: 0.5
+  - name: Crate
+    prefabVariants:
+    - {fileID: 9051266049294192086, guid: b1fd7ca93e411a4479e353f1a901c206, type: 3}
+    - {fileID: 227652903618236985, guid: 2fb09394e492d8d4eac959384351e0a3, type: 3}
+    - {fileID: 8593887926320814798, guid: eaa2c8ee17421d943b8d8abb86f6c5b0, type: 3}
+    density: 0.005
+    distanceDistribution:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: -0.056599274
+        outSlope: 0
+        tangentMode: 65
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.049
+        value: 0
+        inSlope: -0
+        outSlope: 19999.959
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.05
+        value: 20
+        inSlope: 19999.959
+        outSlope: -133.33333
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.2
+        value: 0
+        inSlope: -133.33333
+        outSlope: -133.33333
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    checkForIntersections: 1
+    usePerlinFilter: 1
+    perlinScale: 0.01
+    perlinThreshold: 0.5
+  - name: Debris
+    prefabVariants:
+    - {fileID: 1326474737609939442, guid: 565763fe5b5111949abc8ba0da123271, type: 3}
+    - {fileID: 737046612520279645, guid: 6eb12251974d6fa4e9684c488eac3519, type: 3}
+    - {fileID: 6233725818913503595, guid: e79e18af79e1a59489f0087ad642a293, type: 3}
+    - {fileID: 3522400533836439400, guid: 625c2cba28ff70d40a6491afd856e8fa, type: 3}
+    density: 0.02666666
+    distanceDistribution:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: -0.056599274
+        outSlope: 0
+        tangentMode: 65
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.049
+        value: 0
+        inSlope: -0
+        outSlope: 19999.959
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.05
+        value: 20
+        inSlope: 19999.959
+        outSlope: -133.33333
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.2
+        value: 0
+        inSlope: -133.33333
+        outSlope: -133.33333
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    checkForIntersections: 1
+    usePerlinFilter: 1
+    perlinScale: 0.02
+    perlinThreshold: 0.5
+  - name: Fence
+    prefabVariants:
+    - {fileID: 4279055951240491157, guid: d655d30447210524788ad28286343eb8, type: 3}
+    - {fileID: 3270406436198926373, guid: f81f595d6b7d090458c96a8e0db70b86, type: 3}
+    - {fileID: 359415841165197915, guid: b73afef796fa83a448562bfd03be3dcb, type: 3}
+    - {fileID: 7940540421426224641, guid: 0287cc939d087c34ab638082d85236c0, type: 3}
+    density: 0.01333333
+    distanceDistribution:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: -0.056599274
+        outSlope: 0
+        tangentMode: 65
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.049
+        value: 0
+        inSlope: -0
+        outSlope: 19999.959
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.05
+        value: 20
+        inSlope: 19999.959
+        outSlope: -133.33333
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.2
+        value: 0
+        inSlope: -133.33333
+        outSlope: -133.33333
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    checkForIntersections: 1
+    usePerlinFilter: 1
+    perlinScale: 0.04
+    perlinThreshold: 0.5
+  - name: Haybale
+    prefabVariants:
+    - {fileID: 7967430292234307460, guid: 212668eeb35171942a43f521996f6c71, type: 3}
+    - {fileID: 9177768318141159130, guid: fbe840b76bf6e2145bfca7484fea93e9, type: 3}
+    - {fileID: 6968973212657850120, guid: 98bb9afa4f5fec64bba6667ada7213e5, type: 3}
+    density: 0.018
+    distanceDistribution:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: -0.056599274
+        outSlope: 0
+        tangentMode: 65
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.049
+        value: 0
+        inSlope: -0
+        outSlope: 9999.9795
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.05
+        value: 10
+        inSlope: 9999.9795
+        outSlope: -22.222223
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.5
+        value: 0
+        inSlope: -22.222223
+        outSlope: -22.222223
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    checkForIntersections: 1
+    usePerlinFilter: 1
+    perlinScale: 0.01
+    perlinThreshold: 0.5
+  - name: Plank
+    prefabVariants:
+    - {fileID: 7071947662209258790, guid: 0719f489b5939ad4e805e7b24b387e1d, type: 3}
+    - {fileID: 8615764905746142452, guid: fd1d03e275576b445a6f2098baee5879, type: 3}
+    - {fileID: 5142785747248587496, guid: fdf587cdb1c154e45a69a1ca022d992a, type: 3}
+    density: 0.024
+    distanceDistribution:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: -0.056599274
+        outSlope: 0
+        tangentMode: 65
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.049
+        value: 0
+        inSlope: -0
+        outSlope: 11999.976
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.05
+        value: 12
+        inSlope: 11999.976
+        outSlope: -34.285713
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.4
+        value: 0
+        inSlope: -34.285713
+        outSlope: -34.285713
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    checkForIntersections: 1
+    usePerlinFilter: 1
+    perlinScale: 0.04
+    perlinThreshold: 0.5
+  - name: Sack
+    prefabVariants:
+    - {fileID: 6387715573501866636, guid: e1e5d356ed931ec4088735b5701408b0, type: 3}
+    - {fileID: 659547538317361438, guid: ec810319dacdc204f96c15249545aaad, type: 3}
+    - {fileID: 2022307895617033134, guid: 7c188177732e8384dbb2712aaaee3b59, type: 3}
+    density: 0.004
+    distanceDistribution:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: -0.056599274
+        outSlope: 0
+        tangentMode: 65
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.049
+        value: 0
+        inSlope: -0
+        outSlope: 11999.976
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.05
+        value: 12
+        inSlope: 11999.976
+        outSlope: -34.285713
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.4
+        value: 0
+        inSlope: -34.285713
+        outSlope: -34.285713
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    checkForIntersections: 1
+    usePerlinFilter: 1
+    perlinScale: 0.005
+    perlinThreshold: 0.5
+  - name: Sign
+    prefabVariants:
+    - {fileID: 6241021625166915053, guid: ebd2750c1f020144b8101fdfd0df3fc1, type: 3}
+    - {fileID: 6383084127997383060, guid: 12cc6a05fde656d44b47dbfab75b5d69, type: 3}
+    - {fileID: 5252434073143206211, guid: f0b7cdd1da419b24da65ac8ac2face9e, type: 3}
+    - {fileID: 3481328893286908509, guid: 3de18da6939286e41898a5e18fa8e880, type: 3}
+    density: 0.002
+    distanceDistribution:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: -0.056599274
+        outSlope: 0
+        tangentMode: 65
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.049
+        value: 0
+        inSlope: -0
+        outSlope: 19999.959
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.05
+        value: 20
+        inSlope: 19999.959
+        outSlope: -133.33333
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.2
+        value: 0
+        inSlope: -133.33333
+        outSlope: -133.33333
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    checkForIntersections: 1
+    usePerlinFilter: 1
+    perlinScale: 0.1
+    perlinThreshold: 0.5
+  - name: Water barrel
+    prefabVariants:
+    - {fileID: 7978964536947747650, guid: 0efced1df4a92f146bf2c5981f5d102a, type: 3}
+    - {fileID: 4588084019729062811, guid: 15dd377a84f64624791b003e1e06f34d, type: 3}
+    - {fileID: 3070560458859157326, guid: 1cad6618db80ac543af086f67bf76dc7, type: 3}
+    density: 0.005
+    distanceDistribution:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: -0.056599274
+        outSlope: 0
+        tangentMode: 65
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.049
+        value: 0
+        inSlope: -0
+        outSlope: 19999.959
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.05
+        value: 20
+        inSlope: 19999.959
+        outSlope: -133.33333
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.2
+        value: 0
+        inSlope: -133.33333
+        outSlope: -133.33333
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    checkForIntersections: 1
+    usePerlinFilter: 1
+    perlinScale: 0.01
+    perlinThreshold: 0.5
+  - name: World Border
+    prefabVariants:
+    - {fileID: 6530473840945404700, guid: c8e502111bd589e4bb4f1138c4f4acca, type: 3}
+    density: 1
+    distanceDistribution:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0.9499
+        value: 0
+        inSlope: -0.056599274
+        outSlope: 399933.62
+        tangentMode: 65
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.95
+        value: 40
+        inSlope: 399933.62
+        outSlope: 0
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.9999
+        value: 40
+        inSlope: -0
+        outSlope: -399933.62
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: -399933.62
+        outSlope: -399933.62
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    checkForIntersections: 0
+    usePerlinFilter: 0
+    perlinScale: 0.00001
+    perlinThreshold: 0
