@@ -857,7 +857,7 @@ MonoBehaviour:
   - name: World Border
     prefabVariants:
     - {fileID: 6530473840945404700, guid: c8e502111bd589e4bb4f1138c4f4acca, type: 3}
-    density: 1
+    density: 1.5
     distanceDistribution:
       serializedVersion: 2
       m_Curve:

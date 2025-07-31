@@ -28,8 +28,8 @@ Transform:
   m_GameObject: {fileID: 886449357826418320}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.9623606, z: 0}
-  m_LocalScale: {x: 1.4154643, y: 1.4154643, z: 1.4154643}
+  m_LocalPosition: {x: 0, y: 2.6873233, z: 0}
+  m_LocalScale: {x: 4.153348, y: 2.9644375, z: 4.153348}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1045157755000386491}
@@ -117,7 +117,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1045157755000386491}
-  - component: {fileID: 3069612811669936774}
   m_Layer: 0
   m_Name: world_border_1
   m_TagString: Untagged
@@ -141,18 +140,3 @@ Transform:
   - {fileID: 806417931526296864}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3069612811669936774
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6530473840945404700}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 582c8ec8d50f3c445b2e3dfeda02d6e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxRotation: {x: 3, y: 360, z: 3}
-  minScale: 5.75
-  maxScale: 6.25

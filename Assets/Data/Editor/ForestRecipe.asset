@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a2687dc9f913c640a860cea51f28056, type: 3}
+  m_Name: ForestRecipe
+  m_EditorClassIdentifier: 
+  pathRadius: 150
+  densityScalar: 0.5
+  nonGeneratableCenterRadius: 50
+  prefabProfiles:
+  - name: Tree
+    prefabVariants:
+    - {fileID: 1168258566624380352, guid: d854b196f9a5bef4c9b26df3de3815fa, type: 3}
+    - {fileID: 4404007347677312506, guid: df776cc21e398b144b858f2adc3cb657, type: 3}
+    - {fileID: 6572838980635459116, guid: 36b42a484ddfbb9459c1ed497987fe78, type: 3}
+    - {fileID: 9080026237227050034, guid: 8c713b0193023724d8ea8f95222834b5, type: 3}
+    - {fileID: 3366119311159871970, guid: 564a2cbbf2083c449a45fee2fe3dfbd9, type: 3}
+    - {fileID: 3345335377183351295, guid: 935ab7ce1ba69e643b8441c36fd35ea6, type: 3}
+    - {fileID: 7222999266317391365, guid: a8b843c5810ef4446ae0760ed090379d, type: 3}
+    - {fileID: 1235956616086927249, guid: ba4e317a9ab83284388740c88af1517e, type: 3}
+    - {fileID: 7713581354360893870, guid: a6afe2384f229494a87be04023ea9b0a, type: 3}
+    density: 1
+    distanceDistribution:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: -0.011908765
+        outSlope: 0
+        tangentMode: 65
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.3299
+        value: 0
+        inSlope: -0
+        outSlope: 24.903341
+        tangentMode: 5
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.33
+        value: 1
+        inSlope: 9998.341
+        outSlope: 0
+        tangentMode: 69
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    checkForIntersections: 1
+    usePerlinFilter: 0
+    perlinScale: 0.05
+    perlinThreshold: 0.5
