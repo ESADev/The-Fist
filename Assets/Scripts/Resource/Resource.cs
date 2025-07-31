@@ -11,7 +11,7 @@ public class Resource : MonoBehaviour
     //private float moveDuration = 0.5f;
 
     private int amount = 1;
-    private float sizeLogBase = 100f;
+    private float sizeLogBase = 50f;
     private float collectCooldown = 1.5f;
     private bool isCollected = false;
     private float initializationTime;

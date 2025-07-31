@@ -32,7 +32,10 @@ public class ResourceManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+    }
 
+    void Start()
+    {
         InitializeResources();
     }
 

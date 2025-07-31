@@ -13,6 +13,6 @@ public class UIResourceCountText : MonoBehaviour
 
     public void RefreshText()
     {
-        textToAssign.text = FormattingHelper.FormatNumber(resourceToDisplay.GetResourceAmount());
+        textToAssign.text = FormattingHelper.FormatNumber(resourceToDisplay.GetResourceAmount(), 0);
     }
 }

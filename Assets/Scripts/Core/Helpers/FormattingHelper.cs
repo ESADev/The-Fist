@@ -2,14 +2,16 @@ using UnityEngine;
 
 public static class FormattingHelper
 {
-    public static string FormatNumber(int number)
+    public static string FormatNumber(int number, int digitCountAfterDot = 1)
     {
+        string formattingMode = "F" + digitCountAfterDot.ToString();
+
         if (number < 0)
             return "-" + FormatNumber(-number);
 
-        // Less than 10,000 - show full number
-        if (number < 10000)
-            return number.ToString();
+        // Less than 1000 - show full number
+        if (number < 1000)
+            return number.ToString(formattingMode);
 
         // Define suffixes and their thresholds
         var suffixes = new[]
@@ -29,17 +31,17 @@ public static class FormattingHelper
                 if (value >= 100)
                 {
                     // 100k, 999k, 100m, etc. (no decimal)
-                    return ((int)value).ToString() + suffix.Suffix;
+                    return ((int)value).ToString(formattingMode) + suffix.Suffix;
                 }
                 else if (value >= 10)
                 {
                     // 10.0k to 99.9k, 10.0m to 99.9m, etc.
-                    return value.ToString("F1") + suffix.Suffix;
+                    return value.ToString(formattingMode) + suffix.Suffix;
                 }
                 else
                 {
                     // 1.00k to 9.99k, 1.00m to 9.99m, etc.
-                    return value.ToString("F2").TrimEnd('0').TrimEnd('.') + suffix.Suffix;
+                    return value.ToString(formattingMode).TrimEnd('0').TrimEnd('.') + suffix.Suffix;
                 }
             }
         }

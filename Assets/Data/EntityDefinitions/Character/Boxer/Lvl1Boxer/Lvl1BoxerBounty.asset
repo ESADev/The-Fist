@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resourcesToDrop:
   - type: 0
-    amount: 113
-  dropRadius: 2
-  dropOffset: {x: 0, y: 0, z: 0}
+    amount: 147000
+  dropRadius: 1
   useRandomization: 1
   randomizationFactor: 0.2

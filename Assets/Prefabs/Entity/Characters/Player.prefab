@@ -4209,8 +4209,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbdadfe9731a2044e8aaac22bb0bc653, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collectionRadius: 5
+  collectionRadius: 3
   scanFrequency: 5
+  collectionPointOffset: {x: 0, y: 2, z: 0}
 --- !u!1001 &7763770740690908027
 PrefabInstance:
   m_ObjectHideFlags: 0

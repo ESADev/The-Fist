@@ -116,14 +116,15 @@ public class ResourceDropper : MonoBehaviour
         var components = DivideIntoDecimalComponents(totalAmount);
         Debug.Log($"ResourceDropper: Dropping {totalAmount} of {resourceType} as components: {string.Join(", ", components)}");
 
-        for (int i = 0; i < components.Count; i++)
+        int maxDigits = 2; // To avoid unnecessary resource mess on big numbers
+        for (int i = 0; i < maxDigits; i++)
         {
             int digitValue = components[i];
             if (digitValue == 0) continue; // Skip zeros
 
             int multiplier = GetDecimalMultiplier(i, components.Count);
 
-            if (i + 1 < components.Count)
+            if (i < maxDigits)
             {
                 // Create resources for this decimal component
                 for (int j = 0; j < digitValue; j++)
@@ -136,7 +137,7 @@ public class ResourceDropper : MonoBehaviour
                     }
                 }
             }
-            else // First digit won't be divided
+            else // Last digit won't be divided
             {
                 List<int> numbers = RandomlyDivideInteger(digitValue, 0, 3);
                 for (int k = 0; k < numbers.Count; k++)
@@ -154,9 +155,12 @@ public class ResourceDropper : MonoBehaviour
         int divisionPossibilityCount = maxDivision - minDivision - 1;
         int divisionCount = Mathf.FloorToInt(RandomnessHelper.RandomGaussian01() * divisionPossibilityCount);
         int remainingNumber = totalAmount;
+        int digitNumber = Mathf.CeilToInt(Mathf.Log10(remainingNumber));
+        int multiplier = (int)Mathf.Pow(10f, digitNumber - 1);
         for (int i = divisionCount; i > 0 && remainingNumber > i; i--)
         {
-            int selectedNumber = Random.Range(1, remainingNumber);
+            int selectedNumberMultiplier = Random.Range(1, remainingNumber / (int)multiplier);
+            int selectedNumber = selectedNumberMultiplier * multiplier;
             result.Add(selectedNumber);
             remainingNumber -= selectedNumber;
         }

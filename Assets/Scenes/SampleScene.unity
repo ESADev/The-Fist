@@ -23248,15 +23248,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6536325316119605960, guid: e3a486afb1dd39d41a50bc008b92e7b5, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.90259194
+      value: 1.0742753
       objectReference: {fileID: 0}
     - target: {fileID: 6536325316119605960, guid: e3a486afb1dd39d41a50bc008b92e7b5, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.90259194
+      value: 1.0742753
       objectReference: {fileID: 0}
     - target: {fileID: 6536325316119605960, guid: e3a486afb1dd39d41a50bc008b92e7b5, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.90259194
+      value: 1.0742753
       objectReference: {fileID: 0}
     - target: {fileID: 6536325316119605960, guid: e3a486afb1dd39d41a50bc008b92e7b5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -26083,15 +26083,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7695511410173053586, guid: 818426e12cd52db41abcc1b99eccd877, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.1309178
+      value: 0.98767436
       objectReference: {fileID: 0}
     - target: {fileID: 7695511410173053586, guid: 818426e12cd52db41abcc1b99eccd877, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.1309178
+      value: 0.98767436
       objectReference: {fileID: 0}
     - target: {fileID: 7695511410173053586, guid: 818426e12cd52db41abcc1b99eccd877, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.1309178
+      value: 0.98767436
       objectReference: {fileID: 0}
     - target: {fileID: 7695511410173053586, guid: 818426e12cd52db41abcc1b99eccd877, type: 3}
       propertyPath: m_LocalPosition.x
@@ -45315,11 +45315,6 @@ MonoBehaviour:
   resourceType: 0
   resourceText: {fileID: 756858098}
   enableShake: 1
-  shakeTarget: {fileID: 0}
-  shakeMagnitudeMultiplier: 1
-  baseshakeDuration: 0.25
-  shakeVibrato: 20
-  shakeRandomness: 180
 --- !u!1001 &528199989
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -149434,10 +149429,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 801947664179191158, guid: 7c5ac9b74a90e6b49b3f104f89035d47, type: 3}
-      propertyPath: _characterDefinition
-      value: 
-      objectReference: {fileID: 11400000, guid: bcdb189da4daf6c45980d1c4dfaf6dc8, type: 2}
     - target: {fileID: 1222450953393870924, guid: 7c5ac9b74a90e6b49b3f104f89035d47, type: 3}
       propertyPath: m_Name
       value: Lvl1Boxer
@@ -179792,10 +179783,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2941412497406899303, guid: 9069c87d43e4d55469faf02a405511d4, type: 3}
-      propertyPath: collectionPointOffset.y
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 6690214997999752186, guid: 9069c87d43e4d55469faf02a405511d4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -36.6

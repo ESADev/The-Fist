@@ -13,10 +13,10 @@ public class ResourceCounter : MonoBehaviour
     [SerializeField] private bool enableShake = true;
 
     private RectTransform shakeTarget;
-    private float shakeMagnitudeMultiplier = 1f;
-    private float baseshakeDuration = 0.3f;
-    private int shakeVibrato = 10;
-    private float shakeRandomness = 90f;
+    private float shakeMagnitudeMultiplier = 0.75f;
+    private float baseshakeDuration = 0.25f;
+    private int shakeVibrato = 5;
+    private float shakeRandomness = 30f;
 
     private int resourceCount = 0;
     private int displayedResourceCount = 0;
