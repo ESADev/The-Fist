@@ -21,3 +21,4 @@ MonoBehaviour:
   targetScanner: {fileID: 11400000, guid: 24e79b6823d753a4a96af7c413be266e, type: 2}
   interactorProfile: {fileID: 11400000, guid: ef199761ff76dc44ea547753369fbf74, type: 2}
   characterPortrait: {fileID: 0}
+  deathBounty: {fileID: 11400000, guid: 7e4ef7156b6d2f3489254a1c5b08583a, type: 2}

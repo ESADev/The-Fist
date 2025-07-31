@@ -109,7 +109,5 @@ public class Health : MonoBehaviour, IDestructible, IHealable
         Debug.Log($"[Health] {gameObject.name} died.");
         OnDied?.Invoke(gameObject);
         GameEvents.TriggerOnUnitDied(gameObject);
-        GetComponentInParent<Entity>().gameObject.AddComponent<DeathHandler>();
-        Debug.Log($"[Health] {gameObject.name} has been marked for dissolution.");
     }
 }

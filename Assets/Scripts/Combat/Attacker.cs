@@ -138,7 +138,7 @@ public class Attacker : MonoBehaviour
 
         currentTarget = target;
         isEngaging = true;
-        Debug.Log($"[Attacker] {gameObject.name} engaging {target.name}");
+        //Debug.Log($"[Attacker] {gameObject.name} engaging {target.name}");
     }
 
     /// <summary>

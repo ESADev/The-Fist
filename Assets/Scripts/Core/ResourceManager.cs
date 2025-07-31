@@ -54,7 +54,7 @@ public class ResourceManager : MonoBehaviour
         }
         else
         {
-            foreach (StartingResourcesSO.ResourceAmount entry in startingResources.resources)
+            foreach (ResourceAmount entry in startingResources.resources)
             {
                 resources[entry.type] = Mathf.Max(entry.amount, 0);
             }

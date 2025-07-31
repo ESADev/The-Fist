@@ -68,4 +68,13 @@ public class CharacterDefinitionSO : ScriptableObject
     /// </summary>
     [Tooltip("Optional portrait used in UI elements such as dialogue or HUD.")]
     public Sprite characterPortrait;
+
+    [Header("Rewards")]
+
+    /// <summary>
+    /// Resources to drop when this character dies or is defeated.
+    /// Should be a BountySO asset.
+    /// </summary>
+    [Tooltip("Resources to drop when this character dies or is defeated. Should be a BountySO asset.")]
+    public BountySO deathBounty;
 }

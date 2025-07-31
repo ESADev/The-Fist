@@ -194,6 +194,25 @@ public class Entity : MonoBehaviour
 
         CurrentState = EntityState.Dead;
         Debug.Log($"[Entity] {gameObject.name} entered Dead state.", this);
+
+        // Drop bounty if configured
+        DropDeathBounty();
+        gameObject.AddComponent<DeathHandler>();
+        Debug.Log($"[Health] {gameObject.name} has been marked for dissolution.");
+    }
+
+    /// <summary>
+    /// Drops the death bounty configured in the character definition.
+    /// </summary>
+    private void DropDeathBounty()
+    {
+        if (characterDefinition == null || characterDefinition.deathBounty == null)
+        {
+            return;
+        }
+
+        ResourceDropper dropper = gameObject.AddComponent<ResourceDropper>();
+        dropper.Initialize(characterDefinition.deathBounty, transform.position);
     }
 
     /// <summary>
