@@ -126,11 +126,7 @@ public class Entity : MonoBehaviour
             return;
         }
 
-        if (Faction != null)
-        {
-            Faction.Initialize(characterDefinition.faction);
-        }
-        else
+        if (Faction == null)
         {
             Debug.LogError($"[Entity] Missing Faction component on {gameObject.name}.", this);
         }

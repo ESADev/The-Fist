@@ -21,11 +21,12 @@ public class CharacterDefinitionSO : ScriptableObject
     [Tooltip("Prefab representing the character in the scene.")]
     public GameObject characterPrefab;
 
+    // REMOVED
     /// <summary>
     /// Faction alignment determining friend or foe relationships.
     /// </summary>
-    [Tooltip("Faction alignment determining friend or foe relationships.")]
-    public FactionType faction = FactionType.Neutral;
+    // [Tooltip("Faction alignment determining friend or foe relationships.")]
+    // public FactionType faction = FactionType.Neutral;
 
     [Header("Stats")]
 

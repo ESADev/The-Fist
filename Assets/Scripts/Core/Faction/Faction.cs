@@ -9,13 +9,13 @@ public class Faction : MonoBehaviour
     /// <summary>
     /// Gets the current faction of this object.
     /// </summary>
-    public FactionType CurrentFaction { get; private set; } = FactionType.Neutral;
+    public FactionType CurrentFaction = FactionType.Neutral;
 
     /// <summary>
     /// Initializes the faction with a specific value at runtime.
     /// </summary>
     /// <param name="faction">Faction to assign.</param>
-    public void Initialize(FactionType faction)
+    public void SetFaction(FactionType faction)
     {
         CurrentFaction = faction;
     }
