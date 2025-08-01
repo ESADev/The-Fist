@@ -1,10 +1,10 @@
 using UnityEngine;
 
 /// <summary>
-/// ScriptableObject containing configuration for a single level.
+/// ScriptableObject containing configuration for a single gameplay level.
 /// </summary>
-[CreateAssetMenu(fileName = "LevelData", menuName = "TheFist/Level Data")]
-public class LevelDataSO : ScriptableObject
+[CreateAssetMenu(fileName = "GameLevelData", menuName = "TheFist/Game Level Data")]
+public class GameLevelDataSO : ScriptableObject
 {
     [Header("Identification")]
     [Tooltip("Unique index for the level.")]

@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Levels")]
     [Tooltip("Collection of levels available in the game.")]
-    public List<LevelDataSO> levels = new List<LevelDataSO>();
+    public List<GameLevelDataSO> levels = new List<GameLevelDataSO>();
 
     /// <summary>
     /// Currently loaded level index.
@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        LevelDataSO levelData = levels[levelIndex];
+        GameLevelDataSO levelData = levels[levelIndex];
         if (levelData == null)
         {
             Debug.LogError($"[GameManager] Level data at index {levelIndex} is null.", this);
@@ -101,7 +101,7 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
 
-        LevelDataSO levelData = null;
+        GameLevelDataSO levelData = null;
         if (currentLevelIndex >= 0 && currentLevelIndex < levels.Count)
         {
             levelData = levels[currentLevelIndex];

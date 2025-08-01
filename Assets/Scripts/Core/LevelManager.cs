@@ -8,7 +8,7 @@ public class LevelManager : MonoBehaviour
 {
     [Header("Configuration")]
     [Tooltip("Data asset describing this level.")]
-    public LevelDataSO data;
+    public GameLevelDataSO data;
 
     /// <summary>
     /// Reference to the enemy's main base in the scene.
@@ -25,12 +25,12 @@ public class LevelManager : MonoBehaviour
     /// Initializes the level using the provided data asset.
     /// </summary>
     /// <param name="levelData">Data asset for the level.</param>
-    public void InitializeLevel(LevelDataSO levelData)
+    public void InitializeLevel(GameLevelDataSO levelData)
     {
         data = levelData;
         if (data == null)
         {
-            Debug.LogError("[LevelManager] LevelDataSO is null.", this);
+            Debug.LogError("[LevelManager] GameLevelDataSO is null.", this);
             return;
         }
 
