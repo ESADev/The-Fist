@@ -1,246 +1,86 @@
-using System;
 using UnityEngine;
 
 /// <summary>
-/// Manages construction and upgrades for a single building slot.
+/// Handles constructing and upgrading a building through simple interactions.
 /// </summary>
 [DisallowMultipleComponent]
-public class BuildingSlot : MonoBehaviour, IUpgradable, IUnlockable
+[RequireComponent(typeof(Entity))]
+public class BuildingSlot : MonoBehaviour, IInteractable
 {
-    /// <summary>
-    /// Currently instantiated building occupying this slot.
-    /// </summary>
-    private GameObject _currentBuildingInstance;
+    [Header("Building Data")]
+    [Tooltip("Progression tree for this slot.")]
+    public BuildingDataSO buildingData;
+
+    private GameObject currentBuilding;
+    private int currentLevel = 0;
 
     /// <summary>
-    /// Data defining the upgrade path for the current building.
+    /// Gets the current building level. Zero means nothing built yet.
     /// </summary>
-    private BuildingDataSO _currentBuildingData;
+    public int CurrentLevel => currentLevel;
 
     /// <summary>
-    /// Fired when the building managed by this slot is upgraded.
-    /// Parameters: the upgraded GameObject and the new level.
+    /// Called when an interactor uses this slot. Builds the next level if possible.
     /// </summary>
-    public event Action<GameObject, int> OnUpgraded;
-
-    /// <summary>
-    /// Fired when the building managed by this slot is unlocked.
-    /// Parameters: the unlocked GameObject.
-    /// </summary>
-    public event Action<GameObject> OnUnlocked;
-
-    /// <summary>
-    /// Gets the current upgrade level of the building occupying this slot.
-    /// </summary>
-    public int CurrentLevel
+    /// <param name="interactor">The interacting entity.</param>
+    public void Interact(AutoInteractor interactor)
     {
-        get
-        {
-            if (_currentBuildingInstance == null)
-            {
-                return 0;
-            }
-
-            Building building = _currentBuildingInstance.GetComponent<Building>();
-            return building != null ? building.CurrentLevel : 0;
-        }
+        BuildNextLevel();
     }
 
-    /// <summary>
-    /// Gets a value indicating whether the building occupying this slot is locked.
-    /// </summary>
-    public bool IsLocked
+    private void BuildNextLevel()
     {
-        get
+        if (buildingData == null)
         {
-            if (_currentBuildingInstance == null)
-            {
-                return true;
-            }
-
-            Building building = _currentBuildingInstance.GetComponent<Building>();
-            return building == null || building.IsLocked;
-        }
-    }
-
-    /// <summary>
-    /// Builds the specified building in this slot if empty.
-    /// </summary>
-    /// <param name="buildingToBuild">Definition of the building to construct.</param>
-    public void Build(BuildingDataSO buildingToBuild)
-    {
-        if (_currentBuildingInstance != null)
-        {
-            Debug.LogWarning($"[BuildingSlot] Slot already occupied on {gameObject.name}.", this);
+            Debug.LogError("[BuildingSlot] BuildingDataSO not assigned.", this);
             return;
         }
 
-        if (buildingToBuild == null || buildingToBuild.levels.Count == 0)
+        if (currentLevel >= buildingData.levels.Count)
         {
-            Debug.LogError("[BuildingSlot] Invalid BuildingDataSO supplied to Build().", this);
+            Debug.Log($"[BuildingSlot] {gameObject.name} already at max level.", this);
             return;
         }
 
-        _currentBuildingData = buildingToBuild;
+        BuildingLevelData levelData = buildingData.levels[currentLevel];
+        if (ResourceManager.Instance != null && !ResourceManager.Instance.SpendResource(ResourceType.Gold, levelData.cost))
+        {
+            Debug.LogWarning("[BuildingSlot] Not enough resources to build.", this);
+            return;
+        }
 
-        BuildingLevelData levelData = buildingToBuild.levels[0];
+        if (currentBuilding != null)
+        {
+            Destroy(currentBuilding);
+        }
+
         if (levelData.prefab == null)
         {
-            Debug.LogError("[BuildingSlot] Level 1 prefab missing in BuildingDataSO.", this);
+            Debug.LogError("[BuildingSlot] Level prefab missing.", this);
             return;
         }
 
-        _currentBuildingInstance = Instantiate(levelData.prefab, transform.position, transform.rotation, transform);
+        currentBuilding = Instantiate(levelData.prefab, transform.position, transform.rotation, transform);
 
-        Building buildingComponent = _currentBuildingInstance.GetComponent<Building>();
-        if (buildingComponent == null)
+        Building buildingComponent = currentBuilding.GetComponent<Building>();
+        if (buildingComponent != null)
         {
-            Debug.LogError("[BuildingSlot] Instantiated prefab has no Building component.", this);
-            Destroy(_currentBuildingInstance);
-            _currentBuildingInstance = null;
-            return;
+            buildingComponent.buildingData = buildingData;
+            buildingComponent.SetOwner(this);
         }
 
-        buildingComponent.buildingData = buildingToBuild;
-        buildingComponent.currentLevel = 1;
-        buildingComponent.SetOwner(this);
+        currentLevel++;
 
-        Debug.Log($"[BuildingSlot] Built {levelData.prefab.name} in slot {gameObject.name}.", this);
-    }
-
-    /// <summary>
-    /// Determines whether the building occupying this slot can be upgraded.
-    /// </summary>
-    /// <returns>True if an upgrade is possible.</returns>
-    public bool CanUpgrade()
-    {
-        if (_currentBuildingInstance == null)
+        if (currentLevel == 1)
         {
-            return false;
+            GameEvents.TriggerOnObjectUnlocked(currentBuilding);
+        }
+        else
+        {
+            GameEvents.TriggerOnObjectUpgraded(currentBuilding, currentLevel);
         }
 
-        Building building = _currentBuildingInstance.GetComponent<Building>();
-        return building != null && building.CanUpgrade();
-    }
-
-    /// <summary>
-    /// Executes an upgrade on the building occupying this slot.
-    /// </summary>
-    /// <param name="interactor">Interactor requesting the upgrade.</param>
-    public void Upgrade(AutoInteractor interactor = null)
-    {
-        UpgradeBuilding();
-    }
-
-    /// <summary>
-    /// Attempts to upgrade the building occupying this slot.
-    /// </summary>
-    public void UpgradeBuilding()
-    {
-        if (_currentBuildingInstance == null)
-        {
-            Debug.LogWarning($"[BuildingSlot] No building present to upgrade on {gameObject.name}.", this);
-            return;
-        }
-
-        Building currentBuilding = _currentBuildingInstance.GetComponent<Building>();
-        if (currentBuilding == null)
-        {
-            Debug.LogError("[BuildingSlot] Current building instance missing Building component.", this);
-            return;
-        }
-
-        if (!currentBuilding.CanUpgrade())
-        {
-            Debug.LogWarning($"[BuildingSlot] Cannot upgrade building on {gameObject.name}.", this);
-            return;
-        }
-
-        int nextLevelIndex = currentBuilding.CurrentLevel;
-        if (_currentBuildingData == null || nextLevelIndex >= _currentBuildingData.levels.Count)
-        {
-            Debug.LogWarning("[BuildingSlot] Upgrade data missing or invalid.", this);
-            return;
-        }
-
-        BuildingLevelData nextLevel = _currentBuildingData.levels[nextLevelIndex];
-
-        if (ResourceManager.Instance == null)
-        {
-            Debug.LogError("[BuildingSlot] ResourceManager instance not found.", this);
-            return;
-        }
-
-        if (!ResourceManager.Instance.SpendResource(ResourceType.Gold, nextLevel.cost))
-        {
-            Debug.LogWarning("[BuildingSlot] Unable to spend resources for upgrade.", this);
-            return;
-        }
-
-        GameEvents.TriggerOnObjectUpgraded(_currentBuildingInstance, currentBuilding.CurrentLevel + 1);
-        OnUpgraded?.Invoke(_currentBuildingInstance, currentBuilding.CurrentLevel + 1);
-        Destroy(_currentBuildingInstance);
-
-        _currentBuildingInstance = Instantiate(nextLevel.prefab, transform.position, transform.rotation, transform);
-        Building newBuilding = _currentBuildingInstance.GetComponent<Building>();
-        if (newBuilding == null)
-        {
-            Debug.LogError("[BuildingSlot] Upgraded prefab missing Building component.", this);
-            Destroy(_currentBuildingInstance);
-            _currentBuildingInstance = null;
-            return;
-        }
-
-        newBuilding.buildingData = _currentBuildingData;
-        newBuilding.currentLevel = nextLevelIndex + 1;
-        newBuilding.SetOwner(this);
-
-        Debug.Log($"[BuildingSlot] Upgraded building in slot {gameObject.name} to level {newBuilding.currentLevel}.", this);
-    }
-
-    /// <summary>
-    /// Determines whether the building occupying this slot can be unlocked.
-    /// </summary>
-    /// <returns>True if unlocking is possible.</returns>
-    public bool CanUnlock()
-    {
-        if (_currentBuildingInstance == null)
-        {
-            return false;
-        }
-
-        Building building = _currentBuildingInstance.GetComponent<Building>();
-        return building != null && building.CanUnlock();
-    }
-
-    /// <summary>
-    /// Unlocks the building occupying this slot if possible.
-    /// </summary>
-    /// <param name="interactor">Interactor requesting the unlock.</param>
-    public void Unlock(AutoInteractor interactor = null)
-    {
-        if (_currentBuildingInstance == null)
-        {
-            Debug.LogWarning($"[BuildingSlot] No building present to unlock on {gameObject.name}.", this);
-            return;
-        }
-
-        Building building = _currentBuildingInstance.GetComponent<Building>();
-        if (building == null)
-        {
-            Debug.LogError("[BuildingSlot] Current building instance missing Building component.", this);
-            return;
-        }
-
-        if (!building.CanUnlock())
-        {
-            Debug.LogWarning($"[BuildingSlot] Cannot unlock building on {gameObject.name}.", this);
-            return;
-        }
-
-        building.Unlock();
-        GameEvents.TriggerOnObjectUnlocked(_currentBuildingInstance);
-        OnUnlocked?.Invoke(_currentBuildingInstance);
+        Debug.Log($"[BuildingSlot] Built level {currentLevel} on {gameObject.name}.", this);
     }
 }
 
