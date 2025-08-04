@@ -59,7 +59,8 @@ public class TargetScanner : MonoBehaviour
             var entity = hit.GetComponentInParent<Entity>();
             if (entity == null || gameObject.GetComponentInParent<Entity>() == entity || entity.Health.IsDead) { continue; }
 
-            targetsInRange.Add(entity);
+            if (!targetsInRange.Contains(entity))
+                targetsInRange.Add(entity);
         }
 
         Debug.Log($"[TargetScanner] {targetsInRange.Count} targets detected by {gameObject.name}");

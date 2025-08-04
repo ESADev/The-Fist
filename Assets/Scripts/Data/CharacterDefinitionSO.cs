@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -14,6 +15,21 @@ public class CharacterDefinitionSO : ScriptableObject
     /// </summary>
     [Tooltip("Display name of the character shown in UI and logs.")]
     public string characterName = "New Character";
+
+    /// <summary>
+    /// Description providing context or lore about the character.
+    /// </summary>
+    public string description = "No description provided.";
+
+    /// <summary>
+    /// Type of character, used for categorization and logic.
+    /// </summary>
+    public CharacterType characterType = CharacterType.Character;
+
+    /// <summary>
+    /// Cost in resources to spawn this character.
+    /// </summary>
+    public List<ResourceAmount> cost = new();
 
     /// <summary>
     /// Prefab representing the character in the scene.

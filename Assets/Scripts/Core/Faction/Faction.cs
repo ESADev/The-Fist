@@ -9,7 +9,7 @@ public class Faction : MonoBehaviour
     /// <summary>
     /// Gets the current faction of this object.
     /// </summary>
-    public FactionType CurrentFaction = FactionType.Neutral;
+    public FactionType CurrentFaction = FactionType.Enemy;
 
     /// <summary>
     /// Initializes the faction with a specific value at runtime.

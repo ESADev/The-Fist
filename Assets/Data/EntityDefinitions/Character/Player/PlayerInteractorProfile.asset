@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: PlayerInteractorProfile
   m_EditorClassIdentifier: 
   canAttack: 1
+  canInteract: 1
   canUpgrade: 1
   canUnlock: 1
   canCollect: 1

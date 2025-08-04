@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEditor;
 
 /// <summary>
 /// Universal brain that automatically performs interactions based on a
@@ -156,17 +157,17 @@ public class AutoInteractor : MonoBehaviour
     {
         if (bestTarget != null)
         {
-            if (interactorProfile.canAttack && bestTarget.Faction.CurrentFaction != faction.CurrentFaction)
+            if (interactorProfile.canAttack && FactionHelper.AreEnemies(faction.CurrentFaction, bestTarget.Faction.CurrentFaction))
             {
                 attacker.Engage(bestTarget.gameObject);
             }
             else
             {
                 attacker.Disengage();
-                if (interactorProfile.canInteract && bestTarget.GetComponent<IInteractable>() != null)
+                if (interactorProfile.canInteract && bestTarget.GetComponentInParent<IInteractable>() != null)
                 {
                     // Attempt to interact with the target
-                    bestTarget.GetComponent<IInteractable>().Interact(this);
+                    bestTarget.GetComponentInParent<IInteractable>().Interact(this);
                 }
                 else if (interactorProfile.canUnlock && bestTarget.GetComponent<IUnlockable>() != null)
                 {
@@ -206,8 +207,8 @@ public class AutoInteractor : MonoBehaviour
         Entity bestEnemyTarget = null;
         float bestEnemySqr = float.PositiveInfinity;
 
-        Entity bestFriendTarget = null;
-        float bestFriendSqr = float.PositiveInfinity;
+        Entity bestNonEnemyTarget = null;
+        float bestNonEnemySqr = float.PositiveInfinity;
 
         foreach (Entity target in targets)
         {
@@ -215,7 +216,8 @@ public class AutoInteractor : MonoBehaviour
             if (!(target is Component component)) { continue; }
 
             Faction targetFaction = target.Faction;
-            bool isFriend = targetFaction != null && targetFaction.CurrentFaction == faction.CurrentFaction;
+            //bool isEnemy = (faction.CurrentFaction == FactionType.Player && targetFaction.CurrentFaction == FactionType.Enemy) || (faction.CurrentFaction == FactionType.Enemy && targetFaction.CurrentFaction == FactionType.Player);
+            bool isEnemy = FactionHelper.AreEnemies(faction.CurrentFaction, targetFaction.CurrentFaction);
 
             bool destructible = target.GetComponent<IDestructible>() != null || target.Health != null;
             if (!destructible)
@@ -225,7 +227,7 @@ public class AutoInteractor : MonoBehaviour
 
             float sqr = (target.transform.position - transform.position).sqrMagnitude;
 
-            if (!isFriend)
+            if (isEnemy)
             {
                 if (sqr < bestEnemySqr)
                 {
@@ -235,10 +237,10 @@ public class AutoInteractor : MonoBehaviour
             }
             else
             {
-                if (sqr < bestFriendSqr)
+                if (sqr < bestNonEnemySqr)
                 {
-                    bestFriendSqr = sqr;
-                    bestFriendTarget = target;
+                    bestNonEnemySqr = sqr;
+                    bestNonEnemyTarget = target;
                 }
             }
         }
@@ -247,9 +249,9 @@ public class AutoInteractor : MonoBehaviour
         {
             return bestEnemyTarget;
         }
-        else if (bestFriendTarget != null && interactorProfile.canInteract)
+        else if (bestNonEnemyTarget != null && interactorProfile.canInteract && bestNonEnemyTarget.GetComponentInParent<IInteractable>() != null)
         {
-            return bestFriendTarget;
+            return bestNonEnemyTarget;
         }
         else
         {

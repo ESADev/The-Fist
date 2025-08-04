@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Generates resources for the player at regular intervals.
 /// </summary>
-[RequireComponent(typeof(Building))]
+[RequireComponent(typeof(Entity))]
 public class ResourceGenerator : MonoBehaviour
 {
     [Header("Generator Profile")]

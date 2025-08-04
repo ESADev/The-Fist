@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Spawns units at a fixed rate from a building.
 /// </summary>
-[RequireComponent(typeof(Building))]
+[RequireComponent(typeof(Entity))]
 public class UnitSpawner : MonoBehaviour
 {
     [Header("Spawner Profile")]

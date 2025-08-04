@@ -12,7 +12,7 @@ public class Resource : MonoBehaviour
 
     private int amount = 1;
     private float sizeLogBase = 50f;
-    private float collectCooldown = 1.5f;
+    private float collectCooldown = 0.75f;
     private bool isCollected = false;
     private float initializationTime;
 

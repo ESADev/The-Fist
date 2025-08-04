@@ -49,7 +49,7 @@ public class PlayerInputHandler : MonoBehaviour
     /// <param name="movement">Direction of movement.</param>
     private void HandleMove(Vector2 movement)
     {
-        Vector3 worldDirection = new Vector3(movement.x, 0f, movement.y).normalized;
+        Vector3 worldDirection = new Vector3(movement.x, 0f, movement.y);
 
         // Calculate input speed
         currentInputSpeed = worldDirection.magnitude;

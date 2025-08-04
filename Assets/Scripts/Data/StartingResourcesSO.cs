@@ -12,20 +12,3 @@ public class StartingResourcesSO : ScriptableObject
     [Tooltip("List of resource amounts granted at game start.")]
     public List<ResourceAmount> resources = new List<ResourceAmount>();
 }
-
-/// <summary>
-/// Represents a single resource amount entry.
-/// </summary>
-[Serializable]
-public struct ResourceAmount
-{
-    /// <summary>
-    /// Type of resource.
-    /// </summary>
-    public ResourceType type;
-
-    /// <summary>
-    /// Amount of the resource.
-    /// </summary>
-    public int amount;
-}

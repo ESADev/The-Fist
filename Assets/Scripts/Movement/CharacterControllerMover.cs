@@ -34,6 +34,8 @@ public class CharacterControllerMover : MonoBehaviour, IMoveable
         this.stats = stats;
     }
 
+    float currentSpeed = 0;
+
     /// <summary>
     /// Moves the character in a direction.
     /// </summary>
@@ -42,7 +44,16 @@ public class CharacterControllerMover : MonoBehaviour, IMoveable
     {
         if (stats == null) return;
         Vector3 targetVelocity = direction * stats.moveSpeed;
-        currentVelocity = Vector3.Lerp(currentVelocity, targetVelocity, 1f - Mathf.Pow(1f - stats.movementSmoothness, Time.deltaTime * 60f));
+
+
+        //currentVelocity = Vector3.Lerp(Vector3.zero, targetVelocity, 1f - Mathf.Pow(1f - stats.movementSmoothness, Time.deltaTime * 60f));
+
+        currentSpeed = direction.magnitude * Time.deltaTime * stats.movementSmoothness;
+
+        //currentVelocity = Vector3.Lerp(Vector3.zero, targetVelocity, currentSpeed);
+
+        currentVelocity = targetVelocity;
+
         if (direction != Vector3.zero)
         {
             Quaternion targetRotation = Quaternion.LookRotation(direction);

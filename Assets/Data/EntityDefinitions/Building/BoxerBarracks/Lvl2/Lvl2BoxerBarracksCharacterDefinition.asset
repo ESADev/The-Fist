@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0b2cd1f939ea1a41979a24b58f84dce, type: 3}
+  m_Name: Lvl2BoxerBarracksCharacterDefinition
+  m_EditorClassIdentifier: 
+  characterName: Lvl1BoxerBarracks
+  description: No description provided.
+  characterType: 4
+  cost: []
+  characterPrefab: {fileID: 64463887334154574, guid: 03d1d8fad52fbc540931854a5d1b1b4c, type: 3}
+  healthStats: {fileID: 11400000, guid: 7d5aae236a2100e429f03459083c3995, type: 2}
+  movementStats: {fileID: 11400000, guid: 6ea3841746588774fb4e4a7a7fc8e6bf, type: 2}
+  attackerProfile: {fileID: 11400000, guid: 4311cdee8abf2b4448997282721d37c2, type: 2}
+  targetScanner: {fileID: 11400000, guid: 45e239daab6a16b40bb0e231bc4633be, type: 2}
+  interactorProfile: {fileID: 11400000, guid: 55f291d72bbd3034b98532110aac9a24, type: 2}
+  characterPortrait: {fileID: 0}
+  deathBounty: {fileID: 0}

@@ -92,6 +92,23 @@ public class ResourceManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Determines if the player can afford all specified resource costs.
+    /// </summary>
+    /// <param name="costs">List of resource costs to check.</param>
+    /// <returns>True if the player can afford all costs.</returns>
+    public bool CanAfford(List<ResourceAmount> costs)
+    {
+        foreach (ResourceAmount cost in costs)
+        {
+            if (!CanAfford(cost.type, cost.amount))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /// <summary>
     /// Adds a quantity of the specified resource to the player's bank.
     /// </summary>
     /// <param name="type">Type of resource to add.</param>
@@ -127,6 +144,27 @@ public class ResourceManager : MonoBehaviour
         resources[type] = newAmount;
         Debug.Log($"[ResourceManager] Spent {amount} {type}. New amount: {newAmount}");
         GameEvents.TriggerOnPlayerResourceChanged(type, newAmount);
+        return true;
+    }
+
+    /// <summary>
+    /// Attempts to deduct multiple resources at once based on a list of costs.
+    /// </summary>
+    /// <param name="cost"></param>
+    /// <returns></returns>
+    public bool SpendResource(List<ResourceAmount> cost)
+    {
+        if (!CanAfford(cost))
+        {
+            Debug.LogWarning("[ResourceManager] Cannot afford the specified costs.");
+            return false;
+        }
+
+        foreach (ResourceAmount resourceAmount in cost)
+        {
+            SpendResource(resourceAmount.type, resourceAmount.amount);
+        }
+
         return true;
     }
 }
