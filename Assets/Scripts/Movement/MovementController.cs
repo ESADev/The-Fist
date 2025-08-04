@@ -7,7 +7,7 @@ using UnityEngine;
 public class MovementController : MonoBehaviour
 {
     private IMoveable mover;
-    private Entity entity;
+    [HideInInspector] public Entity entity;
 
     /// <summary>
     /// Current movement speed in units per second.

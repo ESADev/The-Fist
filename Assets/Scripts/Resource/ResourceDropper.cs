@@ -130,7 +130,7 @@ public class ResourceDropper : MonoBehaviour
                 for (int j = 0; j < digitValue; j++)
                 {
                     //CreateSingleResource(resourcePrefab, multiplier, basePosition);
-                    List<int> numbers = RandomlyDivideInteger(multiplier, 0, 3);
+                    List<int> numbers = RandomlyDivideInteger(multiplier, 0, 1);
                     for (int k = 0; k < numbers.Count; k++)
                     {
                         CreateSingleResource(resourcePrefab, numbers[k], basePosition);
@@ -139,7 +139,7 @@ public class ResourceDropper : MonoBehaviour
             }
             else // Last digit won't be divided
             {
-                List<int> numbers = RandomlyDivideInteger(digitValue, 0, 3);
+                List<int> numbers = RandomlyDivideInteger(digitValue, 0, 1);
                 for (int k = 0; k < numbers.Count; k++)
                 {
                     CreateSingleResource(resourcePrefab, numbers[k], basePosition);

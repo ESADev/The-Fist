@@ -169,6 +169,8 @@ public class EntityAnimator : MonoBehaviour
             normalized = velocity / currentSpeed;
         }
 
+        normalized /= movementController.entity.characterDefinition.movementStats.moveSpeed;
+
         animator.SetFloat(speedParameter, normalized);
         lastPosition = transform.position;
     }

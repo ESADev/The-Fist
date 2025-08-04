@@ -157,7 +157,7 @@ public class BuildingSlot : MonoBehaviour, IInteractable
             }
         }
 
-        currentBuilding = Instantiate(nextLevel.characterPrefab, transform);
+        currentBuilding = Instantiate(nextLevel.characterPrefab, transform).gameObject;
         currentLevel++;
         RefreshNextLevel();
     }

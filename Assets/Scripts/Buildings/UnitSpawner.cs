@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -48,9 +49,37 @@ public class UnitSpawner : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(spawnerProfile.spawnRateInSeconds);
-            Instantiate(spawnerProfile.unitPrefab, spawnPoint.position, spawnPoint.rotation);
-            Debug.Log($"[UnitSpawner] Spawned unit {spawnerProfile.unitPrefab.name}.", this);
+            yield return new WaitForSeconds(1f / spawnerProfile.spawnRate);
+
+            CharacterDefinitionSO unitToSpawn = ReturnUnitToSpawn(spawnerProfile.units);
+            
+            Entity instantiatedEntity = Instantiate(unitToSpawn.characterPrefab, spawnPoint.position, spawnPoint.rotation);
+            
+            instantiatedEntity.Faction.SetFaction(GetComponentInParent<Entity>().Faction.CurrentFaction);
+
+            Debug.Log($"[UnitSpawner] Spawned unit {unitToSpawn.characterName}.", this);
         }
+    }
+
+    private CharacterDefinitionSO ReturnUnitToSpawn(List<UnitSpawnerUnit> list)
+    {
+        float totalProbability = 0;
+        foreach (var unit in list)
+        {
+            totalProbability += unit.probability;
+        }
+
+        float randomValue = Random.Range(0, totalProbability);
+        float cumulativeProbability = 0;
+        foreach (var unit in list)
+        {
+            cumulativeProbability += unit.probability;
+            if (randomValue < cumulativeProbability)
+            {
+                return unit.unit;
+            }
+        }
+
+        return null;
     }
 }

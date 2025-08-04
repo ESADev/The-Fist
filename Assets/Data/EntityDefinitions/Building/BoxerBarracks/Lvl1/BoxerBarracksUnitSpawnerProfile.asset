@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6cf42702042f424daf39c54639e8376, type: 3}
   m_Name: BoxerBarracksUnitSpawnerProfile
   m_EditorClassIdentifier: 
-  unitPrefab: {fileID: 1222450953393870924, guid: 7c5ac9b74a90e6b49b3f104f89035d47, type: 3}
-  spawnRateInSeconds: 5
+  units:
+  - unit: {fileID: 11400000, guid: bcdb189da4daf6c45980d1c4dfaf6dc8, type: 2}
+    probability: 2
+  - unit: {fileID: 11400000, guid: 2fe1151e8cefcd748af8d9760be0b26c, type: 2}
+    probability: 1
+  spawnRate: 0.5

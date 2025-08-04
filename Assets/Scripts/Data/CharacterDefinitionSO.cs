@@ -35,7 +35,7 @@ public class CharacterDefinitionSO : ScriptableObject
     /// Prefab representing the character in the scene.
     /// </summary>
     [Tooltip("Prefab representing the character in the scene.")]
-    public GameObject characterPrefab;
+    public Entity characterPrefab;
 
     // REMOVED
     /// <summary>

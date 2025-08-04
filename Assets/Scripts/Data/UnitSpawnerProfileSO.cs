@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -8,8 +10,15 @@ public class UnitSpawnerProfileSO : ScriptableObject
 {
     [Header("Spawner Settings")]
     [Tooltip("Prefab of the unit to spawn.")]
-    public GameObject unitPrefab;
+    public List<UnitSpawnerUnit> units;
 
-    [Tooltip("Time in seconds between spawns.")]
-    public float spawnRateInSeconds = 5f;
+    [Tooltip("Rate to spawn units, in seconds")]
+    public float spawnRate = 5f;
+}
+
+[Serializable]
+public class UnitSpawnerUnit
+{
+    public CharacterDefinitionSO unit;
+    public float probability = 1f;
 }

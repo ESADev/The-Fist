@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0b2cd1f939ea1a41979a24b58f84dce, type: 3}
-  m_Name: Lvl1BoxerCharacterDefinition
+  m_Name: Lvl2BoxerCharacterDefinition
   m_EditorClassIdentifier: 
-  characterName: Lvl 1 Boxer
+  characterName: Lvl 2 Boxer
   description: No description provided.
   characterType: 7
   cost: []
-  characterPrefab: {fileID: 801947664179191158, guid: 7c5ac9b74a90e6b49b3f104f89035d47, type: 3}
+  characterPrefab: {fileID: 5558978850391967136, guid: 805ec15a9681e714f93ba432a53db187, type: 3}
   healthStats: {fileID: 11400000, guid: 76c034d774156e546b0150e34fc8a5b9, type: 2}
-  movementStats: {fileID: 11400000, guid: 317445aefc3fdf940ab3b92684b3968b, type: 2}
+  movementStats: {fileID: 11400000, guid: 5ee034a14ad28da488fb0494b03c3bbb, type: 2}
   attackerProfile: {fileID: 11400000, guid: c5530842069adcb45acb260c9cc64cca, type: 2}
   targetScanner: {fileID: 11400000, guid: 24e79b6823d753a4a96af7c413be266e, type: 2}
   interactorProfile: {fileID: 11400000, guid: ef199761ff76dc44ea547753369fbf74, type: 2}

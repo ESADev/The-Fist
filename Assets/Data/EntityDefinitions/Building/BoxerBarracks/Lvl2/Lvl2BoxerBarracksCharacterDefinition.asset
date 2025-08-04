@@ -16,7 +16,7 @@ MonoBehaviour:
   description: No description provided.
   characterType: 4
   cost: []
-  characterPrefab: {fileID: 64463887334154574, guid: 03d1d8fad52fbc540931854a5d1b1b4c, type: 3}
+  characterPrefab: {fileID: 2852673206869561415, guid: 03d1d8fad52fbc540931854a5d1b1b4c, type: 3}
   healthStats: {fileID: 11400000, guid: 7d5aae236a2100e429f03459083c3995, type: 2}
   movementStats: {fileID: 11400000, guid: 6ea3841746588774fb4e4a7a7fc8e6bf, type: 2}
   attackerProfile: {fileID: 11400000, guid: 4311cdee8abf2b4448997282721d37c2, type: 2}
