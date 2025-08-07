@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0b2cd1f939ea1a41979a24b58f84dce, type: 3}
+  m_Name: Lvl1ArcherTower
+  m_EditorClassIdentifier: 
+  characterName: "Lvl 1 Archer Tower \U0001F3F9"
+  description: 
+  characterType: 6
+  cost:
+  - type: 0
+    amount: 500
+  characterPrefab: {fileID: 816939239325968767, guid: b66c648ae89dfaf4784c57bbf6dad0cd, type: 3}
+  healthStats: {fileID: 11400000, guid: 96f39691f76bbeb44a7cd0c1dc9f2be0, type: 2}
+  movementStats: {fileID: 11400000, guid: 99e241e10d9f1744ea3297e8eca2dd78, type: 2}
+  attackerProfile: {fileID: 11400000, guid: 50d0fa0e659ae1340aad94d04e953bb7, type: 2}
+  targetScanner: {fileID: 11400000, guid: cbe2ef2b2a8f4174d907a39c92d04f5b, type: 2}
+  interactorProfile: {fileID: 11400000, guid: 03e9d730820ae904e91b51669fe773e7, type: 2}
+  characterPortrait: {fileID: 0}
+  deathBounty: {fileID: 11400000, guid: 239dfc4a3375d714299a182fe93c39f5, type: 2}

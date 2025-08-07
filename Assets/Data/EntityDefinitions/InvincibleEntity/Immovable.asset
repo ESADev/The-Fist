@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Immovable
   m_EditorClassIdentifier: 
   moveSpeed: 0
-  turnSpeed: 0
+  turnSpeed: 720
   movementSmoothness: 0
-  rotationSmoothness: 0
+  rotationSmoothness: 0.1

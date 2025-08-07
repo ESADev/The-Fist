@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0b2cd1f939ea1a41979a24b58f84dce, type: 3}
+  m_Name: Lvl1ArcherCharacterDefinition
+  m_EditorClassIdentifier: 
+  characterName: Lvl 1 Archer
+  description: No description provided.
+  characterType: 7
+  cost: []
+  characterPrefab: {fileID: 801947664179191158, guid: 7c5ac9b74a90e6b49b3f104f89035d47, type: 3}
+  healthStats: {fileID: 11400000, guid: bdb3847a0818fcf4a9f45d849ce32beb, type: 2}
+  movementStats: {fileID: 11400000, guid: a76a3e8a6460e294e92f632b8c53261f, type: 2}
+  attackerProfile: {fileID: 11400000, guid: 4a3e964729571554d90db890004ce388, type: 2}
+  targetScanner: {fileID: 11400000, guid: d3b5062c77d387647a676c8cd671bb16, type: 2}
+  interactorProfile: {fileID: 11400000, guid: e32218f7287f47b4cafffb445cdbf007, type: 2}
+  characterPortrait: {fileID: 0}
+  deathBounty: {fileID: 11400000, guid: f6894b99e05d74241a93c646f8e27ffe, type: 2}

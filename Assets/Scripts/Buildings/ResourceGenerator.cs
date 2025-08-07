@@ -4,14 +4,13 @@ using UnityEngine;
 /// <summary>
 /// Generates resources for the player at regular intervals.
 /// </summary>
-[RequireComponent(typeof(Entity))]
 public class ResourceGenerator : MonoBehaviour
 {
     [Header("Generator Profile")]
     [Tooltip("Profile defining resource generation settings.")]
     public ResourceGeneratorProfileSO generatorProfile;
 
-    private Coroutine generateRoutine;
+    private Coroutine[] generateRoutines;
 
     private void OnEnable()
     {
@@ -22,27 +21,45 @@ public class ResourceGenerator : MonoBehaviour
             return;
         }
 
-        generateRoutine = StartCoroutine(GenerateCoroutine());
+        generateRoutines = new Coroutine[generatorProfile.resources.Count];
+        for (int i = 0; i < generatorProfile.resources.Count; i++)
+        {
+            ResourceGenerationField resourceProfile = generatorProfile.resources[i];
+            if (resourceProfile == null)
+                continue;
+
+            if (generateRoutines[i] != null)
+                StopCoroutine(generateRoutines[i]);
+            generateRoutines[i] = StartCoroutine(GenerateCoroutine(resourceProfile));
+        }
     }
 
     private void OnDisable()
     {
-        if (generateRoutine != null)
+        if (generateRoutines != null)
         {
-            StopCoroutine(generateRoutine);
-            generateRoutine = null;
+            foreach (var routine in generateRoutines)
+            {
+                if (routine != null)
+                {
+                    StopCoroutine(routine);
+                }
+            }
+            generateRoutines = null;
         }
     }
 
-    private IEnumerator GenerateCoroutine()
+    private IEnumerator GenerateCoroutine(ResourceGenerationField resourceProfile)
     {
         while (true)
         {
-            yield return new WaitForSeconds(generatorProfile.tickRateInSeconds);
+            yield return new WaitForSeconds(resourceProfile.tickRateInSeconds);
             if (ResourceManager.Instance != null)
             {
-                ResourceManager.Instance.AddResource(generatorProfile.resourceType, generatorProfile.amountPerTick);
-                Debug.Log($"[ResourceGenerator] Added {generatorProfile.amountPerTick} {generatorProfile.resourceType}.", this);
+                int amountPerTick = Mathf.RoundToInt(resourceProfile.tickRateInSeconds * resourceProfile.amountPerSeconds);
+
+                ResourceManager.Instance.AddResource(resourceProfile.resourceType, amountPerTick);
+                Debug.Log($"[ResourceGenerator] Added {amountPerTick} {resourceProfile.resourceType}.", this);
             }
             else
             {

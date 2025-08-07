@@ -18,6 +18,11 @@ public class Attacker : MonoBehaviour
     [Tooltip("Collider used for attack interactions. If not set, will be auto-assigned from children.")]
     private new Collider collider;
 
+    [Space]
+    [SerializeField]
+    [Tooltip("Spawn point for projectiles. If not set, will use the transform position.")]
+    private Transform projectileSpawnPoint;
+
     /// <summary>
     /// Tracks remaining cooldown time for each attack.
     /// </summary>
@@ -308,7 +313,8 @@ public class Attacker : MonoBehaviour
 
         if (ranged != null && ranged.projectilePrefab != null)
         {
-            GameObject projectileObj = Instantiate(ranged.projectilePrefab, transform.position, Quaternion.identity);
+            Vector3 spawnPoint = projectileSpawnPoint != null ? projectileSpawnPoint.position : transform.position;
+            GameObject projectileObj = Instantiate(ranged.projectilePrefab, spawnPoint, Quaternion.identity);
             if (projectileObj.TryGetComponent<SimpleProjectile>(out var projectile))
             {
                 projectile.Initialize(gameObject, target, ranged);

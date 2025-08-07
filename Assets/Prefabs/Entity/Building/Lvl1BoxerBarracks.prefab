@@ -63,7 +63,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b776bd62e4d29a4683a700108a6694a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentFaction: 2
+  CurrentFaction: 1
 --- !u!114 &355145827168075213
 MonoBehaviour:
   m_ObjectHideFlags: 0
