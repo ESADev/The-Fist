@@ -7,7 +7,6 @@ using MoreMountains.Tools;
 /// Integrates with the More Mountains FEEL package for playback and
 /// listens to global events while providing a direct API for manual sound triggers.
 /// </summary>
-[RequireComponent(typeof(AudioSource))]
 public class SFXManager : MonoBehaviour
 {
     /// <summary>
@@ -24,14 +23,14 @@ public class SFXManager : MonoBehaviour
     public string unitDamagedKey = "unit_hit";
 
     /// <summary>
-    /// Cached audio source component.
+    /// SFXSource prefab.
     /// </summary>
-    private AudioSource audioSource;
+    [SerializeField] private SFXSource sfxSource;
 
     /// <summary>
     /// Dictionary for quick lookup of audio clips by key.
     /// </summary>
-    private readonly Dictionary<string, AudioClip> clips = new Dictionary<string, AudioClip>();
+    private readonly Dictionary<string, SoundEffect> soundEffects = new Dictionary<string, SoundEffect>();
 
     private void Awake()
     {
@@ -45,7 +44,6 @@ public class SFXManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        audioSource = GetComponent<AudioSource>();
         if (audioLibrary == null)
         {
             Debug.LogError("[SFXManager] AudioLibrarySO is not assigned.", this);
@@ -70,7 +68,7 @@ public class SFXManager : MonoBehaviour
     /// </summary>
     private void BuildLookup()
     {
-        clips.Clear();
+        soundEffects.Clear();
 
         foreach (SoundEffect effect in audioLibrary.soundEffects)
         {
@@ -85,19 +83,19 @@ public class SFXManager : MonoBehaviour
                 continue;
             }
 
-            if (effect.clip == null)
+            if (effect.clips == null)
             {
                 Debug.LogWarning($"[SFXManager] Sound effect '{effect.key}' has no clip.", this);
                 continue;
             }
 
-            if (clips.ContainsKey(effect.key))
+            if (soundEffects.ContainsKey(effect.key))
             {
                 Debug.LogWarning($"[SFXManager] Duplicate sound key '{effect.key}' ignored.", this);
                 continue;
             }
 
-            clips.Add(effect.key, effect.clip);
+            soundEffects.Add(effect.key, effect);
         }
     }
 
@@ -105,7 +103,7 @@ public class SFXManager : MonoBehaviour
     /// Plays a sound effect corresponding to the provided key.
     /// </summary>
     /// <param name="key">Key of the sound effect to play.</param>
-    public void PlaySound(string key)
+    public void PlaySound(string key, Vector3 position)
     {
         if (string.IsNullOrEmpty(key))
         {
@@ -113,16 +111,22 @@ public class SFXManager : MonoBehaviour
             return;
         }
 
-        if (!clips.TryGetValue(key, out AudioClip clip))
+        if (!soundEffects.TryGetValue(key, out SoundEffect soundEffect))
         {
             Debug.LogWarning($"[SFXManager] Sound with key '{key}' not found.", this);
             return;
         }
 
+        SFXClip randomSFXClip = soundEffect.clips[Random.Range(0, soundEffect.clips.Count)];
+        float volume = randomSFXClip.UseRandomVolume ? randomSFXClip.volume * Random.Range(1f - randomSFXClip.RandomVolumeVariance, 1f - randomSFXClip.RandomVolumeVariance) : randomSFXClip.volume;
+        float pitch = randomSFXClip.UseRandomPitch ? randomSFXClip.pitch * Random.Range(1f - randomSFXClip.RandomPitchVariance, 1f - randomSFXClip.RandomPitchVariance) : randomSFXClip.pitch;
         MMSoundManagerSoundPlayEvent.Trigger(
-            clip,
+            randomSFXClip.clip,
             MMSoundManager.MMSoundManagerTracks.Sfx,
-            transform.position);
+            position,
+            volume: volume,
+            pitch: pitch
+        );
 
         Debug.Log($"[SFXManager] Playing sound '{key}' via FEEL.");
     }
@@ -133,6 +137,6 @@ public class SFXManager : MonoBehaviour
     /// <param name="damageInfo">Information about the damage event.</param>
     private void HandleUnitDamaged(DamageInfo damageInfo)
     {
-        PlaySound(unitDamagedKey);
+        PlaySound(unitDamagedKey, damageInfo.victim.transform.position);
     }
 }

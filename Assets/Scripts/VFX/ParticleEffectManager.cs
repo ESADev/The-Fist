@@ -1,88 +1,179 @@
-using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 /// <summary>
-/// Handles spawning of particle effect prefabs based on keys.
+/// Handles spawning and management of particle effects using VFXLibrary data.
 /// </summary>
 public class ParticleEffectManager : MonoBehaviour
 {
     [Header("Configuration")]
-    [Tooltip("Library asset containing all visual effects.")]
-    public VFXLibrarySO vfxLibrary;
-
-    /// <summary>
-    /// Lookup dictionary for effect prefabs.
-    /// </summary>
-    private readonly Dictionary<string, GameObject> effects = new Dictionary<string, GameObject>();
+    [Tooltip("Library asset containing all VFX configurations.")]
+    public VFXLibrary vfxLibrary;
 
     private void Awake()
     {
         if (vfxLibrary == null)
         {
-            Debug.LogError("[ParticleEffectManager] VFXLibrarySO is not assigned.", this);
+            Debug.LogError("[ParticleEffectManager] VFXLibrary is not assigned.", this);
             return;
         }
 
-        BuildLookup();
+        vfxLibrary.Initialize();
     }
 
     /// <summary>
-    /// Builds the internal lookup dictionary from the assigned <see cref="vfxLibrary"/>.
-    /// </summary>
-    private void BuildLookup()
-    {
-        effects.Clear();
-
-        foreach (VisualEffect effect in vfxLibrary.effects)
-        {
-            if (effect == null)
-            {
-                continue;
-            }
-
-            if (string.IsNullOrEmpty(effect.key))
-            {
-                Debug.LogWarning("[ParticleEffectManager] Encountered effect with empty key.", this);
-                continue;
-            }
-
-            if (effect.effectPrefab == null)
-            {
-                Debug.LogWarning($"[ParticleEffectManager] Effect '{effect.key}' has no prefab.", this);
-                continue;
-            }
-
-            if (effects.ContainsKey(effect.key))
-            {
-                Debug.LogWarning($"[ParticleEffectManager] Duplicate effect key '{effect.key}' ignored.", this);
-                continue;
-            }
-
-            effects.Add(effect.key, effect.effectPrefab);
-        }
-    }
-
-    /// <summary>
-    /// Spawns a particle effect at the specified position and rotation.
+    /// Spawns a particle effect using data-driven configuration.
     /// </summary>
     /// <param name="key">Key identifying which effect to spawn.</param>
     /// <param name="position">World position for the effect.</param>
     /// <param name="rotation">Rotation for the spawned effect.</param>
-    public void PlayParticle(string key, Vector3 position, Quaternion rotation)
+    /// <param name="parent">Optional parent transform.</param>
+    /// <returns>The instantiated effect GameObject, or null if spawn failed.</returns>
+    public GameObject PlayParticle(string key, Vector3 position, Quaternion rotation, Transform parent = null)
     {
         if (string.IsNullOrEmpty(key))
         {
             Debug.LogWarning("[ParticleEffectManager] PlayParticle called with empty key.", this);
-            return;
+            return null;
         }
 
-        if (!effects.TryGetValue(key, out GameObject prefab))
+        ParticleEffectData effectData = vfxLibrary.GetParticleEffect(key);
+        if (effectData == null)
         {
-            Debug.LogWarning($"[ParticleEffectManager] Effect with key '{key}' not found.", this);
-            return;
+            Debug.LogWarning($"[ParticleEffectManager] Particle effect with key '{key}' not found.", this);
+            return null;
         }
 
-        Instantiate(prefab, position, rotation);
-        Debug.Log($"[ParticleEffectManager] Spawned particle effect '{key}'.");
+        return SpawnParticleEffect(effectData, position, rotation, parent);
+    }
+
+    /// <summary>
+    /// Spawns a particle effect with custom scale override.
+    /// </summary>
+    /// <param name="key">Key identifying which effect to spawn.</param>
+    /// <param name="position">World position for the effect.</param>
+    /// <param name="rotation">Rotation for the spawned effect.</param>
+    /// <param name="scale">Scale multiplier override.</param>
+    /// <param name="parent">Optional parent transform.</param>
+    /// <returns>The instantiated effect GameObject, or null if spawn failed.</returns>
+    public GameObject PlayParticleWithScale(string key, Vector3 position, Quaternion rotation, float scale, Transform parent = null)
+    {
+        if (string.IsNullOrEmpty(key))
+        {
+            Debug.LogWarning("[ParticleEffectManager] PlayParticleWithScale called with empty key.", this);
+            return null;
+        }
+
+        ParticleEffectData effectData = vfxLibrary.GetParticleEffect(key);
+        if (effectData == null)
+        {
+            Debug.LogWarning($"[ParticleEffectManager] Particle effect with key '{key}' not found.", this);
+            return null;
+        }
+
+        // Create a temporary copy with modified scale
+        var modifiedData = new ParticleEffectData();
+        modifiedData.key = effectData.key;
+        modifiedData.particlePrefab = effectData.particlePrefab;
+        modifiedData.autoDestroy = effectData.autoDestroy;
+        modifiedData.maxLifetime = effectData.maxLifetime;
+        modifiedData.playOnAwake = effectData.playOnAwake;
+        modifiedData.scale = scale;
+
+        return SpawnParticleEffect(modifiedData, position, rotation, parent);
+    }
+
+    /// <summary>
+    /// Internal method to spawn a particle effect from data configuration.
+    /// </summary>
+    private GameObject SpawnParticleEffect(ParticleEffectData data, Vector3 position, Quaternion rotation, Transform parent)
+    {
+        GameObject instance = Instantiate(data.particlePrefab, position, rotation, parent);
+        
+        // Apply scale
+        if (data.scale != 1f)
+        {
+            instance.transform.localScale *= data.scale;
+        }
+
+        // Configure particle systems
+        ParticleSystem[] particleSystems = instance.GetComponentsInChildren<ParticleSystem>();
+        
+        foreach (ParticleSystem ps in particleSystems)
+        {
+            if (!data.playOnAwake)
+            {
+                ps.Stop();
+            }
+            else if (!ps.isPlaying)
+            {
+                ps.Play();
+            }
+        }
+
+        // Handle auto-destruction
+        if (data.autoDestroy)
+        {
+            StartCoroutine(HandleAutoDestroy(instance, data, particleSystems));
+        }
+
+        Debug.Log($"[ParticleEffectManager] Spawned particle effect '{data.key}' at {position}.");
+        return instance;
+    }
+
+    /// <summary>
+    /// Coroutine to handle automatic destruction of particle effects.
+    /// </summary>
+    private IEnumerator HandleAutoDestroy(GameObject instance, ParticleEffectData data, ParticleSystem[] particleSystems)
+    {
+        float elapsedTime = 0f;
+        
+        while (elapsedTime < data.maxLifetime)
+        {
+            // Check if all particle systems have finished
+            bool allFinished = true;
+            foreach (ParticleSystem ps in particleSystems)
+            {
+                if (ps != null && (ps.isPlaying || ps.particleCount > 0))
+                {
+                    allFinished = false;
+                    break;
+                }
+            }
+
+            if (allFinished)
+            {
+                break;
+            }
+
+            yield return null;
+            elapsedTime += Time.deltaTime;
+        }
+
+        if (instance != null)
+        {
+            Destroy(instance);
+        }
+    }
+
+    /// <summary>
+    /// Stops all particle effects with the specified key.
+    /// </summary>
+    /// <param name="key">Key of the particle effect to stop.</param>
+    public void StopParticleEffect(string key)
+    {
+        GameObject[] allObjects = FindObjectsByType<GameObject>(FindObjectsSortMode.None);
+        
+        foreach (GameObject obj in allObjects)
+        {
+            if (obj.name.Contains(key))
+            {
+                ParticleSystem[] particleSystems = obj.GetComponentsInChildren<ParticleSystem>();
+                foreach (ParticleSystem ps in particleSystems)
+                {
+                    ps.Stop();
+                }
+            }
+        }
     }
 }
