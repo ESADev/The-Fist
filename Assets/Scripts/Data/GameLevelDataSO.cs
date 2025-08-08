@@ -14,6 +14,6 @@ public class GameLevelDataSO : ScriptableObject
     public string levelName = "New Level";
 
     [Header("Gameplay")]
-    [Tooltip("How often enemies spawn (in seconds or rate units).")]
-    public float enemySpawnRate = 1f;
+    [Tooltip("How often enemies spawn.")]
+    public float enemySpawnRateScaler = 1f;
 }

@@ -273,7 +273,7 @@ public class Attacker : MonoBehaviour
         }
         else
         {
-            ExecuteRangedAttack(attack, target);
+            ExecuteRangedAttack(attack, target, FactionHelper.GetEnemyOf(entity.Faction.CurrentFaction));
         }
 
         attackCooldowns[attack] = attack.cooldown;
@@ -305,7 +305,7 @@ public class Attacker : MonoBehaviour
     /// </summary>
     /// <param name="attack">Attack being executed.</param>
     /// <param name="target">Target receiving the attack.</param>
-    private void ExecuteRangedAttack(AttackDefinitionSO attack, GameObject target)
+    private void ExecuteRangedAttack(AttackDefinitionSO attack, GameObject target, FactionType targetFaction)
     {
         Debug.Log($"[Attacker] {gameObject.name} performs ranged attack {attack.attackName} on {target.name}");
 
@@ -317,7 +317,7 @@ public class Attacker : MonoBehaviour
             GameObject projectileObj = Instantiate(ranged.projectilePrefab, spawnPoint, Quaternion.identity);
             if (projectileObj.TryGetComponent<SimpleProjectile>(out var projectile))
             {
-                projectile.Initialize(gameObject, target, ranged);
+                projectile.Initialize(gameObject, target, ranged, targetFaction);
             }
             else
             {

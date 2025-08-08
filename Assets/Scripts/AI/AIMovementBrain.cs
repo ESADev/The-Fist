@@ -22,7 +22,9 @@ public class AIMovementBrain : MonoBehaviour
     private Entity entity;
     private GameObject tacticalTarget;
     private AIMovementState currentState = AIMovementState.MovingStrategic;
+    private AIMovementState previousState = AIMovementState.MovingStrategic;
     private float tacticalRange = 1f;
+    private bool wasWithinTacticalRange = false;
 
     private void Awake()
     {
@@ -87,7 +89,7 @@ public class AIMovementBrain : MonoBehaviour
 
     private void Start()
     {
-        if (strategicTarget == null)
+        if (strategicTarget == null && !TryGetComponent<AutoAssignStrategicTarget>(out var assigner))
         {
             Debug.LogError($"[AIMovementBrain] Strategic target not assigned on {gameObject.name}", this);
             return;
@@ -97,6 +99,8 @@ public class AIMovementBrain : MonoBehaviour
         {
             Debug.Log($"[AIMovementBrain] Moving towards {strategicTarget.name}");
             movementController.MoveTo(strategicTarget.transform);
+            currentState = AIMovementState.MovingStrategic;
+            previousState = AIMovementState.EngagingTactical;
         }
     }
 
@@ -115,7 +119,13 @@ public class AIMovementBrain : MonoBehaviour
         }
 
         UpdateCurrentStateLogic();
-        ExecuteMovementBehavior();
+        
+        // Only execute movement behavior when state changes or when tactical situation changes
+        if (HasStateChanged() || (currentState == AIMovementState.EngagingTactical && HasTacticalSituationChanged()))
+        {
+            ExecuteMovementBehavior();
+            previousState = currentState;
+        }
     }
 
     /// <summary>
@@ -125,6 +135,35 @@ public class AIMovementBrain : MonoBehaviour
     private bool IsMovementControllerValid()
     {
         return movementController != null && movementController.enabled;
+    }
+
+    /// <summary>
+    /// Checks if the AI movement state has changed since the last update.
+    /// </summary>
+    /// <returns>True if the state has changed, false otherwise.</returns>
+    private bool HasStateChanged()
+    {
+        return currentState != previousState;
+    }
+
+    /// <summary>
+    /// Checks if the tactical situation has changed (e.g., moved in/out of range).
+    /// </summary>
+    /// <returns>True if tactical situation changed, false otherwise.</returns>
+    private bool HasTacticalSituationChanged()
+    {
+        if (tacticalTarget == null) return false;
+        
+        float distanceToTarget = Vector3.Distance(transform.position, tacticalTarget.transform.position);
+        bool currentlyWithinRange = IsWithinTacticalRange(distanceToTarget);
+        
+        if (currentlyWithinRange != wasWithinTacticalRange)
+        {
+            wasWithinTacticalRange = currentlyWithinRange;
+            return true;
+        }
+        
+        return false;
     }
 
     /// <summary>
@@ -162,19 +201,24 @@ public class AIMovementBrain : MonoBehaviour
     {
         if (tacticalTarget == null)
         {
+            previousState = currentState;
             currentState = AIMovementState.MovingStrategic;
+            wasWithinTacticalRange = false;
             return;
         }
 
-        float distanceToTarget = Vector3.Distance(transform.position, tacticalTarget.transform.position);
-        
-        if (IsWithinTacticalRange(distanceToTarget))
+        if (HasStateChanged())
+        {
+            Debug.Log("[AIMovementBrain] Transitioning to tactical engagement.", this);
+        }
+
+        // Use the cached range state from HasTacticalSituationChanged()
+        if (wasWithinTacticalRange)
         {
             movementController.Stop();
         }
         else
         {
-
             movementController.MoveTo(tacticalTarget.transform);
         }
     }
@@ -184,6 +228,11 @@ public class AIMovementBrain : MonoBehaviour
     /// </summary>
     private void HandleStrategicMovement()
     {
+        if (HasStateChanged())
+        {
+            Debug.Log("[AIMovementBrain] Transitioning to strategic movement.", this);
+        }
+        
         if (strategicTarget != null)
         {
             movementController.MoveTo(strategicTarget.transform.position);
@@ -206,8 +255,14 @@ public class AIMovementBrain : MonoBehaviour
     private void HandleTargetAcquired(GameObject target)
     {
         tacticalTarget = target;
+        previousState = currentState;
         currentState = AIMovementState.EngagingTactical;
         UpdateTacticalRange();
+        
+        // Initialize tactical range state
+        float distanceToTarget = Vector3.Distance(transform.position, tacticalTarget.transform.position);
+        wasWithinTacticalRange = IsWithinTacticalRange(distanceToTarget);
+        
         Debug.Log($"[AIMovementBrain] Tactical target acquired: {target.name}");
     }
 
@@ -217,7 +272,9 @@ public class AIMovementBrain : MonoBehaviour
     private void HandleTargetLost()
     {
         tacticalTarget = null;
+        previousState = currentState;
         currentState = AIMovementState.MovingStrategic;
+        wasWithinTacticalRange = false;
         Debug.Log($"[AIMovementBrain] Tactical target lost for {gameObject.name}");
     }
 

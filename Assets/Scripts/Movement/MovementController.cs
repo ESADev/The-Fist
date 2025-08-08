@@ -80,6 +80,8 @@ public class MovementController : MonoBehaviour
             return;
         }
 
+        Debug.Log("[MovementController] Moving to " + destination + " from " + gameObject.name, this);
+
         mover?.MoveTo(destination);
     }
 
@@ -114,6 +116,8 @@ public class MovementController : MonoBehaviour
         {
             return;
         }
+
+        Debug.Log($"[MovementController] Moving to {destinationTransform.name} from {gameObject.name}", this);
 
         mover?.MoveTo(destinationTransform);
     }

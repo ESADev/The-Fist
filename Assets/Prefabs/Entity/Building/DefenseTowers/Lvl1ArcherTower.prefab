@@ -287,8 +287,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.2094918, y: 1.9544135, z: 1.3038195}
-  m_Center: {x: 0.023042263, y: -0.024084685, z: -0.008896114}
+  m_Size: {x: 1.2094918, y: 0.55703586, z: 1.3038195}
+  m_Center: {x: 0.023042273, y: -0.72277635, z: -0.008896129}
 --- !u!1 &5488565234558162762
 GameObject:
   m_ObjectHideFlags: 0
@@ -603,6 +603,7 @@ GameObject:
   - component: {fileID: 5172349685225311575}
   - component: {fileID: 5788744656904669756}
   - component: {fileID: 1298291412908379595}
+  - component: {fileID: 1589232249471915841}
   m_Layer: 6
   m_Name: Lvl1ArcherTower
   m_TagString: Untagged
@@ -682,6 +683,18 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &1589232249471915841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7925242740701515184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e770eace7bdd61469ed370f00553fe5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8078974560536400118
 GameObject:
   m_ObjectHideFlags: 0

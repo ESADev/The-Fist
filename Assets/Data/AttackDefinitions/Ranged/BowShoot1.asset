@@ -18,4 +18,4 @@ MonoBehaviour:
   cooldown: 2
   animationClipName: bow_shoot
   projectilePrefab: {fileID: 7601502823605475754, guid: ad429a6fe8765f847961560b8c6a6333, type: 3}
-  projectileSpeed: 20
+  projectileSpeed: 25

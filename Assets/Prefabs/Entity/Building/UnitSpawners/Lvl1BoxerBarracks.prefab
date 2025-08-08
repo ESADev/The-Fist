@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 355145827168075213}
   - component: {fileID: 3173934543719863618}
   - component: {fileID: 5989494374245995549}
+  - component: {fileID: 3386658547216609399}
   m_Layer: 6
   m_Name: Lvl1BoxerBarracks
   m_TagString: Untagged
@@ -107,6 +108,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnerProfile: {fileID: 11400000, guid: 452b602c92ba7ec44aadae1e6637cfe7, type: 2}
   spawnPoint: {fileID: 8573819047903864589}
+--- !u!114 &3386658547216609399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 64463887334154574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e770eace7bdd61469ed370f00553fe5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2109817382813330644
 GameObject:
   m_ObjectHideFlags: 0

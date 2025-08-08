@@ -7,5 +7,6 @@ public enum CharacterType
     Unit_Spawner,
     Resource_Generator,
     Defense_Tower,
+    Wall,
     Character
 }

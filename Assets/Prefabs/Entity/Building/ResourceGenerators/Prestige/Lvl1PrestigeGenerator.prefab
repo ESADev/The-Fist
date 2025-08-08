@@ -117,7 +117,8 @@ GameObject:
   - component: {fileID: 3989385201903950637}
   - component: {fileID: 5712248535369468426}
   - component: {fileID: 7914988748181137648}
-  m_Layer: 0
+  - component: {fileID: 675446337096734358}
+  m_Layer: 6
   m_Name: tmpfql3t9u2.ply
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -192,6 +193,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &675446337096734358
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4572526669919307845}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.5717803, y: 1.964781, z: 1.0294628}
+  m_Center: {x: 0.015560869, y: -0.019638658, z: -0.023920482}
 --- !u!1 &5172637611345769280
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,6 +228,7 @@ GameObject:
   - component: {fileID: 4092590901172476588}
   - component: {fileID: 6602615354333167062}
   - component: {fileID: 6436182338003188928}
+  - component: {fileID: 723564114070195588}
   m_Layer: 6
   m_Name: Lvl1PrestigeGenerator
   m_TagString: Untagged
@@ -297,6 +320,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   generatorProfile: {fileID: 11400000, guid: c5b4288dad9c40046abe713981998ea8, type: 2}
+--- !u!114 &723564114070195588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5172637611345769280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e770eace7bdd61469ed370f00553fe5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5836600773167456428
 GameObject:
   m_ObjectHideFlags: 0
@@ -306,7 +341,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3257948709690680217}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: lvl_1_prestige_generator
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0b2cd1f939ea1a41979a24b58f84dce, type: 3}
   m_Name: Lvl1BoxerBarracksCharacterDefinition
   m_EditorClassIdentifier: 
-  characterName: Lvl 1 Boxer Barracks
+  characterName: "Lvl 1 Boxer Barracks \U0001FAE1"
   description: Rookie barracks. Better than nothing.
   characterType: 4
   cost:
   - type: 0
     amount: 500
-  characterPrefab: {fileID: 3496228121881631642, guid: 2159b70beebf79b418aea1a859514fb4, type: 3}
+  characterPrefab: {fileID: 6046509933088928113, guid: 59b6e8721ea369c4f8fe5e11e6ede5d2, type: 3}
   healthStats: {fileID: 11400000, guid: 7d5aae236a2100e429f03459083c3995, type: 2}
   movementStats: {fileID: 11400000, guid: 6ea3841746588774fb4e4a7a7fc8e6bf, type: 2}
   attackerProfile: {fileID: 11400000, guid: 4311cdee8abf2b4448997282721d37c2, type: 2}

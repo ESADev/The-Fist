@@ -13,8 +13,14 @@ public class LevelManager : MonoBehaviour
     /// <summary>
     /// Reference to the enemy's main base in the scene.
     /// </summary>
+    [Tooltip("Reference to the player's main base in the scene.")]
+    public Entity playerMainBase;
+
+    /// <summary>
+    /// Reference to the enemy's main base in the scene.
+    /// </summary>
     [Tooltip("Reference to the enemy's main base in the scene.")]
-    public GameObject enemyMainBase;
+    public Entity enemyMainBase;
 
     private void Update()
     {
@@ -33,19 +39,6 @@ public class LevelManager : MonoBehaviour
             Debug.LogError("[LevelManager] GameLevelDataSO is null.", this);
             return;
         }
-
-        Debug.Log($"[LevelManager] Initializing level: {data.levelName}");
-        SpawnLevelElements();
-    }
-
-    /// <summary>
-    /// Spawns all gameplay elements defined for the level.
-    /// </summary>
-    private void SpawnLevelElements()
-    {
-        // Implementation specific to the game would go here.
-        // For now we simply log for visibility.
-        Debug.Log("[LevelManager] Spawning level elements.");
     }
 
     /// <summary>
@@ -53,10 +46,16 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     private void CheckWin()
     {
-        if (enemyMainBase == null)
+        if (enemyMainBase.Health.IsDead)
         {
             Debug.Log("[LevelManager] Enemy base destroyed. Triggering victory.");
             GameEvents.TriggerOnVictory();
+            enabled = false;
+        }
+        else if (playerMainBase.Health.IsDead)
+        {
+            Debug.Log("[LevelManager] Player base destroyed. Triggering defeat.");
+            GameEvents.TriggerOnDefeat();
             enabled = false;
         }
     }

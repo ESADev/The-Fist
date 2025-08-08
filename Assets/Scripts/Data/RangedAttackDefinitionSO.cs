@@ -11,7 +11,7 @@ public class RangedAttackDefinitionSO : AttackDefinitionSO
     public GameObject projectilePrefab;
 
     [Tooltip("Movement speed of projectiles spawned by this attack.")]
-    public float projectileSpeed = 20f;
+    public float projectileSpeed = 50f;
 
     /// <inheritdoc/>
     public override AttackType AttackType => AttackType.Ranged;

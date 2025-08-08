@@ -1,26 +1,26 @@
 using UnityEngine;
 
 /// <summary>
-/// Basic projectile that follows a parabolic trajectory toward a target and applies damage on impact.
+/// Basic projectile that follows a parabolic trajectory and applies damage on impact with Health components.
+/// Requires a Rigidbody and Collider component for proper collision detection.
 /// </summary>
 public class SimpleProjectile : MonoBehaviour
 {
     private float speed;
-    private Vector3 velocity;
     private Vector3 targetPosition;
-    private float gravity = 9.81f;
 
-    private GameObject target;
     private GameObject attacker;
     private RangedAttackDefinitionSO attackData;
+    private Rigidbody rb;
+    private FactionType targetFaction;
 
     /// <summary>
     /// Initializes the projectile with its attacker, target and attack data.
     /// </summary>
     /// <param name="attacker">Origin of the projectile.</param>
-    /// <param name="target">Target to hit.</param>
+    /// <param name="target">Target position to aim for.</param>
     /// <param name="attackData">Attack definition used for damage calculation.</param>
-    public void Initialize(GameObject attacker, GameObject target, RangedAttackDefinitionSO attackData)
+    public void Initialize(GameObject attacker, GameObject target, RangedAttackDefinitionSO attackData, FactionType targetFaction)
     {
         if (target == null || attackData == null)
         {
@@ -30,42 +30,66 @@ public class SimpleProjectile : MonoBehaviour
         }
 
         this.attacker = attacker;
-        this.target = target;
         this.attackData = attackData;
+        this.targetFaction = targetFaction;
         speed = attackData.projectileSpeed;
 
-        // Store the target's position at the moment of firing
-        targetPosition = target.transform.position;
+        // Get or add Rigidbody component
+        rb = GetComponent<Rigidbody>();
+        if (rb == null)
+        {
+            rb = gameObject.AddComponent<Rigidbody>();
+        }
 
-        // Calculate initial velocity for parabolic trajectory
-        velocity = CalculateBallisticVelocity(transform.position, targetPosition, speed);
+        // Configure Rigidbody for projectile physics
+        rb.useGravity = true;
+        rb.linearDamping = 0f;
+        rb.angularDamping = 0f;
+
+        Vector3 targetPosOffset = new(0, 0.5f, 0);
+
+        // Store the target's position at the moment of firing
+        targetPosition = target.transform.position + targetPosOffset;
+
+        // Calculate and apply initial velocity for parabolic trajectory
+        Vector3 initialVelocity = CalculateBallisticVelocity(transform.position, targetPosition, speed);
+        rb.linearVelocity = initialVelocity;
     }
 
     private void Update()
     {
-        // Apply ballistic motion
-        velocity.y -= gravity * Time.deltaTime;
-        transform.position += velocity * Time.deltaTime;
-
-        // Check if we've hit the actual target (not just the original position)
-        if (target != null && Vector3.Distance(transform.position, target.transform.position) <= 0.5f)
-        {
-            HandleTargetHit();
-            return;
-        }
-
-        // Check if we've hit the ground or reached the original target area (miss)
-        if (Vector3.Distance(transform.position, targetPosition) <= 0.5f || transform.position.y <= targetPosition.y)
-        {
-            HandleMiss();
-            return;
-        }
-
-        // Destroy projectile if it goes too far or too low
+        // Destroy projectile if it goes too far or too low (failsafe)
         if (Vector3.Distance(transform.position, targetPosition) > 100f || transform.position.y < targetPosition.y - 10f)
         {
             Destroy(gameObject);
         }
+    }
+
+    /// <summary>
+    /// Handles collision detection when the projectile hits something.
+    /// </summary>
+    private void OnCollisionEnter(Collision collision)
+    {
+        Entity target = collision.collider.GetComponentInParent<Entity>();
+        if (target != null && target.gameObject == attacker)
+        {
+            return;
+        }
+
+        // VFX
+
+        // SFX
+
+        // Check if the hit object has a Health component
+        if (target != null && target.Faction.CurrentFaction == targetFaction)
+        {
+            target.Health.TakeDamage(attackData.damage, attacker, attackData);
+
+            Debug.Log($"[SimpleProjectile] Hit {target.gameObject.name}!", this);
+            Destroy(gameObject);
+        }
+
+        HandleMiss();
     }
 
     /// <summary>
@@ -82,11 +106,14 @@ public class SimpleProjectile : MonoBehaviour
         float horizontalDistance = horizontalDisplacement.magnitude;
         float heightDifference = displacement.y;
 
+        // Use Unity's Physics.gravity instead of our custom gravity
+        float gravityMagnitude = Physics.gravity.magnitude;
+
         // Calculate time of flight using the desired speed
         float timeToTarget = horizontalDistance / launchSpeed;
 
         // Calculate required vertical velocity to reach target height
-        float verticalVelocity = (heightDifference / timeToTarget) + (0.5f * gravity * timeToTarget);
+        float verticalVelocity = (heightDifference / timeToTarget) + (0.5f * gravityMagnitude * timeToTarget);
 
         // Calculate horizontal velocity components
         Vector3 horizontalVelocity = horizontalDisplacement.normalized * launchSpeed;
@@ -95,29 +122,11 @@ public class SimpleProjectile : MonoBehaviour
     }
 
     /// <summary>
-    /// Handles when the projectile actually hits the target.
-    /// </summary>
-    private void HandleTargetHit()
-    {
-        if (target != null && target.TryGetComponent<Health>(out var health))
-        {
-            health.TakeDamage(attackData.damage, attacker, attackData);
-            Debug.Log($"[SimpleProjectile] Direct hit on {target.name}!", this);
-        }
-        else
-        {
-            Debug.LogWarning("[SimpleProjectile] Target has no Health component.", this);
-        }
-        Destroy(gameObject);
-    }
-
-    /// <summary>
-    /// Handles when the projectile misses the target and hits the ground/original position.
+    /// Handles when the projectile misses and hits the ground.
     /// </summary>
     private void HandleMiss()
     {
-        Debug.Log("[SimpleProjectile] Projectile missed target and hit the ground.", this);
-        // Could add area damage or other effects here if desired
+        Debug.Log("[SimpleProjectile] Projectile missed and hit the ground.", this);
         Destroy(gameObject);
     }
 }
