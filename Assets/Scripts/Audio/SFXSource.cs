@@ -4,6 +4,7 @@ using UnityEngine;
 public class SFXSource : MonoBehaviour
 {
     [Header("Audio Configuration")]
+    [Tooltip("AudioSource component used to play this sound.")]
     public AudioSource audioSource;
 
     private void Awake()

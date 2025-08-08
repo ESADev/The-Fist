@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
-using MoreMountains.Tools;
 
 /// <summary>
 /// Centralized manager responsible for playing all sound effects in the game.
-/// Integrates with the More Mountains FEEL package for playback and
-/// listens to global events while providing a direct API for manual sound triggers.
+/// Uses a lightweight prefab-based system for playback and listens to global
+/// events while providing a direct API for manual sound triggers.
 /// </summary>
 public class SFXManager : MonoBehaviour
 {
@@ -23,9 +22,11 @@ public class SFXManager : MonoBehaviour
     public string unitDamagedKey = "unit_hit";
 
     /// <summary>
-    /// SFXSource prefab.
+    /// Prefab used to play sound effects.
     /// </summary>
-    [SerializeField] private SFXSource sfxSource;
+    [Header("Playback")]
+    [Tooltip("Prefab used to play sound effects.")]
+    [SerializeField] private SFXSource _sfxSourcePrefab;
 
     /// <summary>
     /// Dictionary for quick lookup of audio clips by key.
@@ -120,15 +121,17 @@ public class SFXManager : MonoBehaviour
         SFXClip randomSFXClip = soundEffect.clips[Random.Range(0, soundEffect.clips.Count)];
         float volume = randomSFXClip.UseRandomVolume ? randomSFXClip.volume * Random.Range(1f - randomSFXClip.RandomVolumeVariance, 1f - randomSFXClip.RandomVolumeVariance) : randomSFXClip.volume;
         float pitch = randomSFXClip.UseRandomPitch ? randomSFXClip.pitch * Random.Range(1f - randomSFXClip.RandomPitchVariance, 1f - randomSFXClip.RandomPitchVariance) : randomSFXClip.pitch;
-        MMSoundManagerSoundPlayEvent.Trigger(
-            randomSFXClip.clip,
-            MMSoundManager.MMSoundManagerTracks.Sfx,
-            position,
-            volume: volume,
-            pitch: pitch
-        );
 
-        Debug.Log($"[SFXManager] Playing sound '{key}' via FEEL.");
+        if (_sfxSourcePrefab == null)
+        {
+            Debug.LogWarning("[SFXManager] No SFXSource prefab assigned.", this);
+            return;
+        }
+
+        SFXSource sourceInstance = Instantiate(_sfxSourcePrefab, position, Quaternion.identity);
+        sourceInstance.Play(randomSFXClip.clip, volume, pitch);
+
+        Debug.Log($"[SFXManager] Playing sound '{key}'.");
     }
 
     /// <summary>
