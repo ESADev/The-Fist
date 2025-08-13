@@ -86,6 +86,15 @@ public class CharacterDefinitionSO : ScriptableObject
     [Tooltip("Optional portrait used in UI elements such as dialogue or HUD.")]
     public Sprite characterPortrait;
 
+    [Header("Audio")]
+
+    /// <summary>
+    /// Optional SFX overrides for entity-specific sound effects.
+    /// If not assigned, default SFX Manager keys will be used.
+    /// </summary>
+    [Tooltip("Optional SFX overrides for entity-specific sound effects. If not assigned, default SFX Manager keys will be used.")]
+    public EntitySFXOverrideSO sfxOverrides;
+
     [Header("Rewards")]
 
     /// <summary>

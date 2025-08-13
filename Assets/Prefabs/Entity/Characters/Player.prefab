@@ -4021,6 +4021,7 @@ GameObject:
   - component: {fileID: 2587056919882328461}
   - component: {fileID: 5704887413861092773}
   - component: {fileID: 2941412497406899303}
+  - component: {fileID: 2169827881425518175}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -4081,6 +4082,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b776bd62e4d29a4683a700108a6694a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurrentFaction: 0
 --- !u!114 &5997312907038487588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4108,6 +4110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackerProfile: {fileID: 0}
   collider: {fileID: 0}
+  projectileSpawnPoint: {fileID: 0}
 --- !u!114 &3367034626845345792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4120,6 +4123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1ff732849389654fa918b037292d844, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entity: {fileID: 0}
 --- !u!114 &969823922091772820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4212,6 +4216,23 @@ MonoBehaviour:
   collectionRadius: 3
   scanFrequency: 5
   collectionPointOffset: {x: 0, y: 2, z: 0}
+--- !u!114 &2169827881425518175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9110108307384180276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 742c29f8a38c47046bc1136bb1b1516e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseStepInterval: 0.25
+  minimumSpeedThreshold: 0.1
+  referenceSpeed: 10
+  speedInfluenceMultiplier: 0.1
+  minimumStepInterval: 0.1
 --- !u!1001 &7763770740690908027
 PrefabInstance:
   m_ObjectHideFlags: 0

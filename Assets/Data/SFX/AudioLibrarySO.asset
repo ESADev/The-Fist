@@ -1,0 +1,186 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 235ef39970631b84b9db44c5abee109e, type: 3}
+  m_Name: AudioLibrarySO
+  m_EditorClassIdentifier: 
+  soundEffects:
+  - key: win level
+    clips:
+    - clip: {fileID: 8300000, guid: 9dd1f95cc15e1174ca7e2e6557db3360, type: 3}
+      volume: 1
+      pitch: 1
+      UseRandomVolume: 0
+      RandomVolumeVariance: 0
+      UseRandomPitch: 0
+      RandomPitchVariance: 0
+  - key: lose level
+    clips:
+    - clip: {fileID: 8300000, guid: 2bddaf37260d4704eb63d783dd695b1b, type: 3}
+      volume: 1
+      pitch: 1
+      UseRandomVolume: 0
+      RandomVolumeVariance: 0.2
+      UseRandomPitch: 0
+      RandomPitchVariance: 0.2
+  - key: arrow hit
+    clips:
+    - clip: {fileID: 8300000, guid: 0eb0952cd8d4c9c4383bd1fa0c561c7c, type: 3}
+      volume: 1
+      pitch: 1
+      UseRandomVolume: 1
+      RandomVolumeVariance: 0.2
+      UseRandomPitch: 1
+      RandomPitchVariance: 0.2
+  - key: arrow shot
+    clips:
+    - clip: {fileID: 8300000, guid: 00c40f5fa35ad7c45b6723f252d52432, type: 3}
+      volume: 1
+      pitch: 1
+      UseRandomVolume: 1
+      RandomVolumeVariance: 0.2
+      UseRandomPitch: 1
+      RandomPitchVariance: 0.2
+  - key: building death
+    clips:
+    - clip: {fileID: 8300000, guid: a27b13a1d1fb98644a40b33c104732fa, type: 3}
+      volume: 1
+      pitch: 1
+      UseRandomVolume: 1
+      RandomVolumeVariance: 0.2
+      UseRandomPitch: 1
+      RandomPitchVariance: 0.2
+  - key: building take damage
+    clips:
+    - clip: {fileID: 8300000, guid: af3178cb6bdf1c242bba17118ac3450b, type: 3}
+      volume: 1
+      pitch: 1
+      UseRandomVolume: 1
+      RandomVolumeVariance: 0.2
+      UseRandomPitch: 1
+      RandomPitchVariance: 0.2
+  - key: click
+    clips:
+    - clip: {fileID: 8300000, guid: e9aa23220c0faf54e9b39af7f8f384bd, type: 3}
+      volume: 1
+      pitch: 1
+      UseRandomVolume: 1
+      RandomVolumeVariance: 0.2
+      UseRandomPitch: 1
+      RandomPitchVariance: 0.2
+  - key: collect resource
+    clips:
+    - clip: {fileID: 8300000, guid: f3362b5753abf1d48bf1f2e8bb754707, type: 3}
+      volume: 1
+      pitch: 1
+      UseRandomVolume: 1
+      RandomVolumeVariance: 0.2
+      UseRandomPitch: 1
+      RandomPitchVariance: 0.2
+  - key: human death
+    clips:
+    - clip: {fileID: 8300000, guid: 35f6fdfafdcf08243a09365483bce3c1, type: 3}
+      volume: 1
+      pitch: 1
+      UseRandomVolume: 1
+      RandomVolumeVariance: 0.2
+      UseRandomPitch: 1
+      RandomPitchVariance: 0.2
+  - key: gem generation
+    clips:
+    - clip: {fileID: 8300000, guid: 9419f5a26004240448e7a87282eb4bf9, type: 3}
+      volume: 1
+      pitch: 1
+      UseRandomVolume: 1
+      RandomVolumeVariance: 0.2
+      UseRandomPitch: 1
+      RandomPitchVariance: 0.2
+  - key: gem splash
+    clips:
+    - clip: {fileID: 8300000, guid: 8e4ea611dba212643834186da08fc499, type: 3}
+      volume: 1
+      pitch: 1
+      UseRandomVolume: 1
+      RandomVolumeVariance: 0.2
+      UseRandomPitch: 1
+      RandomPitchVariance: 0.2
+  - key: human take damage
+    clips:
+    - clip: {fileID: 8300000, guid: bc5fb4cd7c31aa34296f763234792cf2, type: 3}
+      volume: 1
+      pitch: 1
+      UseRandomVolume: 1
+      RandomVolumeVariance: 0.2
+      UseRandomPitch: 1
+      RandomPitchVariance: 0.2
+  - key: punch
+    clips:
+    - clip: {fileID: 8300000, guid: d38467dc8e348eb4ca590b2f6ed1a38d, type: 3}
+      volume: 1
+      pitch: 1
+      UseRandomVolume: 1
+      RandomVolumeVariance: 0.2
+      UseRandomPitch: 1
+      RandomPitchVariance: 0.2
+  - key: step
+    clips:
+    - clip: {fileID: 8300000, guid: d26a83fc8094098448e128b149026653, type: 3}
+      volume: 0.5
+      pitch: 0.5
+      UseRandomVolume: 1
+      RandomVolumeVariance: 0.2
+      UseRandomPitch: 1
+      RandomPitchVariance: 0.1
+  - key: strong punch
+    clips:
+    - clip: {fileID: 8300000, guid: 72c86713c2ad2db43be11966a95f45b8, type: 3}
+      volume: 1
+      pitch: 1
+      UseRandomVolume: 1
+      RandomVolumeVariance: 0.2
+      UseRandomPitch: 1
+      RandomPitchVariance: 0.2
+  - key: whoosh
+    clips:
+    - clip: {fileID: 8300000, guid: 97175fe01435d834989dd4a147065bfb, type: 3}
+      volume: 1
+      pitch: 1
+      UseRandomVolume: 1
+      RandomVolumeVariance: 0.2
+      UseRandomPitch: 1
+      RandomPitchVariance: 0.2
+  - key: unit_hit
+    clips:
+    - clip: {fileID: 8300000, guid: 0eb0952cd8d4c9c4383bd1fa0c561c7c, type: 3}
+      volume: 1
+      pitch: 1
+      UseRandomVolume: 1
+      RandomVolumeVariance: 0.2
+      UseRandomPitch: 1
+      RandomPitchVariance: 0.2
+  - key: unit_death
+    clips:
+    - clip: {fileID: 8300000, guid: 0eb0952cd8d4c9c4383bd1fa0c561c7c, type: 3}
+      volume: 1
+      pitch: 1
+      UseRandomVolume: 1
+      RandomVolumeVariance: 0.2
+      UseRandomPitch: 1
+      RandomPitchVariance: 0.2
+  - key: unit_step
+    clips:
+    - clip: {fileID: 8300000, guid: 0eb0952cd8d4c9c4383bd1fa0c561c7c, type: 3}
+      volume: 1
+      pitch: 1
+      UseRandomVolume: 1
+      RandomVolumeVariance: 0.2
+      UseRandomPitch: 1
+      RandomPitchVariance: 0.2

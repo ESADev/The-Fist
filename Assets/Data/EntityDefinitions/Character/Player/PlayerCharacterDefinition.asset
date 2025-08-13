@@ -13,11 +13,15 @@ MonoBehaviour:
   m_Name: PlayerCharacterDefinition
   m_EditorClassIdentifier: 
   characterName: Player
+  description: No description provided.
+  characterType: 8
+  cost: []
   characterPrefab: {fileID: 0}
-  faction: 0
   healthStats: {fileID: 11400000, guid: e33f65e01c48e414db3f9b8a1db8ef59, type: 2}
   movementStats: {fileID: 11400000, guid: 80831b8c5412a474ba0822efb25be95a, type: 2}
   attackerProfile: {fileID: 11400000, guid: 0494e8112552ec94fa888046c95caee3, type: 2}
   targetScanner: {fileID: 11400000, guid: fc9d47e6af61dc74d9a15d4ab62d1093, type: 2}
   interactorProfile: {fileID: 11400000, guid: d6634dc42130f774f98098281bda4b5b, type: 2}
   characterPortrait: {fileID: 0}
+  sfxOverrides: {fileID: 11400000, guid: 7128b6b3f17092645b64f10068fa3105, type: 2}
+  deathBounty: {fileID: 0}

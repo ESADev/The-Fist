@@ -21,6 +21,12 @@ public class SFXManager : MonoBehaviour
     [Tooltip("Sound key to play when a unit is damaged.")]
     public string unitDamagedKey = "unit_hit";
 
+    [Tooltip("Sound key to play when a unit dies.")]
+    public string unitDeathKey = "unit_death";
+
+    [Tooltip("Sound key to play when a unit steps/moves (looped).")]
+    public string unitStepKey = "unit_step";
+
     /// <summary>
     /// Prefab used to play sound effects.
     /// </summary>
@@ -57,11 +63,13 @@ public class SFXManager : MonoBehaviour
     private void OnEnable()
     {
         GameEvents.OnUnitDamaged += HandleUnitDamaged;
+        GameEvents.OnUnitDied += HandleUnitDied;
     }
 
     private void OnDisable()
     {
         GameEvents.OnUnitDamaged -= HandleUnitDamaged;
+        GameEvents.OnUnitDied -= HandleUnitDied;
     }
 
     /// <summary>
@@ -104,6 +112,7 @@ public class SFXManager : MonoBehaviour
     /// Plays a sound effect corresponding to the provided key.
     /// </summary>
     /// <param name="key">Key of the sound effect to play.</param>
+    /// <param name="position">World position where the sound should be played.</param>
     public void PlaySound(string key, Vector3 position)
     {
         if (string.IsNullOrEmpty(key))
@@ -119,8 +128,8 @@ public class SFXManager : MonoBehaviour
         }
 
         SFXClip randomSFXClip = soundEffect.clips[Random.Range(0, soundEffect.clips.Count)];
-        float volume = randomSFXClip.UseRandomVolume ? randomSFXClip.volume * Random.Range(1f - randomSFXClip.RandomVolumeVariance, 1f - randomSFXClip.RandomVolumeVariance) : randomSFXClip.volume;
-        float pitch = randomSFXClip.UseRandomPitch ? randomSFXClip.pitch * Random.Range(1f - randomSFXClip.RandomPitchVariance, 1f - randomSFXClip.RandomPitchVariance) : randomSFXClip.pitch;
+        float volume = randomSFXClip.UseRandomVolume ? randomSFXClip.volume * Random.Range(1f - randomSFXClip.RandomVolumeVariance, 1f + randomSFXClip.RandomVolumeVariance) : randomSFXClip.volume;
+        float pitch = randomSFXClip.UseRandomPitch ? randomSFXClip.pitch * Random.Range(1f - randomSFXClip.RandomPitchVariance, 1f + randomSFXClip.RandomPitchVariance) : randomSFXClip.pitch;
 
         if (_sfxSourcePrefab == null)
         {
@@ -135,11 +144,68 @@ public class SFXManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Plays an entity-specific step sound. Can be called by movement systems when an entity moves.
+    /// </summary>
+    /// <param name="entity">The entity making the step sound.</param>
+    public void PlayStepSound(Entity entity)
+    {
+        if (entity == null)
+        {
+            return;
+        }
+
+        string soundKey = GetEntitySoundKey(entity, "step", unitStepKey);
+        PlaySound(soundKey, entity.transform.position);
+    }
+
+    /// <summary>
+    /// Gets the appropriate sound key for an entity, considering entity-specific overrides.
+    /// </summary>
+    /// <param name="entity">The entity to get the sound key for.</param>
+    /// <param name="eventType">The type of event (damage, death, step).</param>
+    /// <param name="fallbackKey">Default key to use if no override is found.</param>
+    /// <returns>The sound key to use.</returns>
+    private string GetEntitySoundKey(Entity entity, string eventType, string fallbackKey)
+    {
+        if (entity == null || entity.characterDefinition == null || entity.characterDefinition.sfxOverrides == null)
+        {
+            return fallbackKey;
+        }
+
+        EntitySFXOverrideSO sfxOverrides = entity.characterDefinition.sfxOverrides;
+
+        switch (eventType.ToLower())
+        {
+            case "damage":
+                return sfxOverrides.GetTakeDamageKey(fallbackKey);
+            case "death":
+                return sfxOverrides.GetDeathKey(fallbackKey);
+            case "step":
+                return sfxOverrides.GetStepKey(fallbackKey);
+            default:
+                return fallbackKey;
+        }
+    }
+
+    /// <summary>
     /// Handles the <see cref="GameEvents.OnUnitDamaged"/> event.
     /// </summary>
     /// <param name="damageInfo">Information about the damage event.</param>
     private void HandleUnitDamaged(DamageInfo damageInfo)
     {
-        PlaySound(unitDamagedKey, damageInfo.victim.transform.position);
+        Entity entity = damageInfo.victim.GetComponent<Entity>();
+        string soundKey = GetEntitySoundKey(entity, "damage", unitDamagedKey);
+        PlaySound(soundKey, damageInfo.victim.transform.position);
+    }
+
+    /// <summary>
+    /// Handles the <see cref="GameEvents.OnUnitDied"/> event.
+    /// </summary>
+    /// <param name="deadUnit">The unit that died.</param>
+    private void HandleUnitDied(GameObject deadUnit)
+    {
+        Entity entity = deadUnit.GetComponent<Entity>();
+        string soundKey = GetEntitySoundKey(entity, "death", unitDeathKey);
+        PlaySound(soundKey, deadUnit.transform.position);
     }
 }

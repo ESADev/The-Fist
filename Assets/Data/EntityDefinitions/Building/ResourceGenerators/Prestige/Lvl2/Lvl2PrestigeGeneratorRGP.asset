@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resources:
   - resourceType: 0
-    amountPerSeconds: 30
-    tickRateInSeconds: 5
+    amountPerSeconds: 20
+    tickRateInSeconds: 6
