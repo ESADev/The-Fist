@@ -803,7 +803,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 815d3def2f406ef4a82eb70cb4abc369, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 0}
+  data: {fileID: 11400000, guid: 2bf7d12b5061b4a4eb470e04565ced09, type: 2}
   playerMainBase: {fileID: 818993073761583551}
   enemyMainBase: {fileID: 1202565157}
 --- !u!114 &328991205
@@ -2876,6 +2876,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1302885273}
   - component: {fileID: 1302885274}
+  - component: {fileID: 1302885275}
   m_Layer: 0
   m_Name: EnemyCamp
   m_TagString: Untagged
@@ -2914,6 +2915,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentFaction: 1
+--- !u!114 &1302885275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1302885272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73257890cecb0524eb3dffedbd30a4ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelManager: {fileID: 328991204}
 --- !u!1 &1339273629
 GameObject:
   m_ObjectHideFlags: 0
@@ -3674,6 +3688,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1590358253}
   - component: {fileID: 1590358254}
+  - component: {fileID: 1590358255}
   m_Layer: 0
   m_Name: PlayerCamp
   m_TagString: Untagged
@@ -3713,6 +3728,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentFaction: 0
+--- !u!114 &1590358255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1590358252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c0dd98d5a952b349a06771cba4672dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelManager: {fileID: 328991204}
 --- !u!1 &1621910342
 GameObject:
   m_ObjectHideFlags: 0
@@ -4720,7 +4748,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 64463887334154574, guid: 03d1d8fad52fbc540931854a5d1b1b4c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1903873021634410177, guid: 03d1d8fad52fbc540931854a5d1b1b4c, type: 3}
       propertyPath: m_LocalPosition.x

@@ -18,6 +18,8 @@ public class UnitSpawner : MonoBehaviour
 
     private Coroutine spawnRoutine;
 
+    private ISpawnRateManager spawnRateManager;
+
     private void OnEnable()
     {
         if (spawnerProfile == null)
@@ -32,6 +34,8 @@ public class UnitSpawner : MonoBehaviour
             Debug.LogWarning("[UnitSpawner] SpawnPoint not set. Using own transform.", this);
             spawnPoint = transform;
         }
+
+        spawnRateManager = GetComponentInParent<ISpawnRateManager>();
 
         spawnRoutine = StartCoroutine(SpawnCoroutine());
     }
@@ -49,7 +53,8 @@ public class UnitSpawner : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(1f / spawnerProfile.spawnRate);
+            float spawnRate = spawnerProfile.spawnRate * spawnRateManager.GetSpawnRateScalar();
+            yield return new WaitForSeconds(1f / spawnRate);
 
             CharacterDefinitionSO unitToSpawn = ReturnUnitToSpawn(spawnerProfile.units);
             
