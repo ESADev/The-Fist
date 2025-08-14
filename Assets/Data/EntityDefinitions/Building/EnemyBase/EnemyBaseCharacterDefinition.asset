@@ -13,11 +13,15 @@ MonoBehaviour:
   m_Name: EnemyBaseCharacterDefinition
   m_EditorClassIdentifier: 
   characterName: EnemyBase
+  description: No description provided.
+  characterType: 8
+  cost: []
   characterPrefab: {fileID: 0}
-  faction: 1
   healthStats: {fileID: 11400000, guid: d2bc614c770c26c40a84044786e0b18f, type: 2}
   movementStats: {fileID: 11400000, guid: 7d06d61192f4b0649abe91e7009ee08d, type: 2}
   attackerProfile: {fileID: 11400000, guid: 1f244d46c87131d4e92fd70a5a71360e, type: 2}
   targetScanner: {fileID: 11400000, guid: b6f04f9e4f73a694dbc664ea1934cc10, type: 2}
   interactorProfile: {fileID: 11400000, guid: 0bb223af22d05f847806c2db6df8a947, type: 2}
   characterPortrait: {fileID: 0}
+  sfxOverrides: {fileID: 11400000, guid: 9cd6bfcf8130cb847a8e7b6ed894dd7a, type: 2}
+  deathBounty: {fileID: 0}

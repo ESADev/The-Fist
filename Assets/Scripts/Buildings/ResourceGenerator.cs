@@ -59,6 +59,10 @@ public class ResourceGenerator : MonoBehaviour
                 int amountPerTick = Mathf.RoundToInt(resourceProfile.tickRateInSeconds * resourceProfile.amountPerSeconds);
 
                 ResourceManager.Instance.AddResource(resourceProfile.resourceType, amountPerTick);
+
+                // SFX
+                SFXManager.Instance.PlaySound("gem generation", transform.position);
+
                 Debug.Log($"[ResourceGenerator] Added {amountPerTick} {resourceProfile.resourceType}.", this);
             }
             else

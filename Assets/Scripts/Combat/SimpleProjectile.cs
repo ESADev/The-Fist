@@ -79,6 +79,7 @@ public class SimpleProjectile : MonoBehaviour
         // VFX
 
         // SFX
+        SFXManager.Instance.PlaySound("arrow hit", collision.transform.position);
 
         // Check if the hit object has a Health component
         if (target != null && target.Faction.CurrentFaction == targetFaction)

@@ -100,6 +100,9 @@ public class ResourceDropper : MonoBehaviour
             }
         }
 
+        // SFX
+        SFXManager.Instance.PlaySound("gem splash", dropPosition);
+
         DestroySelf();
     }
 

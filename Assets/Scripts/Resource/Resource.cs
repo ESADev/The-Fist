@@ -51,5 +51,8 @@ public class Resource : MonoBehaviour
             ResourceManager.Instance.AddResource(resourceType, amount);
             Destroy(gameObject);
         }).SetEase(moveEase);
+
+        // SFX
+        SFXManager.Instance.PlaySound("collect resource", transform.position);
     }
 }

@@ -173,6 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b776bd62e4d29a4683a700108a6694a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurrentFaction: 1
 --- !u!114 &8957504222897778884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,6 +201,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackerProfile: {fileID: 0}
   collider: {fileID: 7385867869488998681}
+  projectileSpawnPoint: {fileID: 0}
 --- !u!114 &8089806652209806997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,6 +214,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1ff732849389654fa918b037292d844, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entity: {fileID: 0}
 --- !u!114 &4408326231881890556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,6 +288,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6b08dcfd8ea3e34d92206fd5a4f45d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateDistanceThreshold: 3
+  maxUpdateInterval: 1
+  minUpdateInterval: 0.3
+  usePredictiveTargeting: 1
+  predictionTime: 0.5
+  pathDeviationThreshold: 5
 --- !u!1 &499784924625358428
 GameObject:
   m_ObjectHideFlags: 0

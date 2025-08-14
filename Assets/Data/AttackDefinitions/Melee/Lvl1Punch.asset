@@ -17,3 +17,4 @@ MonoBehaviour:
   range: 1
   cooldown: 1
   animationClipName: Lvl1Punch
+  sfxKey: punch

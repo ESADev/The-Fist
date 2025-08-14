@@ -27,6 +27,21 @@ public class SFXManager : MonoBehaviour
     [Tooltip("Sound key to play when a unit steps/moves (looped).")]
     public string unitStepKey = "unit_step";
 
+    [Tooltip("Sound key to play when the player achieves victory.")]
+    public string victoryKey = "win level";
+
+    [Tooltip("Sound key to play when the player is defeated.")]
+    public string defeatKey = "lose level";
+
+    [Tooltip("Sound key to play when the player gains or loses resources.")]
+    public string resourceChangedKey = "collect resource";
+
+    [Tooltip("Sound key to play when an object is upgraded.")]
+    public string objectUpgradedKey = "click";
+
+    [Tooltip("Sound key to play when an object is unlocked.")]
+    public string objectUnlockedKey = "click";
+
     /// <summary>
     /// Prefab used to play sound effects.
     /// </summary>
@@ -64,12 +79,22 @@ public class SFXManager : MonoBehaviour
     {
         GameEvents.OnUnitDamaged += HandleUnitDamaged;
         GameEvents.OnUnitDied += HandleUnitDied;
+        GameEvents.OnVictory += HandleVictory;
+        GameEvents.OnDefeat += HandleDefeat;
+        GameEvents.OnPlayerResourceChanged += HandlePlayerResourceChanged;
+        GameEvents.OnObjectUpgraded += HandleObjectUpgraded;
+        GameEvents.OnObjectUnlocked += HandleObjectUnlocked;
     }
 
     private void OnDisable()
     {
         GameEvents.OnUnitDamaged -= HandleUnitDamaged;
         GameEvents.OnUnitDied -= HandleUnitDied;
+        GameEvents.OnVictory -= HandleVictory;
+        GameEvents.OnDefeat -= HandleDefeat;
+        GameEvents.OnPlayerResourceChanged -= HandlePlayerResourceChanged;
+        GameEvents.OnObjectUpgraded -= HandleObjectUpgraded;
+        GameEvents.OnObjectUnlocked -= HandleObjectUnlocked;
     }
 
     /// <summary>
@@ -138,6 +163,7 @@ public class SFXManager : MonoBehaviour
         }
 
         SFXSource sourceInstance = Instantiate(_sfxSourcePrefab, position, Quaternion.identity);
+        sourceInstance.audioSource.spatialBlend = soundEffect.Use3DSound ? 1f : 0f;
         sourceInstance.Play(randomSFXClip.clip, volume, pitch);
 
         Debug.Log($"[SFXManager] Playing sound '{key}'.");
@@ -207,5 +233,54 @@ public class SFXManager : MonoBehaviour
         Entity entity = deadUnit.GetComponent<Entity>();
         string soundKey = GetEntitySoundKey(entity, "death", unitDeathKey);
         PlaySound(soundKey, deadUnit.transform.position);
+    }
+
+    /// <summary>
+    /// Handles the <see cref="GameEvents.OnVictory"/> event.
+    /// </summary>
+    private void HandleVictory()
+    {
+        PlaySound(victoryKey, Vector3.zero);
+    }
+
+    /// <summary>
+    /// Handles the <see cref="GameEvents.OnDefeat"/> event.
+    /// </summary>
+    private void HandleDefeat()
+    {
+        PlaySound(defeatKey, Vector3.zero);
+    }
+
+    /// <summary>
+    /// Handles the <see cref="GameEvents.OnPlayerResourceChanged"/> event.
+    /// </summary>
+    /// <param name="resourceType">The type of resource that changed.</param>
+    /// <param name="amount">The new amount of the resource.</param>
+    private void HandlePlayerResourceChanged(ResourceType resourceType, int amount)
+    {
+        // Only play sound when resources are gained (positive change)
+        // You might want to track previous values to determine if this is a gain
+        PlaySound(resourceChangedKey, Vector3.zero);
+    }
+
+    /// <summary>
+    /// Handles the <see cref="GameEvents.OnObjectUpgraded"/> event.
+    /// </summary>
+    /// <param name="upgradedObject">The object that was upgraded.</param>
+    /// <param name="newLevel">The new level of the object.</param>
+    private void HandleObjectUpgraded(GameObject upgradedObject, int newLevel)
+    {
+        Vector3 position = upgradedObject != null ? upgradedObject.transform.position : Vector3.zero;
+        PlaySound(objectUpgradedKey, position);
+    }
+
+    /// <summary>
+    /// Handles the <see cref="GameEvents.OnObjectUnlocked"/> event.
+    /// </summary>
+    /// <param name="unlockedObject">The object that was unlocked.</param>
+    private void HandleObjectUnlocked(GameObject unlockedObject)
+    {
+        Vector3 position = unlockedObject != null ? unlockedObject.transform.position : Vector3.zero;
+        PlaySound(objectUnlockedKey, position);
     }
 }

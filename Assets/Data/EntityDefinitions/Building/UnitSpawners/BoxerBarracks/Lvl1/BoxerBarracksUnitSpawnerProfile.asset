@@ -17,4 +17,4 @@ MonoBehaviour:
     probability: 2
   - unit: {fileID: 11400000, guid: 2fe1151e8cefcd748af8d9760be0b26c, type: 2}
     probability: 1
-  spawnRate: 0.5
+  spawnRate: 0.05

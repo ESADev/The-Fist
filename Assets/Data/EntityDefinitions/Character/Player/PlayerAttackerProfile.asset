@@ -13,6 +13,5 @@ MonoBehaviour:
   m_Name: PlayerAttackerProfile
   m_EditorClassIdentifier: 
   attacks:
-  - {fileID: 11400000, guid: f89ad4bbcae70e645ab7a3d96ac4ed6c, type: 2}
-  - {fileID: 11400000, guid: 883b0f1abf80f134bb03881c0447feb2, type: 2}
+  - {fileID: 11400000, guid: 5714b66b3ce447548a02a8145362067a, type: 2}
   - {fileID: 11400000, guid: 883b0f1abf80f134bb03881c0447feb2, type: 2}

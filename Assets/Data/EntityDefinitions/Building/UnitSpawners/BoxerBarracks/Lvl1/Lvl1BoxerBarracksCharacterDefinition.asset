@@ -25,4 +25,5 @@ MonoBehaviour:
   targetScanner: {fileID: 11400000, guid: 45e239daab6a16b40bb0e231bc4633be, type: 2}
   interactorProfile: {fileID: 11400000, guid: 55f291d72bbd3034b98532110aac9a24, type: 2}
   characterPortrait: {fileID: 0}
+  sfxOverrides: {fileID: 11400000, guid: 9cd6bfcf8130cb847a8e7b6ed894dd7a, type: 2}
   deathBounty: {fileID: 0}

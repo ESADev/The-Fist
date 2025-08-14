@@ -17,5 +17,6 @@ MonoBehaviour:
   range: 50
   cooldown: 2
   animationClipName: bow_shoot
+  sfxKey: arrow shot
   projectilePrefab: {fileID: 7601502823605475754, guid: ad429a6fe8765f847961560b8c6a6333, type: 3}
   projectileSpeed: 25

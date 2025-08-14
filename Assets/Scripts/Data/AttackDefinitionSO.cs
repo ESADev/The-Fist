@@ -47,4 +47,10 @@ public abstract class AttackDefinitionSO : ScriptableObject
     [Tooltip("Name of the animation clip in Resources folder to play directly (without using animator states).")]
     public string animationClipName;
 
+    /// <summary>
+    /// Key to use for playing sound effects associated with this attack.
+    /// This should match the keys used in the AudioManager.
+    /// </summary>
+    [Tooltip("Key for sound effects associated with this attack (matches AudioManager keys).")]
+    public string sfxKey;
 }
