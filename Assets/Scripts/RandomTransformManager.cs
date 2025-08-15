@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteInEditMode]
+[ExecuteAlways]
 public class RandomTransformManager : MonoBehaviour
 {
     [Header("Random Rotation (degrees)")]
@@ -10,6 +10,10 @@ public class RandomTransformManager : MonoBehaviour
     [Header("Random Scale Multiplier")]
     public float minScale = 0.75f;
     public float maxScale = 1.25f;
+
+    [Header("Runtime Execution")]
+    [Tooltip("If enabled, the random rotation & scale will also be applied once when Play Mode starts (Start phase)." )]
+    public bool executeOnGameStart = false;
 
     private static bool initialized = false;
     private static HashSet<GameObject> alreadyProcessed = new HashSet<GameObject>();
@@ -31,6 +35,14 @@ public class RandomTransformManager : MonoBehaviour
         UnityEditor.EditorApplication.hierarchyChanged -= OnHierarchyChanged;
         initialized = false;
 #endif
+    }
+
+    private void Start()
+    {
+        if (executeOnGameStart && Application.isPlaying)
+        {
+            ApplyRandomTransform();
+        }
     }
 
     private void ApplyRandomTransform()

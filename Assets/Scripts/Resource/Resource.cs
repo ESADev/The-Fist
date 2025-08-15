@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+using System.Collections;
 
 public class Resource : MonoBehaviour
 {
@@ -54,5 +55,52 @@ public class Resource : MonoBehaviour
 
         // SFX
         SFXManager.Instance.PlaySound("collect resource", transform.position);
+    }
+
+    /// <summary>
+    /// Collect this resource while dynamically following a moving target (e.g. the player) over the tween duration.
+    /// The resource smoothly shrinks to zero scale and homes toward the target's current position each frame.
+    /// </summary>
+    /// <param name="target">Transform to follow (its position may change while collecting).</param>
+    public void CollectFollowing(Transform target)
+    {
+        if (isCollected || Time.time - initializationTime < collectCooldown || target == null)
+            return;
+
+        isCollected = true;
+
+        float randomizedDuration = moveDuration.Randomized(0.25f);
+        // Kill any existing tweens on this transform so they don't conflict with the manual coroutine animation.
+        DOTween.Kill(transform, complete: false);
+        StartCoroutine(FollowAndCollect(target, randomizedDuration));
+
+        // SFX
+        SFXManager.Instance.PlaySound("collect resource", transform.position);
+    }
+
+    private IEnumerator FollowAndCollect(Transform target, float duration)
+    {
+        Vector3 startPos = transform.position;
+        Vector3 startScale = transform.localScale;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+            // Apply the same easing style used for the static tween.
+            float easedT = DOVirtual.EasedValue(0f, 1f, t, moveEase);
+
+            // Target might be destroyed; if so we keep last known position.
+            Vector3 dynamicTargetPos = target != null ? target.position : transform.position;
+
+            transform.position = Vector3.Lerp(startPos, dynamicTargetPos, easedT);
+            transform.localScale = Vector3.Lerp(startScale, Vector3.zero, easedT);
+            yield return null;
+        }
+
+        // Finalize collection.
+        ResourceManager.Instance.AddResource(resourceType, amount);
+        Destroy(gameObject);
     }
 }

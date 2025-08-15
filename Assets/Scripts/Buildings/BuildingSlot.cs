@@ -112,6 +112,8 @@ public class BuildingSlot : MonoBehaviour, IInteractable
             onCancelled: OnCancelled,
             ResourceManager.Instance.CanAfford(nextLevel.cost) && !CheckMaxedOut()
         );
+
+
     }
 
     private void OnConfirmed()
@@ -160,6 +162,11 @@ public class BuildingSlot : MonoBehaviour, IInteractable
         currentBuilding = Instantiate(nextLevel.characterPrefab, transform).gameObject;
         currentLevel++;
         RefreshNextLevel();
+
+        // SFX
+        SFXManager.Instance.PlaySound("upgrade", transform.position);
+
+        // VFX
     }
 }
 

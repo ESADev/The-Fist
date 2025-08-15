@@ -32,9 +32,17 @@ public class OnTopOfBoundingBox : MonoBehaviour
     {
         if (targetObject == null)
         {
-            Debug.LogWarning($"OnTopOfBoundingBox on {gameObject.name}: No target object assigned!");
-            hasValidTarget = false;
-            return;
+            try
+            {
+                targetObject = transform.parent.gameObject;
+                hasValidTarget = true;
+            }
+            catch
+            {
+                hasValidTarget = false;
+                Debug.LogWarning($"OnTopOfBoundingBox on {gameObject.name}: No target object assigned and no parrent exists!");
+                return;
+            }
         }
         
         // Get all renderers from target and its children

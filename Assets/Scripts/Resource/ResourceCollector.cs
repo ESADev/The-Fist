@@ -10,14 +10,11 @@ public class ResourceCollector : MonoBehaviour
     [Tooltip("How often to scan for resources in seconds.")]
     public float scanFrequency = 0.5f;
 
-    [SerializeField] Vector3 collectionPointOffset = Vector3.zero;
+    [SerializeField] Vector3 collectionPointOffset = Vector3.zero; // (kept in case needed later, not used by CollectFollowing)
 
     private Coroutine collectionCoroutine;
 
-    private void OnEnable()
-    {
-        collectionCoroutine = StartCoroutine(CollectionCoroutine());
-    }
+    private void OnEnable() => collectionCoroutine = StartCoroutine(CollectionCoroutine());
 
     private void OnDisable()
     {
@@ -27,6 +24,8 @@ public class ResourceCollector : MonoBehaviour
             collectionCoroutine = null;
         }
     }
+
+    // Removed overengineering: anchor, layer mask cache, dynamic toggle.
 
     private IEnumerator CollectionCoroutine()
     {
@@ -39,8 +38,8 @@ public class ResourceCollector : MonoBehaviour
 
     private void CollectResourcesInRange()
     {
-        // Find all colliders within collection radius on the "Resource" layer
-        Collider[] colliders = Physics.OverlapSphere(transform.position, collectionRadius, LayerMask.GetMask("Resource"));
+    // Find all colliders within collection radius on the "Resource" layer
+    Collider[] colliders = Physics.OverlapSphere(transform.position, collectionRadius, LayerMask.GetMask("Resource"));
 
         foreach (Collider collider in colliders)
         {
@@ -48,8 +47,8 @@ public class ResourceCollector : MonoBehaviour
             Resource resource = collider.GetComponentInParent<Resource>();
             if (resource != null)
             {
-                // Call the collect method on the resource
-                resource.Collect(transform.position + collectionPointOffset);
+                // Simplified: always use dynamic follow toward this collector
+                resource.CollectFollowing(transform);
             }
             else
             {

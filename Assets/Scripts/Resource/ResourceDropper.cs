@@ -60,33 +60,31 @@ public class ResourceDropper : MonoBehaviour
     }
 
     /// <summary>
-    /// Divides a number into decimal components (1s, 10s, 100s, 1000s, etc.)
-    /// Example: 2597 becomes [2, 5, 9, 7] representing 2×1000 + 5×100 + 9×10 + 7×1
+    /// Simple division that creates a random number of resource drops
     /// </summary>
-    private List<int> DivideIntoDecimalComponents(int number)
+    private List<int> SimpleDivideAmount(int totalAmount)
     {
-        var components = new List<int>();
+        var result = new List<int>();
         
-        if (number <= 0) return components;
+        if (totalAmount <= 0) return result;
 
-        // Extract digits from highest to lowest value
-        while (number > 0)
+        // Randomly decide how many drops to create (1-5)
+        int dropCount = Mathf.RoundToInt(RandomnessHelper.RandomGaussian01() * 4 + 1f);
+        int remaining = totalAmount;
+
+        for (int i = 0; i < dropCount - 1 && remaining > 1; i++)
         {
-            int digit = number % 10;
-            components.Insert(0, digit); // Insert at beginning to maintain order
-            number /= 10;
+            int maxDrop = remaining - (dropCount - i - 1); // Ensure we have at least 1 for each remaining drop
+            int dropAmount = Random.Range(1, maxDrop + 1);
+            result.Add(dropAmount);
+            remaining -= dropAmount;
+        }
+        
+        if (remaining > 0)
+        {
+            result.Add(remaining);
         }
 
-        return components;
-    }
-
-    /// <summary>
-    /// Gets the value multiplier for a decimal place (1, 10, 100, 1000, etc.)
-    /// </summary>
-    private int GetDecimalMultiplier(int digitIndex, int totalDigits)
-    {
-        int powerOf10 = totalDigits - digitIndex - 1;
-        int result = Mathf.RoundToInt(Mathf.Pow(10, powerOf10));
         return result;
     }
 
@@ -115,63 +113,14 @@ public class ResourceDropper : MonoBehaviour
             return;
         }
 
-        // Divide the amount into decimal components
-        var components = DivideIntoDecimalComponents(totalAmount);
-        Debug.Log($"ResourceDropper: Dropping {totalAmount} of {resourceType} as components: {string.Join(", ", components)}");
+        // Simple division into multiple drops
+        var amounts = SimpleDivideAmount(totalAmount);
+        Debug.Log($"ResourceDropper: Dropping {totalAmount} of {resourceType} as {amounts.Count} drops: {string.Join(", ", amounts)}");
 
-        int maxDigits = 2; // To avoid unnecessary resource mess on big numbers
-        for (int i = 0; i < maxDigits; i++)
+        foreach (int amount in amounts)
         {
-            int digitValue = components[i];
-            if (digitValue == 0) continue; // Skip zeros
-
-            int multiplier = GetDecimalMultiplier(i, components.Count);
-
-            if (i < maxDigits)
-            {
-                // Create resources for this decimal component
-                for (int j = 0; j < digitValue; j++)
-                {
-                    //CreateSingleResource(resourcePrefab, multiplier, basePosition);
-                    List<int> numbers = RandomlyDivideInteger(multiplier, 0, 1);
-                    for (int k = 0; k < numbers.Count; k++)
-                    {
-                        CreateSingleResource(resourcePrefab, numbers[k], basePosition);
-                    }
-                }
-            }
-            else // Last digit won't be divided
-            {
-                List<int> numbers = RandomlyDivideInteger(digitValue, 0, 1);
-                for (int k = 0; k < numbers.Count; k++)
-                {
-                    CreateSingleResource(resourcePrefab, numbers[k], basePosition);
-                }
-            }
+            CreateSingleResource(resourcePrefab, amount, basePosition);
         }
-    }
-
-    private List<int> RandomlyDivideInteger(int totalAmount, int minDivision, int maxDivision)
-    {
-        List<int> result = new();
-
-        int divisionPossibilityCount = maxDivision - minDivision - 1;
-        int divisionCount = Mathf.FloorToInt(RandomnessHelper.RandomGaussian01() * divisionPossibilityCount);
-        int remainingNumber = totalAmount;
-        int digitNumber = Mathf.CeilToInt(Mathf.Log10(remainingNumber));
-        int multiplier = (int)Mathf.Pow(10f, digitNumber - 1);
-        for (int i = divisionCount; i > 0 && remainingNumber > i; i--)
-        {
-            int selectedNumberMultiplier = Random.Range(1, remainingNumber / (int)multiplier);
-            int selectedNumber = selectedNumberMultiplier * multiplier;
-            result.Add(selectedNumber);
-            remainingNumber -= selectedNumber;
-        }
-        result.Add(remainingNumber);
-
-        Debug.Log($"ResourceDropper: Randomly divided {totalAmount} into {result.Count} parts: {string.Join(", ", result)}");
-
-        return result;
     }
 
     private void CreateSingleResource(GameObject prefab, int value, Vector3 basePosition)

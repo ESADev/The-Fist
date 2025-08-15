@@ -163,7 +163,7 @@ public class AutoGate : MonoBehaviour
             isGateOpen = true;
             AnimateGate(true);
 
-            SFXManager.Instance.PlaySound("whoosh", transform.position);
+            SFXManager.Instance.PlaySound("gate opening", transform.position);
 
             Debug.Log($"[AutoGate] Opening gate for friendly {gateFaction} entity");
         }
@@ -176,7 +176,7 @@ public class AutoGate : MonoBehaviour
             isGateOpen = false;
             AnimateGate(false);
 
-            SFXManager.Instance.PlaySound("whoosh", transform.position);
+            SFXManager.Instance.PlaySound("gate opening", transform.position);
             
             Debug.Log($"[AutoGate] Closing gate - no friendly entities nearby");
         }

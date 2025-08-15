@@ -154,6 +154,7 @@ public class SFXManager : MonoBehaviour
 
         SFXClip randomSFXClip = soundEffect.clips[Random.Range(0, soundEffect.clips.Count)];
         float volume = randomSFXClip.UseRandomVolume ? randomSFXClip.volume * Random.Range(1f - randomSFXClip.RandomVolumeVariance, 1f + randomSFXClip.RandomVolumeVariance) : randomSFXClip.volume;
+        volume *= soundEffect.overallVolume;
         float pitch = randomSFXClip.UseRandomPitch ? randomSFXClip.pitch * Random.Range(1f - randomSFXClip.RandomPitchVariance, 1f + randomSFXClip.RandomPitchVariance) : randomSFXClip.pitch;
 
         if (_sfxSourcePrefab == null)

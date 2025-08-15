@@ -12,6 +12,19 @@ public class ResourceCounter : MonoBehaviour
     [Tooltip("Enable or disable the shake effect on resource count changes")]
     [SerializeField] private bool enableShake = true;
 
+    [Space]
+    [Header("Text Effect Popup")] 
+    [Tooltip("Skip spawning delta text for the initial set value (to avoid giant starting numbers).")]
+    [SerializeField] private bool skipFirstSpawn = true;
+    [Tooltip("If true, uses direct anchored position spawning instead of passing the RectTransform anchor.")]
+    [SerializeField] private bool useDirectAnchoredSpawn = false;
+    [Tooltip("Offset applied to popup spawn position (anchored units).")]
+    [SerializeField] private Vector2 popupOffset = Vector2.zero;
+    [Tooltip("Override color for positive deltas (only when using direct anchored spawn). Leave alpha at 1.")]
+    [SerializeField] private Color positiveDeltaColor = Color.green;
+    [Tooltip("Override color for negative deltas (only when using direct anchored spawn). Leave alpha at 1.")]
+    [SerializeField] private Color negativeDeltaColor = Color.red;
+
     private RectTransform shakeTarget;
     private float shakeMagnitudeMultiplier = 0.75f;
     private float baseshakeDuration = 0.25f;
@@ -20,6 +33,8 @@ public class ResourceCounter : MonoBehaviour
 
     private int resourceCount = 0;
     private int displayedResourceCount = 0;
+    private int previousResourceCount = 0;
+    private bool hasInitialized = false;
     Tween animationTween;
     Tween shakeTween;
 
@@ -42,7 +57,48 @@ public class ResourceCounter : MonoBehaviour
     {
         if (resourceType == this.resourceType)
         {
+            previousResourceCount = resourceCount;
             resourceCount = newResourceCount;
+            int delta = resourceCount - previousResourceCount;
+
+            if (delta != 0 && resourceText != null && UITextEffectSpawner.Instance != null)
+            {
+                if (!skipFirstSpawn || hasInitialized)
+                {
+                    if (useDirectAnchoredSpawn)
+                    {
+                        var parent = resourceText.rectTransform.parent as RectTransform;
+                        if (parent != null)
+                        {
+                            Vector2 anchoredPos = resourceText.rectTransform.anchoredPosition + popupOffset;
+                            string msg = (delta > 0 ? "+" : "") + FormattingHelper.FormatNumber(delta);
+                            Color col = delta > 0 ? positiveDeltaColor : negativeDeltaColor;
+                            UITextEffectSpawner.SpawnTextAtAnchoredPositionGlobal(msg, anchoredPos, parent, col);
+                        }
+                        else
+                        {
+                            // Fallback to anchor-based if no parent rect
+                            UITextEffectSpawner.SpawnDeltaGlobal(delta, resourceText.rectTransform); // offset not applied; parent missing
+                        }
+                    }
+                    else
+                    {
+                        // Use anchor-based spawn; adjust by temporarily adding offset if non-zero.
+                        if (popupOffset != Vector2.zero)
+                        {
+                            var original = resourceText.rectTransform.anchoredPosition;
+                            resourceText.rectTransform.anchoredPosition = original + popupOffset;
+                            UITextEffectSpawner.SpawnDeltaGlobal(delta, resourceText.rectTransform);
+                            resourceText.rectTransform.anchoredPosition = original; // restore
+                        }
+                        else
+                        {
+                            UITextEffectSpawner.SpawnDeltaGlobal(delta, resourceText.rectTransform);
+                        }
+                    }
+                }
+            }
+            hasInitialized = true;
             UpdateDisplayedCount();
         }
     }
@@ -97,4 +153,5 @@ public class ResourceCounter : MonoBehaviour
         animationTween?.Kill();
         shakeTween?.Kill();
     }
+
 }

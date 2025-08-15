@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2855293395835383833}
   - component: {fileID: 5823346820398732275}
   - component: {fileID: 5807087998941248722}
+  - component: {fileID: 1537226426771932127}
   m_Layer: 0
   m_Name: EntityCanvas
   m_TagString: Untagged
@@ -85,7 +86,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &5823346820398732275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,6 +120,23 @@ MonoBehaviour:
   lockYRotation: 0
   useLateUpdate: 1
   targetCamera: {fileID: 0}
+--- !u!114 &1537226426771932127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1400715875804918516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 896774f1fc6808042baccbfe7103cb13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetObject: {fileID: 0}
+  offsetY: 2
+  followX: 0
+  followZ: 0
+  checkRate: 1
 --- !u!1 &1495459011387395710
 GameObject:
   m_ObjectHideFlags: 0

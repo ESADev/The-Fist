@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundEffects:
   - key: win level
+    overallVolume: 0.25
     clips:
     - clip: {fileID: 8300000, guid: 9dd1f95cc15e1174ca7e2e6557db3360, type: 3}
       volume: 1
@@ -24,6 +25,7 @@ MonoBehaviour:
       RandomPitchVariance: 0
     Use3DSound: 0
   - key: lose level
+    overallVolume: 1
     clips:
     - clip: {fileID: 8300000, guid: 2bddaf37260d4704eb63d783dd695b1b, type: 3}
       volume: 2
@@ -34,9 +36,10 @@ MonoBehaviour:
       RandomPitchVariance: 0.2
     Use3DSound: 0
   - key: arrow hit
+    overallVolume: 1
     clips:
     - clip: {fileID: 8300000, guid: 0eb0952cd8d4c9c4383bd1fa0c561c7c, type: 3}
-      volume: 1
+      volume: 0.5
       pitch: 1
       UseRandomVolume: 1
       RandomVolumeVariance: 0.2
@@ -44,6 +47,7 @@ MonoBehaviour:
       RandomPitchVariance: 0.2
     Use3DSound: 1
   - key: building death
+    overallVolume: 0.5
     clips:
     - clip: {fileID: 8300000, guid: a27b13a1d1fb98644a40b33c104732fa, type: 3}
       volume: 1
@@ -54,6 +58,7 @@ MonoBehaviour:
       RandomPitchVariance: 0.2
     Use3DSound: 1
   - key: building take damage
+    overallVolume: 0.2
     clips:
     - clip: {fileID: 8300000, guid: af3178cb6bdf1c242bba17118ac3450b, type: 3}
       volume: 1
@@ -64,6 +69,7 @@ MonoBehaviour:
       RandomPitchVariance: 0.2
     Use3DSound: 1
   - key: click
+    overallVolume: 1
     clips:
     - clip: {fileID: 8300000, guid: e9aa23220c0faf54e9b39af7f8f384bd, type: 3}
       volume: 1
@@ -74,6 +80,7 @@ MonoBehaviour:
       RandomPitchVariance: 0.2
     Use3DSound: 0
   - key: collect resource
+    overallVolume: 1
     clips:
     - clip: {fileID: 8300000, guid: f3362b5753abf1d48bf1f2e8bb754707, type: 3}
       volume: 0.2
@@ -84,6 +91,7 @@ MonoBehaviour:
       RandomPitchVariance: 0.2
     Use3DSound: 1
   - key: resource changed
+    overallVolume: 1
     clips:
     - clip: {fileID: 8300000, guid: e9aa23220c0faf54e9b39af7f8f384bd, type: 3}
       volume: 0.15
@@ -94,6 +102,7 @@ MonoBehaviour:
       RandomPitchVariance: 0.2
     Use3DSound: 0
   - key: gem generation
+    overallVolume: 1
     clips:
     - clip: {fileID: 8300000, guid: e9aa23220c0faf54e9b39af7f8f384bd, type: 3}
       volume: 0.5
@@ -104,6 +113,7 @@ MonoBehaviour:
       RandomPitchVariance: 0.2
     Use3DSound: 1
   - key: gem splash
+    overallVolume: 1
     clips:
     - clip: {fileID: 8300000, guid: 8e4ea611dba212643834186da08fc499, type: 3}
       volume: 0.1
@@ -114,6 +124,7 @@ MonoBehaviour:
       RandomPitchVariance: 0.2
     Use3DSound: 1
   - key: human take damage
+    overallVolume: 1
     clips:
     - clip: {fileID: 8300000, guid: bc5fb4cd7c31aa34296f763234792cf2, type: 3}
       volume: 0.05
@@ -124,26 +135,85 @@ MonoBehaviour:
       RandomPitchVariance: 0.2
     Use3DSound: 1
   - key: human death
+    overallVolume: 1
     clips:
-    - clip: {fileID: 8300000, guid: 35f6fdfafdcf08243a09365483bce3c1, type: 3}
-      volume: 0.05
+    - clip: {fileID: 8300000, guid: d2a792d81658caf4ca770ddd074dcf6e, type: 3}
+      volume: 0.2
       pitch: 1
-      UseRandomVolume: 0
+      UseRandomVolume: 1
+      RandomVolumeVariance: 0.2
+      UseRandomPitch: 1
+      RandomPitchVariance: 0.2
+    - clip: {fileID: 8300000, guid: 9605b74f940dda347af913c8af3e1e39, type: 3}
+      volume: 0.2
+      pitch: 1
+      UseRandomVolume: 1
+      RandomVolumeVariance: 0.2
+      UseRandomPitch: 1
+      RandomPitchVariance: 0.2
+    - clip: {fileID: 8300000, guid: aa9d79e00e326fb458bb3959db7204a4, type: 3}
+      volume: 0.2
+      pitch: 1
+      UseRandomVolume: 1
+      RandomVolumeVariance: 0.2
+      UseRandomPitch: 1
+      RandomPitchVariance: 0.2
+    - clip: {fileID: 8300000, guid: 7fe66fdf2d1de7c48936b0205495f54e, type: 3}
+      volume: 0.2
+      pitch: 1
+      UseRandomVolume: 1
+      RandomVolumeVariance: 0.2
+      UseRandomPitch: 1
+      RandomPitchVariance: 0.2
+    - clip: {fileID: 8300000, guid: 54c4ffe229dd0594296801158c4a230c, type: 3}
+      volume: 0.2
+      pitch: 1
+      UseRandomVolume: 1
       RandomVolumeVariance: 0.2
       UseRandomPitch: 1
       RandomPitchVariance: 0.2
     Use3DSound: 1
   - key: step
+    overallVolume: 0.5
     clips:
-    - clip: {fileID: 8300000, guid: d26a83fc8094098448e128b149026653, type: 3}
-      volume: 0.25
-      pitch: 3
+    - clip: {fileID: 8300000, guid: 2db58b4e66114064ca9c5b88bf07f166, type: 3}
+      volume: 0.15
+      pitch: 1
+      UseRandomVolume: 1
+      RandomVolumeVariance: 0.1
+      UseRandomPitch: 1
+      RandomPitchVariance: 0.1
+    - clip: {fileID: 8300000, guid: 339ab232ecb1fbf4d85acbe20b48e7cf, type: 3}
+      volume: 0.15
+      pitch: 1
+      UseRandomVolume: 1
+      RandomVolumeVariance: 0.1
+      UseRandomPitch: 1
+      RandomPitchVariance: 0.1
+    - clip: {fileID: 8300000, guid: dc6c77206da1c8849967b5becd3397d2, type: 3}
+      volume: 0.15
+      pitch: 1
+      UseRandomVolume: 1
+      RandomVolumeVariance: 0.1
+      UseRandomPitch: 1
+      RandomPitchVariance: 0.1
+    - clip: {fileID: 8300000, guid: abb9b63c75209134fb8bffe52837b868, type: 3}
+      volume: 0.15
+      pitch: 1
+      UseRandomVolume: 1
+      RandomVolumeVariance: 0.1
+      UseRandomPitch: 1
+      RandomPitchVariance: 0.1
+    - clip: {fileID: 8300000, guid: abb9b63c75209134fb8bffe52837b868, type: 3}
+      volume: 0.15
+      pitch: 1
       UseRandomVolume: 1
       RandomVolumeVariance: 0.1
       UseRandomPitch: 1
       RandomPitchVariance: 0.1
     Use3DSound: 1
   - key: whoosh
+    overallVolume: 1
     clips:
     - clip: {fileID: 8300000, guid: 97175fe01435d834989dd4a147065bfb, type: 3}
       volume: 1
@@ -154,6 +224,7 @@ MonoBehaviour:
       RandomPitchVariance: 0.2
     Use3DSound: 0
   - key: unit_hit
+    overallVolume: 1
     clips:
     - clip: {fileID: 8300000, guid: 0eb0952cd8d4c9c4383bd1fa0c561c7c, type: 3}
       volume: 1
@@ -164,6 +235,7 @@ MonoBehaviour:
       RandomPitchVariance: 0.2
     Use3DSound: 1
   - key: unit_death
+    overallVolume: 1
     clips:
     - clip: {fileID: 8300000, guid: 0eb0952cd8d4c9c4383bd1fa0c561c7c, type: 3}
       volume: 1
@@ -174,6 +246,7 @@ MonoBehaviour:
       RandomPitchVariance: 0.2
     Use3DSound: 1
   - key: unit_step
+    overallVolume: 1
     clips:
     - clip: {fileID: 8300000, guid: 0eb0952cd8d4c9c4383bd1fa0c561c7c, type: 3}
       volume: 1
@@ -184,6 +257,7 @@ MonoBehaviour:
       RandomPitchVariance: 0.2
     Use3DSound: 1
   - key: punch
+    overallVolume: 1
     clips:
     - clip: {fileID: 8300000, guid: d38467dc8e348eb4ca590b2f6ed1a38d, type: 3}
       volume: 0.25
@@ -194,6 +268,7 @@ MonoBehaviour:
       RandomPitchVariance: 0.2
     Use3DSound: 1
   - key: strong punch
+    overallVolume: 1
     clips:
     - clip: {fileID: 8300000, guid: 72c86713c2ad2db43be11966a95f45b8, type: 3}
       volume: 0.25
@@ -204,12 +279,35 @@ MonoBehaviour:
       RandomPitchVariance: 0.2
     Use3DSound: 1
   - key: arrow shot
+    overallVolume: 1
     clips:
     - clip: {fileID: 8300000, guid: 00c40f5fa35ad7c45b6723f252d52432, type: 3}
-      volume: 1
+      volume: 0.5
       pitch: 1
       UseRandomVolume: 1
       RandomVolumeVariance: 0.2
       UseRandomPitch: 1
       RandomPitchVariance: 0.2
     Use3DSound: 1
+  - key: gate opening
+    overallVolume: 1
+    clips:
+    - clip: {fileID: 8300000, guid: 3c3fc7bb7caf73947ac1111b9d03d8d9, type: 3}
+      volume: 0.5
+      pitch: 1
+      UseRandomVolume: 1
+      RandomVolumeVariance: 0.1
+      UseRandomPitch: 1
+      RandomPitchVariance: 0.3
+    Use3DSound: 1
+  - key: upgrade
+    overallVolume: 1
+    clips:
+    - clip: {fileID: 8300000, guid: 6716f60f980d68d4b9a6a1ad55d05417, type: 3}
+      volume: 0.5
+      pitch: 1
+      UseRandomVolume: 1
+      RandomVolumeVariance: 0.1
+      UseRandomPitch: 1
+      RandomPitchVariance: 0.3
+    Use3DSound: 0

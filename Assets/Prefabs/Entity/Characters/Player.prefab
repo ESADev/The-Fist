@@ -223,6 +223,53 @@ Transform:
   - {fileID: 4154370459558024220}
   m_Father: {fileID: 5829826626957792413}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1237277555422475740
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8009387782237000945}
+  - component: {fileID: 94928129058822096}
+  m_Layer: 3
+  m_Name: ResourceCollector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8009387782237000945
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1237277555422475740}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6690214997999752186}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &94928129058822096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1237277555422475740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbdadfe9731a2044e8aaac22bb0bc653, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collectionRadius: 3
+  scanFrequency: 5
+  collectionPointOffset: {x: 0, y: 2, z: 0}
 --- !u!1 &1269942669476972401
 GameObject:
   m_ObjectHideFlags: 0
@@ -4064,7 +4111,6 @@ GameObject:
   - component: {fileID: 8533704213675443190}
   - component: {fileID: 2587056919882328461}
   - component: {fileID: 5704887413861092773}
-  - component: {fileID: 2941412497406899303}
   - component: {fileID: 2169827881425518175}
   - component: {fileID: 7518654772825866059}
   m_Layer: 3
@@ -4089,6 +4135,7 @@ Transform:
   m_Children:
   - {fileID: 721219404640770294}
   - {fileID: 1165505125292411495}
+  - {fileID: 8009387782237000945}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4063049391653349731
@@ -4247,21 +4294,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gravity: -9.81
   updateRate: 6
---- !u!114 &2941412497406899303
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9110108307384180276}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbdadfe9731a2044e8aaac22bb0bc653, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  collectionRadius: 3
-  scanFrequency: 5
-  collectionPointOffset: {x: 0, y: 2, z: 0}
 --- !u!114 &2169827881425518175
 MonoBehaviour:
   m_ObjectHideFlags: 0

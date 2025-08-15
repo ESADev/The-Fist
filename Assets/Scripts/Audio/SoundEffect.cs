@@ -12,6 +12,11 @@ public class SoundEffect
     public string key;
 
     /// <summary>
+    /// Overall volume multiplier for this sound effect.
+    /// </summary>
+    public float overallVolume = 1f;
+
+    /// <summary>
     /// Audio clip to play for this effect.
     /// </summary>
     public List<SFXClip> clips;
