@@ -1,3 +1,4 @@
+using UnityEditor.EditorTools;
 using UnityEngine;
 
 /// <summary>
@@ -51,6 +52,21 @@ public abstract class AttackDefinitionSO : ScriptableObject
     /// Key to use for playing sound effects associated with this attack.
     /// This should match the keys used in the AudioManager.
     /// </summary>
-    [Tooltip("Key for sound effects associated with this attack (matches AudioManager keys).")]
+    [Tooltip("Key for sound effects associated with this attack (matches SFXManager keys).")]
     public string sfxKey;
+
+    /// <summary>
+    /// Key to use for playing visual effects associated with this attack.
+    /// </summary>
+    [Tooltip("Key for visual effects associated with this attack (matches VFXManager keys).")]
+    public string vfxKey;
+
+    [Header("Timing")]
+    /// <summary>
+    /// Seconds after the attack animation (windup) starts when the actual impact (damage / projectile spawn)
+    /// should occur. 0 = immediate. This allows aligning gameplay impact with animation anticipation frames
+    /// while keeping the system data-driven and decoupled from specific clips.
+    /// </summary>
+    [Tooltip("Seconds after attack start when impact (damage/projectile) is applied. 0 = immediate.")]
+    public float impactDelay = 0f;
 }

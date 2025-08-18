@@ -1,6 +1,9 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
+using UnityEngine.Animations;
 
 /// <summary>
 /// Generic animation controller that listens to entity events and plays the
@@ -41,10 +44,23 @@ public class EntityAnimator : MonoBehaviour
     private Vector3 lastPosition;
     private bool isDead = false;
 
-    // Fields for direct animation clip playback
-    private AnimationClip currentAttackClip;
-    private string originalStateName;
+    // Attack crossfade (Playables) fields
+    [Header("Attack Crossfade Settings")]
+    [Tooltip("Fade-in duration (seconds) when blending in an attack clip.")]
+    private float attackFadeInDuration = 0.12f;
+    [Tooltip("Fade-out duration (seconds) when returning to the base animator.")]
+    private float attackFadeOutDuration = 0.10f;
+    [Tooltip("If true, the attack clip is added on top (does not lower base layer weight).")]
+    private bool attackAdditive = false;
+    [Tooltip("If > 0, will clamp fade durations so their sum does not exceed (clipLength - this buffer). Helps guarantee some fully-held portion of the attack.")]
+    private float attackHoldBuffer = 0.02f;
+
     private bool isPlayingAttackAnimation = false;
+    private PlayableGraph attackGraph;
+    private AnimationMixerPlayable mixerPlayable;          // 2 inputs: 0 = controller, 1 = attack clip
+    private AnimatorControllerPlayable controllerPlayable; // Wraps the original runtime controller
+    private AnimationClipPlayable attackClipPlayable;      // Created per attack
+    private bool graphInitialized = false;
 
     private void Awake()
     {
@@ -85,21 +101,15 @@ public class EntityAnimator : MonoBehaviour
 
         lastPosition = transform.position;
 
-        // Store the original state name for returning after attack animations
-        if (animator.layerCount > 0)
-        {
-            AnimatorStateInfo currentState = animator.GetCurrentAnimatorStateInfo(0);
-            // For now, we'll assume the default state is "Idle" or similar
-            // You can customize this based on your animator setup
-            originalStateName = "Idle";
-        }
+    InitializePlayableGraph();
     }
 
     private void OnEnable()
     {
         if (attacker != null)
         {
-            attacker.OnAttackPerformed += HandleAttackAnimation;
+            // Subscribe to attack start (windup) for animation playback. Impact (damage) happens later.
+            attacker.OnAttackStarted += HandleAttackAnimation;
         }
 
         if (health != null)
@@ -125,7 +135,7 @@ public class EntityAnimator : MonoBehaviour
     {
         if (attacker != null)
         {
-            attacker.OnAttackPerformed -= HandleAttackAnimation;
+            attacker.OnAttackStarted -= HandleAttackAnimation;
         }
 
         if (health != null)
@@ -144,6 +154,15 @@ public class EntityAnimator : MonoBehaviour
         if (unlockable != null)
         {
             unlockable.OnUnlocked -= HandleUnlockAnimation;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (graphInitialized && attackGraph.IsValid())
+        {
+            attackGraph.Destroy();
+            graphInitialized = false;
         }
     }
 
@@ -244,75 +263,128 @@ public class EntityAnimator : MonoBehaviour
     }
 
     /// <summary>
-    /// Loads an animation clip from Resources and plays it directly, then returns to the original state.
+    /// Loads an attack clip from Resources and blends it in/out over the base controller using Playables.
     /// </summary>
-    /// <param name="clipName">Name of the animation clip in the Resources folder.</param>
+    /// <param name="clipName">Clip name inside Resources/Animations/Attack</param>
     private void PlayAttackAnimationClip(string clipName)
     {
         if (isPlayingAttackAnimation)
         {
-            Debug.LogWarning($"[EntityAnimator] Already playing attack animation on {gameObject.name}, ignoring new request.", this);
+            // Optionally you could queue attacks here.
+            Debug.LogWarning($"[EntityAnimator] Attack already playing on {gameObject.name}. Ignoring new request '{clipName}'.", this);
             return;
         }
 
-        // Load the animation clip from Resources
+        if (!graphInitialized)
+        {
+            InitializePlayableGraph();
+            if (!graphInitialized)
+            {
+                Debug.LogError("[EntityAnimator] Failed to initialize PlayableGraph.", this);
+                return;
+            }
+        }
+
         AnimationClip clip = Resources.Load<AnimationClip>("Animations/Attack/" + clipName);
         if (clip == null)
         {
-            Debug.LogError($"[EntityAnimator] Could not load animation clip '{clipName}' from Resources folder.", this);
+            Debug.LogError($"[EntityAnimator] Could not load attack clip '{clipName}' from Resources/Animations/Attack.", this);
             return;
         }
 
-        currentAttackClip = clip;
-        StartCoroutine(PlayAttackClipCoroutine());
+        StartCoroutine(PlayAttackClipCoroutine(clip));
     }
 
     /// <summary>
-    /// Coroutine that handles playing the attack animation and returning to the original state.
+    /// Coroutine that performs timed crossfade of an arbitrary attack clip using a 2-input mixer.
     /// </summary>
-    private IEnumerator PlayAttackClipCoroutine()
+    private IEnumerator PlayAttackClipCoroutine(AnimationClip clip)
     {
         isPlayingAttackAnimation = true;
 
-        // Alternative approach: Use AnimationClip.SampleAnimation for direct playback
-        if (currentAttackClip != null)
+        // Clean previous attack playable if still valid
+        if (attackClipPlayable.IsValid())
         {
-            float animationLength = currentAttackClip.length;
-            float elapsedTime = 0f;
-            
-            // Store the current animation state to restore later
-            AnimatorStateInfo originalState = animator.GetCurrentAnimatorStateInfo(0);
-            
-            // Disable the animator temporarily to prevent conflicts
-            animator.enabled = false;
+            attackClipPlayable.Destroy();
+        }
 
-            // Sample the animation clip frame by frame
-            while (elapsedTime < animationLength)
+        attackClipPlayable = AnimationClipPlayable.Create(attackGraph, clip);
+        attackClipPlayable.SetApplyFootIK(true);
+
+        // (Re)connect clip playable to mixer input 1
+        if (mixerPlayable.GetInputCount() < 2)
+        {
+            // Shouldn't happen; mixer was created with 2 inputs.
+            while (mixerPlayable.GetInputCount() < 2)
             {
-                float normalizedTime = elapsedTime / animationLength;
-                currentAttackClip.SampleAnimation(gameObject, elapsedTime);
-                
-                elapsedTime += Time.deltaTime;
-                yield return null;
+                mixerPlayable.AddInput(Playable.Null, 0);
             }
+        }
+        attackGraph.Connect(attackClipPlayable, 0, mixerPlayable, 1);
+        mixerPlayable.SetInputWeight(1, 0f);
 
-            // Sample the final frame to ensure completion
-            currentAttackClip.SampleAnimation(gameObject, animationLength);
+        float clipLength = clip.length;
+        float fadeIn = Mathf.Max(0.0001f, attackFadeInDuration);
+        float fadeOut = Mathf.Max(0.0001f, attackFadeOutDuration);
 
-            // Re-enable the animator
-            animator.enabled = true;
-            
-            // Return to the previous state
-            if (!string.IsNullOrEmpty(originalStateName))
+        // Ensure fades do not exceed clip length
+        float maxFades = fadeIn + fadeOut + attackHoldBuffer;
+        if (maxFades > clipLength)
+        {
+            float scale = clipLength / (fadeIn + fadeOut + 0.00001f);
+            fadeIn *= scale;
+            fadeOut *= scale;
+        }
+        float holdTime = Mathf.Max(0f, clipLength - fadeIn - fadeOut);
+
+        // Fade in
+        float t = 0f;
+        while (t < fadeIn)
+        {
+            float w = t / fadeIn;
+            if (!attackAdditive)
             {
-                animator.Play(originalStateName, 0, originalState.normalizedTime);
+                mixerPlayable.SetInputWeight(0, 1f - w);
             }
+            mixerPlayable.SetInputWeight(1, w);
+            t += Time.deltaTime;
+            yield return null;
+        }
+        mixerPlayable.SetInputWeight(1, 1f);
+        if (!attackAdditive) mixerPlayable.SetInputWeight(0, 0f);
+
+        // Hold
+        float elapsed = 0f;
+        while (elapsed < holdTime)
+        {
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        // Fade out
+        t = 0f;
+        while (t < fadeOut)
+        {
+            float w = 1f - (t / fadeOut);
+            mixerPlayable.SetInputWeight(1, w);
+            if (!attackAdditive)
+            {
+                mixerPlayable.SetInputWeight(0, 1f - w);
+            }
+            t += Time.deltaTime;
+            yield return null;
+        }
+        mixerPlayable.SetInputWeight(1, 0f);
+        if (!attackAdditive) mixerPlayable.SetInputWeight(0, 1f);
+
+        // Cleanup attack playable to free resources (optional; can reuse)
+        if (attackClipPlayable.IsValid())
+        {
+            attackClipPlayable.Destroy();
         }
 
         isPlayingAttackAnimation = false;
-        
-        Debug.Log($"[EntityAnimator] Attack animation '{currentAttackClip?.name}' completed on {gameObject.name}.");
-        currentAttackClip = null;
+        Debug.Log($"[EntityAnimator] Attack animation '{clip.name}' completed on {gameObject.name}.");
     }
 
     /// <summary>
@@ -356,5 +428,31 @@ public class EntityAnimator : MonoBehaviour
 
         animator.SetTrigger(unlockTriggerId);
         Debug.Log($"[EntityAnimator] {gameObject.name} unlock animation triggered.");
+    }
+
+    /// <summary>
+    /// Builds the PlayableGraph used to blend attack clips without requiring extra animator states.
+    /// </summary>
+    private void InitializePlayableGraph()
+    {
+        if (graphInitialized || animator == null || animator.runtimeAnimatorController == null)
+            return;
+
+        attackGraph = PlayableGraph.Create($"EntityAnimatorGraph_{gameObject.name}");
+        attackGraph.SetTimeUpdateMode(DirectorUpdateMode.GameTime);
+
+        controllerPlayable = AnimatorControllerPlayable.Create(attackGraph, animator.runtimeAnimatorController);
+    // Create mixer with 2 inputs (0 = base controller, 1 = attack clip)
+    mixerPlayable = AnimationMixerPlayable.Create(attackGraph, 2);
+
+        attackGraph.Connect(controllerPlayable, 0, mixerPlayable, 0);
+        mixerPlayable.SetInputWeight(0, 1f); // Base layer initially full weight
+        mixerPlayable.SetInputWeight(1, 0f); // Attack layer hidden
+
+        var output = AnimationPlayableOutput.Create(attackGraph, "Animation", animator);
+        output.SetSourcePlayable(mixerPlayable);
+
+        attackGraph.Play();
+        graphInitialized = true;
     }
 }

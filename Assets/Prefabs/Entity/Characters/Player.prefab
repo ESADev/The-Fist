@@ -2095,6 +2095,7 @@ GameObject:
   - component: {fileID: 721219404640770294}
   - component: {fileID: 971880978614255254}
   - component: {fileID: 6237826322815888177}
+  - component: {fileID: 6741262894691063290}
   m_Layer: 3
   m_Name: Visuals
   m_TagString: Untagged
@@ -2158,6 +2159,23 @@ MonoBehaviour:
   damageTriggerParameter: TakeDamage
   upgradeTriggerParameter: Upgrade
   unlockTriggerParameter: Unlock
+  attackFadeInDuration: 0.12
+  attackFadeOutDuration: 0.1
+  attackAdditive: 0
+  attackHoldBuffer: 0.02
+--- !u!114 &6741262894691063290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5426422820649980642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 339ffeee7a375e94aae57f43aa7a7152, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageVFXKey: player take damage
 --- !u!1 &5617613097781697992
 GameObject:
   m_ObjectHideFlags: 0
@@ -4100,7 +4118,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6690214997999752186}
-  - component: {fileID: 4063049391653349731}
   - component: {fileID: 1279659027832494362}
   - component: {fileID: 3823703954276214732}
   - component: {fileID: 5997312907038487588}
@@ -4113,6 +4130,8 @@ GameObject:
   - component: {fileID: 5704887413861092773}
   - component: {fileID: 2169827881425518175}
   - component: {fileID: 7518654772825866059}
+  - component: {fileID: 4215453722043555868}
+  - component: {fileID: 4063049391653349731}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -4138,18 +4157,6 @@ Transform:
   - {fileID: 8009387782237000945}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4063049391653349731
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9110108307384180276}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ba7608d5f82bfa459a98ea221b51d9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1279659027832494362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4319,6 +4326,39 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9110108307384180276}
   m_Enabled: 1
+--- !u!114 &4215453722043555868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9110108307384180276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0213ce0887077d4e9b433e943d2b39d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseStepInterval: 0.2
+  minimumSpeedThreshold: 0.1
+  referenceSpeed: 10
+  speedInfluenceMultiplier: 0.1
+  minimumStepInterval: 0.1
+  groundY: 0.01
+  forwardOffset: 0.5
+  positionJitterRadius: 0.5
+  footstepVFXKey: footstep
+--- !u!114 &4063049391653349731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9110108307384180276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ba7608d5f82bfa459a98ea221b51d9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7763770740690908027
 PrefabInstance:
   m_ObjectHideFlags: 0

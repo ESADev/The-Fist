@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0b2cd1f939ea1a41979a24b58f84dce, type: 3}
+  m_Name: Level 5 Archer
+  m_EditorClassIdentifier: 
+  characterName: Level 5 Archer
+  description: 
+  characterType: 2
+  cost: []
+  characterPrefab: {fileID: 6040997269910089182, guid: 56af331c1f240604886d7871e43e36a1, type: 3}
+  healthStats: {fileID: 11400000, guid: 0eb9203d87fc90940960a8ff58275da4, type: 2}
+  movementStats: {fileID: 11400000, guid: 6a7a127fcbf2ab44e801f07c3eabda02, type: 2}
+  attackerProfile: {fileID: 11400000, guid: 39f29e70ccee5134483f30812e28064c, type: 2}
+  targetScanner: {fileID: 11400000, guid: 6bab6109d185f074a8fd730c8c1a3e90, type: 2}
+  interactorProfile: {fileID: 11400000, guid: f9e5977389cd5d2488a40c9c03b959bb, type: 2}
+  characterPortrait: {fileID: 0}
+  sfxOverrides: {fileID: 11400000, guid: 7128b6b3f17092645b64f10068fa3105, type: 2}
+  vfxOverrides: {fileID: 11400000, guid: 567ea8f8c875320499644eb9a5108cbe, type: 2}
+  deathBounty: {fileID: 11400000, guid: 3135c5ccd2ca61846b329ca8d0c188c2, type: 2}

@@ -10,6 +10,8 @@ public class ResourceGenerator : MonoBehaviour
     [Tooltip("Profile defining resource generation settings.")]
     public ResourceGeneratorProfileSO generatorProfile;
 
+    [SerializeField] Transform vfxSpawnPoint;
+
     private Coroutine[] generateRoutines;
 
     private void OnEnable()
@@ -62,6 +64,9 @@ public class ResourceGenerator : MonoBehaviour
 
                 // SFX
                 SFXManager.Instance.PlaySound("gem generation", transform.position);
+
+                // VFX
+                VFXManager.Instance.PlayEffect("resource generation", vfxSpawnPoint != null ? vfxSpawnPoint.position : transform.position);
 
                 Debug.Log($"[ResourceGenerator] Added {amountPerTick} {resourceProfile.resourceType}.", this);
             }

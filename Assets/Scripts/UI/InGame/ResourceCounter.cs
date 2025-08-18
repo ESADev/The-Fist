@@ -118,7 +118,7 @@ public class ResourceCounter : MonoBehaviour
         animationTween?.Kill();
         animationTween = DOTween.To(() => displayedResourceCount, x => displayedResourceCount = x, resourceCount, 0.5f)
             .OnUpdate(() =>
-                resourceText.text = FormattingHelper.FormatNumber(displayedResourceCount))
+                resourceText.text = FormattingHelper.FormatNumber(displayedResourceCount) + " <sprite name=\"prestige\">")
             .SetEase(Ease.OutSine);
     }
 

@@ -19,7 +19,7 @@ public class ResourceGenerationField
     public ResourceType resourceType = ResourceType.Prestige;
 
     [Tooltip("Amount generated per second.")]
-    public int amountPerSeconds = 1;
+    public float amountPerSeconds = 1;
 
     [Tooltip("Time in seconds between each generation tick. A new batch (amount depends on the amount per second field) will be generated after this amount of time.")]
     public float tickRateInSeconds = 5f;

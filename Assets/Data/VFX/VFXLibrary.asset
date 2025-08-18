@@ -13,13 +13,167 @@ MonoBehaviour:
   m_Name: VFXLibrary
   m_EditorClassIdentifier: 
   particleEffects:
-  - key: dust
-    displayName: Dust
+  - key: footstep
+    displayName: Footstep
     priority: 0
-    particlePrefab: {fileID: 0}
-    autoDestroy: 0
-    maxLifetime: 0
-    playOnAwake: 0
-    scale: 0
-  postProcessingEffects: []
-  cameraShakes: []
+    particlePrefab: {fileID: 1878560746460868, guid: 2ff2da1388924e04795def6cf31a105d, type: 3}
+    autoDestroy: 1
+    maxLifetime: 10
+    playOnAwake: 1
+    scale: 1
+  - key: arrow hit
+    displayName: 
+    priority: 1
+    particlePrefab: {fileID: 1384676760634654, guid: ac68a2d13e9d7804590268c56ebb4704, type: 3}
+    autoDestroy: 1
+    maxLifetime: 10
+    playOnAwake: 1
+    scale: 1
+  - key: building take damage
+    displayName: 
+    priority: 1
+    particlePrefab: {fileID: 1450638143650814, guid: 610a218e7ce2cbe4192972900859c22c, type: 3}
+    autoDestroy: 1
+    maxLifetime: 10
+    playOnAwake: 1
+    scale: 1
+  - key: human take damage
+    displayName: 
+    priority: 1
+    particlePrefab: {fileID: 1026642433091512, guid: ed67c2cb8e3a7fb418c6fbb1b001dce2, type: 3}
+    autoDestroy: 1
+    maxLifetime: 10
+    playOnAwake: 1
+    scale: 1
+  - key: resource generation
+    displayName: 
+    priority: 1
+    particlePrefab: {fileID: 1167155001037120, guid: 9e6d3545abc9f3f4381ca6f599618fe0, type: 3}
+    autoDestroy: 1
+    maxLifetime: 10
+    playOnAwake: 1
+    scale: 1
+  - key: unit generation
+    displayName: 
+    priority: 1
+    particlePrefab: {fileID: 1879769179923522, guid: e164d1e3955a4ad459211dcbfbdc52f9, type: 3}
+    autoDestroy: 1
+    maxLifetime: 10
+    playOnAwake: 1
+    scale: 1
+  - key: upgrade
+    displayName: 
+    priority: 1
+    particlePrefab: {fileID: 1624714524768532, guid: b9b2887116a7af84e8155670064ffa3d, type: 3}
+    autoDestroy: 1
+    maxLifetime: 10
+    playOnAwake: 1
+    scale: 1
+  postProcessingEffects:
+  - key: lose
+    displayName: 
+    priority: 1
+    postProcessingProfile: {fileID: 11400000, guid: 9b73f84e19523384caa77a8fd8ef6e7c, type: 2}
+    fadeInDuration: 0.2
+    mainDuration: 3
+    fadeOutDuration: 0.5
+    maxWeight: 1
+    blendMode: 1
+  - key: win
+    displayName: 
+    priority: 1
+    postProcessingProfile: {fileID: 11400000, guid: 401fb6076519c39418979e108c7f4369, type: 2}
+    fadeInDuration: 0.2
+    mainDuration: 3
+    fadeOutDuration: 0.5
+    maxWeight: 1
+    blendMode: 1
+  - key: player take damage
+    displayName: 
+    priority: 1
+    postProcessingProfile: {fileID: 11400000, guid: b1731f8021fdecf41a1ce325785f90ea, type: 2}
+    fadeInDuration: 0.2
+    mainDuration: 0.1
+    fadeOutDuration: 0.5
+    maxWeight: 1
+    blendMode: 1
+  - key: resource collection
+    displayName: 
+    priority: 1
+    postProcessingProfile: {fileID: 11400000, guid: 8f4bdcfa71bd13843b02b89a00a31c12, type: 2}
+    fadeInDuration: 0.2
+    mainDuration: 0.1
+    fadeOutDuration: 0.5
+    maxWeight: 0.5
+    blendMode: 1
+  cameraShakes:
+  - key: player take damage
+    displayName: 
+    priority: 0
+    magnitude: 0.33
+    duration: 1
+    frequency: 3
+    dampening:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    shakePosition: 1
+    shakeRotation: 1
+    xMultiplier: 1
+    yMultiplier: 1
+    zMultiplier: 0
+  - key: building death
+    displayName: 
+    priority: 1
+    magnitude: 0.1
+    duration: 0.2
+    frequency: 25
+    dampening:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    shakePosition: 1
+    shakeRotation: 0
+    xMultiplier: 1
+    yMultiplier: 1
+    zMultiplier: 1

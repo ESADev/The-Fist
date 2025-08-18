@@ -57,12 +57,18 @@ public class UnitSpawner : MonoBehaviour
             yield return new WaitForSeconds(1f / spawnRate);
 
             CharacterDefinitionSO unitToSpawn = ReturnUnitToSpawn(spawnerProfile.units);
-            
+
             Entity instantiatedEntity = Instantiate(unitToSpawn.characterPrefab, spawnPoint.position, spawnPoint.rotation);
-            
+
             instantiatedEntity.Faction.SetFaction(GetComponentInParent<Entity>().Faction.CurrentFaction);
 
             Debug.Log($"[UnitSpawner] Spawned unit {unitToSpawn.characterName}.", this);
+
+            // SFX
+            SFXManager.Instance.PlaySound("unit generation", spawnPoint.position);
+
+            // VFX
+            VFXManager.Instance.PlayEffect("unit generation", spawnPoint.position);
         }
     }
 

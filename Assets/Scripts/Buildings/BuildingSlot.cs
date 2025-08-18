@@ -167,6 +167,7 @@ public class BuildingSlot : MonoBehaviour, IInteractable
         SFXManager.Instance.PlaySound("upgrade", transform.position);
 
         // VFX
+        VFXManager.Instance.PlayEffect("upgrade", transform.position);
     }
 }
 

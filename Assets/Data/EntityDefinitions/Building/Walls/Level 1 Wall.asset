@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0b2cd1f939ea1a41979a24b58f84dce, type: 3}
+  m_Name: Level 1 Wall
+  m_EditorClassIdentifier: 
+  characterName: "Level 1 Wall \U0001F9F1"
+  description: 
+  characterType: 7
+  cost:
+  - type: 0
+    amount: 20
+  characterPrefab: {fileID: 4535090413126542502, guid: 78b624a6fb0fe2841928714b5d62f311, type: 3}
+  healthStats: {fileID: 11400000, guid: bb67d1fec9745bd44b297d25cfeed873, type: 2}
+  movementStats: {fileID: 11400000, guid: e31d62f1ff5179642a12c6c9605172f0, type: 2}
+  attackerProfile: {fileID: 11400000, guid: fee0b1eb2bb994c4db63a42b5c32f5e3, type: 2}
+  targetScanner: {fileID: 11400000, guid: 9ffbedaa1f92ae04388f50f9484d7181, type: 2}
+  interactorProfile: {fileID: 11400000, guid: dfebafaf588c1074c919f889cc23d987, type: 2}
+  characterPortrait: {fileID: 0}
+  sfxOverrides: {fileID: 11400000, guid: 9cd6bfcf8130cb847a8e7b6ed894dd7a, type: 2}
+  vfxOverrides: {fileID: 11400000, guid: 9866f96f424a87d49b849219c4016e25, type: 2}
+  deathBounty: {fileID: 11400000, guid: 63f9de35db8b3e64399c1bb9df9acf0c, type: 2}

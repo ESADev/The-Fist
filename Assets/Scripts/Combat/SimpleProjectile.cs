@@ -77,6 +77,7 @@ public class SimpleProjectile : MonoBehaviour
         }
 
         // VFX
+        VFXManager.Instance.PlayEffect("arrow hit", transform.position);
 
         // SFX
         SFXManager.Instance.PlaySound("arrow hit", collision.transform.position);

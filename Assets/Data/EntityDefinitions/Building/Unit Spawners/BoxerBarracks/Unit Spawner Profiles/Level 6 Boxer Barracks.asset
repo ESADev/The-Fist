@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6cf42702042f424daf39c54639e8376, type: 3}
+  m_Name: Level 6 Boxer Barracks
+  m_EditorClassIdentifier: 
+  units:
+  - unit: {fileID: 11400000, guid: bcdb189da4daf6c45980d1c4dfaf6dc8, type: 2}
+    probability: 0.15
+  - unit: {fileID: 11400000, guid: 2fe1151e8cefcd748af8d9760be0b26c, type: 2}
+    probability: 0.25
+  - unit: {fileID: 11400000, guid: e53f869d0ab41834797d9dcbd0cd87a2, type: 2}
+    probability: 0.25
+  - unit: {fileID: 11400000, guid: 3824ad331acc3fd4e9fe39ee4f05586e, type: 2}
+    probability: 0.25
+  - unit: {fileID: 11400000, guid: d01fb122a70f6a04ab3a7bd5e33a8982, type: 2}
+    probability: 0.1
+  spawnRate: 0.4761905

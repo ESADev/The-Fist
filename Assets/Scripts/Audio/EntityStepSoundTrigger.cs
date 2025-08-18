@@ -9,17 +9,17 @@ public class EntityStepSoundTrigger : MonoBehaviour
 {
     [Header("Step Sound Configuration")]
     [Tooltip("Base time interval between step sounds in seconds at normal speed.")]
-    [SerializeField] private float baseStepInterval = 0.5f;
+    [SerializeField] private float baseStepInterval = 0.25f;
     
     [Tooltip("Minimum movement speed required to trigger step sounds.")]
     [SerializeField] private float minimumSpeedThreshold = 0.1f;
     
     [Header("Speed-Based Step Frequency")]
     [Tooltip("Reference speed for normal step frequency. Higher speeds will increase step frequency.")]
-    [SerializeField] private float referenceSpeed = 3f;
+    [SerializeField] private float referenceSpeed = 10f;
     
     [Tooltip("Multiplier for how much speed affects step frequency. Higher values = more dramatic changes.")]
-    [SerializeField] private float speedInfluenceMultiplier = 1f;
+    [SerializeField] private float speedInfluenceMultiplier = 0.1f;
     
     [Tooltip("Minimum step interval (maximum step frequency) regardless of speed.")]
     [SerializeField] private float minimumStepInterval = 0.1f;

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0b2cd1f939ea1a41979a24b58f84dce, type: 3}
+  m_Name: Level 2 Boxer
+  m_EditorClassIdentifier: 
+  characterName: Level 2 Boxer
+  description: ' '
+  characterType: 1
+  cost: []
+  characterPrefab: {fileID: 5558978850391967136, guid: 805ec15a9681e714f93ba432a53db187, type: 3}
+  healthStats: {fileID: 11400000, guid: 084067e6fd0fa784e80ab9dd8559c6de, type: 2}
+  movementStats: {fileID: 11400000, guid: 66cc93f21a81b504e89bfdce82ecd0e9, type: 2}
+  attackerProfile: {fileID: 11400000, guid: 0800a78394b47094181e4e24880d1348, type: 2}
+  targetScanner: {fileID: 11400000, guid: 83cfae88dcd19154db4ab3dc68208a65, type: 2}
+  interactorProfile: {fileID: 11400000, guid: f9e5977389cd5d2488a40c9c03b959bb, type: 2}
+  characterPortrait: {fileID: 0}
+  sfxOverrides: {fileID: 11400000, guid: 7128b6b3f17092645b64f10068fa3105, type: 2}
+  vfxOverrides: {fileID: 11400000, guid: 567ea8f8c875320499644eb9a5108cbe, type: 2}
+  deathBounty: {fileID: 11400000, guid: 63f9de35db8b3e64399c1bb9df9acf0c, type: 2}

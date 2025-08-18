@@ -311,3 +311,14 @@ MonoBehaviour:
       UseRandomPitch: 1
       RandomPitchVariance: 0.3
     Use3DSound: 0
+  - key: unit generation
+    overallVolume: 1
+    clips:
+    - clip: {fileID: 8300000, guid: 06f8e6aa5a8e4c8449c2670491cbaeb7, type: 3}
+      volume: 0.15
+      pitch: 0.5
+      UseRandomVolume: 1
+      RandomVolumeVariance: 0.1
+      UseRandomPitch: 1
+      RandomPitchVariance: 0.1
+    Use3DSound: 1

@@ -95,6 +95,15 @@ public class CharacterDefinitionSO : ScriptableObject
     [Tooltip("Optional SFX overrides for entity-specific sound effects. If not assigned, default SFX Manager keys will be used.")]
     public EntitySFXOverrideSO sfxOverrides;
 
+    [Header("Visual Effects")]
+
+    /// <summary>
+    /// Optional VFX overrides for entity-specific visual effects (damage, death, footsteps).
+    /// If not assigned, default VFX Manager keys will be used.
+    /// </summary>
+    [Tooltip("Optional VFX overrides for entity-specific visual effects (damage, death, footsteps). If not assigned, default VFX Manager keys will be used.")]
+    public EntityVFXOverrideSO vfxOverrides;
+
     [Header("Rewards")]
 
     /// <summary>

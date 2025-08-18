@@ -53,8 +53,7 @@ public class Resource : MonoBehaviour
             Destroy(gameObject);
         }).SetEase(moveEase);
 
-        // SFX
-        SFXManager.Instance.PlaySound("collect resource", transform.position);
+        PlayCollectSFXVFX();
     }
 
     /// <summary>
@@ -74,8 +73,7 @@ public class Resource : MonoBehaviour
         DOTween.Kill(transform, complete: false);
         StartCoroutine(FollowAndCollect(target, randomizedDuration));
 
-        // SFX
-        SFXManager.Instance.PlaySound("collect resource", transform.position);
+        PlayCollectSFXVFX();
     }
 
     private IEnumerator FollowAndCollect(Transform target, float duration)
@@ -102,5 +100,14 @@ public class Resource : MonoBehaviour
         // Finalize collection.
         ResourceManager.Instance.AddResource(resourceType, amount);
         Destroy(gameObject);
+    }
+
+    void PlayCollectSFXVFX()
+    {
+        // SFX
+        SFXManager.Instance.PlaySound("collect resource", transform.position);
+
+        // VFX
+        VFXManager.Instance.PlayEffect("resource collection", transform.position);
     }
 }

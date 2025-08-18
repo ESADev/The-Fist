@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67465aa076243524c976db4a96e89f09, type: 3}
+  m_Name: UT Prestige Generator
+  m_EditorClassIdentifier: 
+  levels:
+  - {fileID: 11400000, guid: 2c4625f2cf6c37644a6db30bb9c1ba4b, type: 2}
+  - {fileID: 11400000, guid: ff0649aa2c7b48c4d812a5c622c0ba1b, type: 2}
+  - {fileID: 11400000, guid: d20caf80c106c354abb3844337fdca97, type: 2}
+  - {fileID: 11400000, guid: f42a4a6e02ecce8468339c8b255b7f02, type: 2}
+  - {fileID: 11400000, guid: e47175612412f1242a0c319d4eade27a, type: 2}
+  - {fileID: 11400000, guid: e9c65030918803145a97a7e89828b65e, type: 2}
+  - {fileID: 11400000, guid: ac3ec7ba340b8984d9b19c70e2469cb0, type: 2}

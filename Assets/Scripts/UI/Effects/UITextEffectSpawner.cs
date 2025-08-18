@@ -41,6 +41,14 @@ public class UITextEffectSpawner : MonoBehaviour
     [SerializeField] private float punchScaleMultiplier = 1f;
     [SerializeField] private float punchScaleDuration = 0.25f;
 
+    [Header("Palette Integration")] 
+    [Tooltip("If true, will pull increase/decrease colors from the global ColorPaletteManager instead of the manual colors above.")]
+    [SerializeField] private bool usePaletteManagerColors = true;
+    [Tooltip("Palette color used when delta > 0 (only when Use Palette Manager Colors is enabled).")]
+    [SerializeField] private PaletteColor increasePaletteColor = PaletteColor.CTA2;
+    [Tooltip("Palette color used when delta < 0 (only when Use Palette Manager Colors is enabled).")]
+    [SerializeField] private PaletteColor decreasePaletteColor = PaletteColor.CTA1;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -68,7 +76,7 @@ public class UITextEffectSpawner : MonoBehaviour
     {
         if (delta == 0) return;
         string prefix = delta > 0 ? "+" : string.Empty;
-        Color col = delta > 0 ? increaseColor : decreaseColor;
+    Color col = ResolveDeltaColor(delta > 0);
         SpawnText(prefix + FormattingHelper.FormatNumber(delta), anchor, col);
     }
 
@@ -207,4 +215,22 @@ public class UITextEffectSpawner : MonoBehaviour
 
     public static void SpawnTextAtWorldPositionGlobal(string message, Vector3 worldPos, Canvas canvas = null, Color? overrideColor = null)
         => Instance?.SpawnTextAtWorldPosition(message, worldPos, canvas, overrideColor);
+
+    // -------- Internal Helpers --------
+    private Color ResolveDeltaColor(bool isIncrease)
+    {
+        if (usePaletteManagerColors)
+        {
+            var mgr = ColorPaletteManager.Instance; // may be null if asset missing
+            if (mgr != null)
+            {
+                var pal = isIncrease ? increasePaletteColor : decreasePaletteColor;
+                if (pal != PaletteColor.Ignore)
+                {
+                    return mgr.GetColor(pal);
+                }
+            }
+        }
+        return isIncrease ? increaseColor : decreaseColor;
+    }
 }

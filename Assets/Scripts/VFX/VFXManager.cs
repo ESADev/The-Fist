@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -29,6 +30,14 @@ public class VFXManager : MonoBehaviour
     [Tooltip("VFX configurations triggered by specific game events.")]
     public VFXEventMapping[] eventMappings;
 
+    [Header("Default Entity Event VFX Keys")]
+    [Tooltip("Default VFX key used when a unit takes damage (overridden per-entity via EntityVFXOverrideSO).")]
+    public string unitDamagedVFXKey = "unit_damage";
+    [Tooltip("Default VFX key used when a unit dies (overridden per-entity via EntityVFXOverrideSO).")]
+    public string unitDeathVFXKey = "unit_death";
+    [Tooltip("Default VFX key used for footsteps if an override component wants to query (optional).")]
+    public string unitStepVFXKey = "footstep";
+
     private void Awake()
     {
         // Singleton enforcement
@@ -57,6 +66,7 @@ public class VFXManager : MonoBehaviour
         GameEvents.OnUnitDamaged += HandleUnitDamaged;
         GameEvents.OnUnitDied += HandleUnitDied;
         GameEvents.OnVictory += HandleVictory;
+    GameEvents.OnDefeat += HandleDefeat;
     }
 
     private void OnDisable()
@@ -64,6 +74,7 @@ public class VFXManager : MonoBehaviour
         GameEvents.OnUnitDamaged -= HandleUnitDamaged;
         GameEvents.OnUnitDied -= HandleUnitDied;
         GameEvents.OnVictory -= HandleVictory;
+    GameEvents.OnDefeat -= HandleDefeat;
     }
 
     #region Public VFX Trigger Methods
@@ -159,34 +170,50 @@ public class VFXManager : MonoBehaviour
     /// <param name="keys">Array of VFX keys to trigger.</param>
     /// <param name="position">Position for particle effects.</param>
     /// <param name="rotation">Rotation for particle effects.</param>
-    public void PlayMultipleEffects(string[] keys, Vector3 position, Quaternion rotation = default)
+    public void PlayMultipleEffects(List<string> keys, Vector3 position, Quaternion rotation = default)
     {
         foreach (string key in keys)
         {
             if (string.IsNullOrEmpty(key)) continue;
 
-            // Try each type of effect
-            var particleData = vfxLibrary?.GetParticleEffect(key);
-            var ppData = vfxLibrary?.GetPostProcessingEffect(key);
-            var shakeData = vfxLibrary?.GetCameraShake(key);
-
-            if (particleData != null)
-            {
-                PlayParticleEffect(key, position, rotation);
-            }
-            else if (ppData != null)
-            {
-                PlayPostProcessingEffect(key);
-            }
-            else if (shakeData != null)
-            {
-                TriggerCameraShake(key);
-            }
-            else
-            {
-                Debug.LogWarning($"[VFXManager] No VFX found with key '{key}'.", this);
-            }
+            PlayEffect(key, position);
         }
+    }
+
+    /// <summary>
+    /// Plays a single VFX effect by key at a specified position.
+    /// </summary>
+    public void PlayEffect(string key, Vector3 position)
+    {
+        if (string.IsNullOrEmpty(key))
+        {
+            Debug.LogWarning("[VFXManager] Attempted to play an empty effect key.", this);
+            return;
+        }
+
+        // Try particle effect first
+        var particleData = vfxLibrary?.GetParticleEffect(key);
+        if (particleData != null)
+        {
+            PlayParticleEffect(key, position);
+        }
+
+        // Try post-processing effect
+        var ppData = vfxLibrary?.GetPostProcessingEffect(key);
+        if (ppData != null)
+        {
+            PlayPostProcessingEffect(key);
+        }
+
+        // Try camera shake
+        var shakeData = vfxLibrary?.GetCameraShake(key);
+        if (shakeData != null)
+        {
+            TriggerCameraShake(key);
+            return;
+        }
+
+        Debug.LogWarning($"[VFXManager] No VFX found with key '{key}'.", this);
     }
 
     #endregion
@@ -194,11 +221,38 @@ public class VFXManager : MonoBehaviour
     #region Event Handlers
 
     /// <summary>
+    /// Handles the defeat (lose level) event.
+    /// </summary>
+    private void HandleDefeat()
+    {
+        foreach (var mapping in eventMappings)
+        {
+            if (mapping.eventType == VFXEventType.Defeat)
+            {
+                ExecuteVFXMapping(mapping, Vector3.zero, null);
+            }
+        }
+    }
+
+    /// <summary>
     /// Handles the unit damaged event with comprehensive VFX response.
+    /// Includes player-specific mapping if victim tagged as Player.
     /// </summary>
     private void HandleUnitDamaged(DamageInfo info)
     {
         Vector3 effectPosition = info.victim != null ? info.victim.transform.position : Vector3.zero;
+        if (info.victim != null)
+        {
+            var entity = info.victim.GetComponent<Entity>();
+            if (entity != null)
+            {
+                string key = GetEntityVFXKey(entity, "damage", unitDamagedVFXKey);
+                if (!string.IsNullOrEmpty(key))
+                {
+                    PlayEffect(key, effectPosition);
+                }
+            }
+        }
 
         // Find and execute event-specific VFX mappings
         foreach (var mapping in eventMappings)
@@ -216,6 +270,18 @@ public class VFXManager : MonoBehaviour
     private void HandleUnitDied(GameObject unit)
     {
         Vector3 effectPosition = unit != null ? unit.transform.position : Vector3.zero;
+        if (unit != null)
+        {
+            var entity = unit.GetComponent<Entity>();
+            if (entity != null)
+            {
+                string key = GetEntityVFXKey(entity, "death", unitDeathVFXKey);
+                if (!string.IsNullOrEmpty(key))
+                {
+                    PlayEffect(key, effectPosition);
+                }
+            }
+        }
 
         foreach (var mapping in eventMappings)
         {
@@ -334,6 +400,27 @@ public class VFXManager : MonoBehaviour
         Debug.Log($"[VFXManager] All VFX effects stopped.");
     }
 
+    #region Entity Override Helpers
+    /// <summary>
+    /// Resolves an entity-specific VFX key for a given event type, falling back to defaults.
+    /// </summary>
+    private string GetEntityVFXKey(Entity entity, string eventType, string fallbackKey)
+    {
+        if (entity == null || entity.characterDefinition == null || entity.characterDefinition.vfxOverrides == null)
+        {
+            return fallbackKey;
+        }
+        var overrides = entity.characterDefinition.vfxOverrides;
+        switch (eventType.ToLower())
+        {
+            case "damage": return overrides.GetDamageKey(fallbackKey);
+            case "death": return overrides.GetDeathKey(fallbackKey);
+            case "step": return overrides.GetStepKey(fallbackKey);
+            default: return fallbackKey;
+        }
+    }
+    #endregion
+
     #endregion
 }
 
@@ -397,6 +484,7 @@ public enum VFXEventType
     UnitDamaged,
     UnitDied,
     Victory,
+    Defeat,
     Custom
 }
 
