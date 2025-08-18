@@ -524,7 +524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b199854a54ad3c042a4af9b0a6bb2216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnerProfile: {fileID: 11400000, guid: 452b602c92ba7ec44aadae1e6637cfe7, type: 2}
+  spawnerProfile: {fileID: 11400000, guid: f104d58594e681c49b3b9bdf5802faf6, type: 2}
   spawnPoint: {fileID: 1077833703079949496}
 --- !u!114 &2232838097834895751
 MonoBehaviour:

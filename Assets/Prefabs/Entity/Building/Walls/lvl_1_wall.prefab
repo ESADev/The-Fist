@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2530232520579121968}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: lvl_1_wall (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 2240725566679121053}
   - component: {fileID: 3234339730039682010}
   - component: {fileID: 8786662733571754756}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tmpbx5ic95g.ply
   m_TagString: Untagged
   m_Icon: {fileID: 0}

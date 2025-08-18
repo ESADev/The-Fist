@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 8617970993051186550}
   - component: {fileID: 7610341496380120709}
   - component: {fileID: 4140697098146439247}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tmp6t_t2hvp.ply
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -188,7 +188,7 @@ GameObject:
   - component: {fileID: 2427176595154863994}
   - component: {fileID: 1082773999668847166}
   - component: {fileID: 2287362038726259197}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: gem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -253,7 +253,7 @@ GameObject:
   - component: {fileID: 93131232449072801}
   - component: {fileID: 4801744146146876826}
   - component: {fileID: 7064702321851313586}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tmpsizggpdt.ply
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -391,7 +391,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2380969667271137964}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: level_1_base
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -40,6 +40,10 @@ public class AutoGate : MonoBehaviour
     
     [Tooltip("Punch strength for opening animation")]
     [SerializeField] private float punchStrength = 0.1f;
+
+    [Header("Filtering Settings")]
+    [Tooltip("If true, the gate only opens for friendly entities that are actually movable (have a MovementController & are Active)." )]
+    [SerializeField] private bool requireMovableFriend = true;
     
     // Private fields
     private Entity gateEntity;
@@ -148,7 +152,18 @@ public class AutoGate : MonoBehaviour
                 // Check if this entity is friendly (same faction)
                 if (nearbyEntity.Faction.CurrentFaction == gateFaction)
                 {
-                    return true;
+                    if (requireMovableFriend)
+                    {
+                        // Must have a MovementController AND be Active to count as movable.
+                        if (nearbyEntity.MovementController != null && nearbyEntity.CurrentState == EntityState.Active)
+                        {
+                            return true;
+                        }
+                    }
+                    else
+                    {
+                        return true;
+                    }
                 }
             }
         }

@@ -268,7 +268,7 @@ GameObject:
   - component: {fileID: 2421803647690621810}
   - component: {fileID: 1883405000448994656}
   - component: {fileID: 9033626848457948363}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tmpip1n0kpg.ply
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -567,7 +567,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5593728600960959090}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: lvl_5_wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}

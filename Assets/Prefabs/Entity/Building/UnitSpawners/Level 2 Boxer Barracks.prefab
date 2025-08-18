@@ -192,7 +192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b199854a54ad3c042a4af9b0a6bb2216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnerProfile: {fileID: 11400000, guid: 452b602c92ba7ec44aadae1e6637cfe7, type: 2}
+  spawnerProfile: {fileID: 11400000, guid: 86f44f8c2e9b1e349a67ce55ae33b49f, type: 2}
   spawnPoint: {fileID: 3448740086392540015}
 --- !u!114 &7231285336271003747
 MonoBehaviour:

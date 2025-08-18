@@ -594,6 +594,37 @@ MonoBehaviour:
   m_FillOrigin: 1
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &6610039291725173927
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6966567330948758979}
+  m_Layer: 6
+  m_Name: VFXSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6966567330948758979
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6610039291725173927}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -8.943163, y: 0, z: 1.1265574}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6850295121238349327}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8840495155718404455
 GameObject:
   m_ObjectHideFlags: 0
@@ -698,14 +729,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9180535946885342959}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0.5809942, z: 0, w: 0.81390774}
-  m_LocalPosition: {x: -33.779, y: 0.0000038146973, z: -56.408}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 6966567330948758979}
   - {fileID: 4408457475124995079}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: -71.041, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &945904331745472751
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -773,7 +805,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36ca8dd217db0b043b5fcc4ce556b656, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  generatorProfile: {fileID: 11400000, guid: 81fb3bf029d344c47aa1ce8b26ac2118, type: 2}
+  generatorProfile: {fileID: 11400000, guid: 0d262e69ad6419c478578c5c7454dff4, type: 2}
+  vfxSpawnPoint: {fileID: 6966567330948758979}
 --- !u!114 &1409534949940104835
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6475837311948761825}
   - component: {fileID: 5214897430288402895}
   - component: {fileID: 7447969149651125331}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tmpf7v6zln5.ply
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7065367941875660438}
   - component: {fileID: 7695225299615111530}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: level_2_base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -151,7 +151,7 @@ GameObject:
   - component: {fileID: 8939617790979756106}
   - component: {fileID: 5879385680124737112}
   - component: {fileID: 3633983445343475895}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: gem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -353,7 +353,7 @@ GameObject:
   - component: {fileID: 8414420421457335055}
   - component: {fileID: 6452823979791257465}
   - component: {fileID: 6710428141497930711}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tmp6t_t2hvp.ply
   m_TagString: Untagged
   m_Icon: {fileID: 0}

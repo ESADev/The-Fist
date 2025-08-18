@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 3690008858684778119}
   - component: {fileID: 8243354230972419522}
   - component: {fileID: 7612747044450369015}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tmpcq_54600.ply
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -599,7 +599,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8802555251640579948}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: lvl_2_wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}

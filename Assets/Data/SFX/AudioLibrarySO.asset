@@ -47,7 +47,7 @@ MonoBehaviour:
       RandomPitchVariance: 0.2
     Use3DSound: 1
   - key: building death
-    overallVolume: 0.5
+    overallVolume: 0.2
     clips:
     - clip: {fileID: 8300000, guid: a27b13a1d1fb98644a40b33c104732fa, type: 3}
       volume: 1

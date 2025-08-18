@@ -40,6 +40,11 @@ public class Attacker : MonoBehaviour
     private bool isEngaging;
 
     private Entity entity;
+    
+    /// <summary>
+    /// Active attack coroutine (windup -> impact). Used so new attacks can override current.
+    /// </summary>
+    private Coroutine activeAttackCoroutine;
 
     /// <summary>
     /// Fired immediately when an attack action starts (windup). Consumers (e.g. animations) should use this to begin visuals.
@@ -273,15 +278,24 @@ public class Attacker : MonoBehaviour
     /// <param name="target">Target to attack.</param>
     private void PerformAttack(AttackDefinitionSO attack, GameObject target)
     {
-        // Launch coroutine handling windup -> impact sequence
-        StartCoroutine(PerformAttackRoutine(attack, target));
+        // If an attack is already winding up (or mid fade), override it with the latest requested attack.
+        bool skipDelay = false;
+        if (activeAttackCoroutine != null)
+        {
+            StopCoroutine(activeAttackCoroutine);
+            activeAttackCoroutine = null;
+            // When chaining rapidly, we skip windup delay to keep responsiveness and prioritize latest.
+            skipDelay = true;
+        }
+
+        activeAttackCoroutine = StartCoroutine(PerformAttackRoutine(attack, target, skipDelay));
     }
 
     /// <summary>
     /// Coroutine that separates attack start (windup) from impact using AttackDefinitionSO.impactDelay.
     /// Keeps system decoupled from specific animation clips; consumers can subscribe to start vs impact.
     /// </summary>
-    private IEnumerator PerformAttackRoutine(AttackDefinitionSO attack, GameObject initialTarget)
+    private IEnumerator PerformAttackRoutine(AttackDefinitionSO attack, GameObject initialTarget, bool skipDelay)
     {
         if (attack == null)
             yield break;
@@ -292,7 +306,7 @@ public class Attacker : MonoBehaviour
         // Fire start event so animator (and optional anticipation SFX) can begin.
         OnAttackStarted?.Invoke(attack);
 
-        float delay = Mathf.Max(0f, attack.impactDelay);
+    float delay = skipDelay ? 0f : Mathf.Max(0f, attack.impactDelay);
         float elapsed = 0f;
         while (elapsed < delay)
         {
@@ -331,7 +345,10 @@ public class Attacker : MonoBehaviour
         }
 
         // Fire impact event after damage/projectile spawn so listeners (SFX/VFX) sync to real effect
-        OnAttackPerformed?.Invoke(attack);
+    OnAttackPerformed?.Invoke(attack);
+
+    // Mark routine finished
+    activeAttackCoroutine = null;
     }
 
     /// <summary>

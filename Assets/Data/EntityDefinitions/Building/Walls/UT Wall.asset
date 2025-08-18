@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67465aa076243524c976db4a96e89f09, type: 3}
+  m_Name: UT Wall
+  m_EditorClassIdentifier: 
+  levels:
+  - {fileID: 11400000, guid: d9976b0be3864074283daeefea14d48d, type: 2}
+  - {fileID: 11400000, guid: 45a4b8e3b54d40e42992476f00e1c6ed, type: 2}
+  - {fileID: 11400000, guid: ce0089b4c686b7c4ab86e0bbc5352323, type: 2}
+  - {fileID: 11400000, guid: cccfe5a99df7b2d4f83306c8efe2f799, type: 2}
+  - {fileID: 11400000, guid: bd73d3147c259764ba62cf730203cb47, type: 2}
+  - {fileID: 11400000, guid: 0a5b14f0b20a143438416b7a24895643, type: 2}

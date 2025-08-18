@@ -56,6 +56,7 @@ public class EntityAnimator : MonoBehaviour
     private float attackHoldBuffer = 0.02f;
 
     private bool isPlayingAttackAnimation = false;
+    private Coroutine attackAnimationCoroutine; // reference so we can interrupt animation on override
     private PlayableGraph attackGraph;
     private AnimationMixerPlayable mixerPlayable;          // 2 inputs: 0 = controller, 1 = attack clip
     private AnimatorControllerPlayable controllerPlayable; // Wraps the original runtime controller
@@ -270,9 +271,23 @@ public class EntityAnimator : MonoBehaviour
     {
         if (isPlayingAttackAnimation)
         {
-            // Optionally you could queue attacks here.
-            Debug.LogWarning($"[EntityAnimator] Attack already playing on {gameObject.name}. Ignoring new request '{clipName}'.", this);
-            return;
+            // Interrupt current attack animation and prioritize latest
+            if (attackAnimationCoroutine != null)
+            {
+                StopCoroutine(attackAnimationCoroutine);
+            }
+            // Clean up previous clip playable if valid
+            if (attackClipPlayable.IsValid())
+            {
+                attackClipPlayable.Destroy();
+            }
+            // Reset mixer weights before starting new clip
+            if (mixerPlayable.IsValid())
+            {
+                mixerPlayable.SetInputWeight(0, 1f);
+                mixerPlayable.SetInputWeight(1, 0f);
+            }
+            isPlayingAttackAnimation = false; // We'll set true again below
         }
 
         if (!graphInitialized)
@@ -292,7 +307,7 @@ public class EntityAnimator : MonoBehaviour
             return;
         }
 
-        StartCoroutine(PlayAttackClipCoroutine(clip));
+    attackAnimationCoroutine = StartCoroutine(PlayAttackClipCoroutine(clip));
     }
 
     /// <summary>
@@ -300,7 +315,7 @@ public class EntityAnimator : MonoBehaviour
     /// </summary>
     private IEnumerator PlayAttackClipCoroutine(AnimationClip clip)
     {
-        isPlayingAttackAnimation = true;
+    isPlayingAttackAnimation = true;
 
         // Clean previous attack playable if still valid
         if (attackClipPlayable.IsValid())
@@ -383,7 +398,8 @@ public class EntityAnimator : MonoBehaviour
             attackClipPlayable.Destroy();
         }
 
-        isPlayingAttackAnimation = false;
+    isPlayingAttackAnimation = false;
+    attackAnimationCoroutine = null;
         Debug.Log($"[EntityAnimator] Attack animation '{clip.name}' completed on {gameObject.name}.");
     }
 

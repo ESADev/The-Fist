@@ -25,7 +25,7 @@ public class BuildingSlot : MonoBehaviour, IInteractable
     AutoInteractor interactor = null;
     Coroutine hideInteractionButtonAfterCooldownCor;
     float lastInteractionRequestTime = -1f;
-    float hideInteractionButtonCooldown = 2f;
+    float hideInteractionButtonCooldown = 0.05f;
 
     /// <summary>
     /// Gets the current building level. Zero means nothing built yet.

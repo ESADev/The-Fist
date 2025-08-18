@@ -24,7 +24,7 @@ MonoBehaviour:
   attackerProfile: {fileID: 11400000, guid: fee0b1eb2bb994c4db63a42b5c32f5e3, type: 2}
   targetScanner: {fileID: 11400000, guid: 9ffbedaa1f92ae04388f50f9484d7181, type: 2}
   interactorProfile: {fileID: 11400000, guid: dfebafaf588c1074c919f889cc23d987, type: 2}
-  characterPortrait: {fileID: 0}
+  characterPortrait: {fileID: 21300000, guid: 3764c2eb383665f4db6cb9e9190142b8, type: 3}
   sfxOverrides: {fileID: 11400000, guid: 9cd6bfcf8130cb847a8e7b6ed894dd7a, type: 2}
   vfxOverrides: {fileID: 11400000, guid: 9866f96f424a87d49b849219c4016e25, type: 2}
   deathBounty: {fileID: 11400000, guid: 840134825ea5db44cb9a3a68172e4b30, type: 2}

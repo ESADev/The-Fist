@@ -266,7 +266,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7198483855949450837}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: lvl_3_wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -676,7 +676,7 @@ GameObject:
   - component: {fileID: 2279805852629056655}
   - component: {fileID: 5860211416502638132}
   - component: {fileID: 687345924016246531}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tmpiwuhfagz.ply
   m_TagString: Untagged
   m_Icon: {fileID: 0}
