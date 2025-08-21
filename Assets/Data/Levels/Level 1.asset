@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9adbe17d76faabb4aa7416f4e2f66565, type: 3}
   m_Name: Level 1
   m_EditorClassIdentifier: 
-  levelIndex: 1
-  levelName: Brachioradialis
+  levelIndex: 0
+  levelName: Current Level
   enemySpawnRateScaler: 1
   inGameSpawnRateSlope: 0.0015

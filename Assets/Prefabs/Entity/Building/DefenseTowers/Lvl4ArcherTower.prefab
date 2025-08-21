@@ -413,6 +413,7 @@ GameObject:
   - component: {fileID: 305445361573804413}
   - component: {fileID: 5167831517710313294}
   - component: {fileID: 9054248527446038408}
+  - component: {fileID: 1656710627377961218}
   m_Layer: 6
   m_Name: Lvl4ArcherTower
   m_TagString: Untagged
@@ -504,6 +505,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e770eace7bdd61469ed370f00553fe5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1656710627377961218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6968733948174831735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52f71dadc27ddac4d984b9369c351c69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerProfile: {fileID: 11400000, guid: c9c1a660fdac43a48bc2b03a6925d215, type: 2}
+  archerAttacker: {fileID: 9012262966428816587}
+  archerMovementController: {fileID: 6253775076889947248}
 --- !u!1 &7025254178060732598
 GameObject:
   m_ObjectHideFlags: 0
@@ -835,3 +851,25 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1164887904082597017, guid: a9b920b19ab75854887d5b9da2b1a360, type: 3}
   m_PrefabInstance: {fileID: 3649323006416272459}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6253775076889947248 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -1986895868385734597, guid: a9b920b19ab75854887d5b9da2b1a360, type: 3}
+  m_PrefabInstance: {fileID: 3649323006416272459}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1ff732849389654fa918b037292d844, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &9012262966428816587 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5743499765539137664, guid: a9b920b19ab75854887d5b9da2b1a360, type: 3}
+  m_PrefabInstance: {fileID: 3649323006416272459}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6db1287dce2048448bf170469f8a2b02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

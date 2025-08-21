@@ -1,0 +1,206 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1259849900567792377
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1631503365957151105}
+  - component: {fileID: 2240827664251532731}
+  - component: {fileID: 6240039996513394403}
+  - component: {fileID: 540473812970271287}
+  - component: {fileID: 6801555819384371666}
+  m_Layer: 0
+  m_Name: Managers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1631503365957151105
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259849900567792377}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3637460437265321610}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2240827664251532731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259849900567792377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c751bbca43c7a64ebaf9014a364b53c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingResources: {fileID: 11400000, guid: 4288eebfa7df47448b7518cf22d94a3a, type: 2}
+--- !u!114 &6240039996513394403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259849900567792377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78b21c801888d5d4481abe8b28f9fd2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &540473812970271287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259849900567792377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 815d3def2f406ef4a82eb70cb4abc369, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: 2bf7d12b5061b4a4eb470e04565ced09, type: 2}
+  playerMainBase: {fileID: 0}
+  enemyMainBase: {fileID: 0}
+  playerEntity: {fileID: 0}
+--- !u!114 &6801555819384371666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259849900567792377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c0f6847657b47e4a87ec8db5d5c9643, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioLibrary: {fileID: 11400000, guid: 96eee34f109314a49bb46cad1c3550e8, type: 2}
+  unitDamagedKey: unit_hit
+  unitDeathKey: unit_death
+  unitStepKey: unit_step
+  victoryKey: win level
+  defeatKey: lose level
+  resourceChangedKey: resource changed
+  objectUpgradedKey: click
+  objectUnlockedKey: click
+  _sfxSourcePrefab: {fileID: 4430753417392285202, guid: 8abd434edaaa97f469918172f6f87770, type: 3}
+--- !u!1 &4671199977724133958
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3637460437265321610}
+  - component: {fileID: 344908804931793686}
+  - component: {fileID: 7571876406203231759}
+  - component: {fileID: 2055062467123661161}
+  - component: {fileID: 3771505655688418106}
+  m_Layer: 0
+  m_Name: VFXManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3637460437265321610
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4671199977724133958}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1631503365957151105}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &344908804931793686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4671199977724133958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0594e2f9975377b40a92051a0637b848, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vfxLibrary: {fileID: 11400000, guid: 0b9955e9995ddc84292df696e3db7dc2, type: 2}
+  particleManager: {fileID: 7571876406203231759}
+  cameraShakeManager: {fileID: 2055062467123661161}
+  postProcessingManager: {fileID: 3771505655688418106}
+  eventMappings:
+  - eventType: 4
+    description: 
+    damageThreshold: 0
+    requiresPlayerVictim: 1
+    particleEffectKeys: []
+    cameraShakeConfigs: []
+    postProcessingEffectKeys:
+    - player take damage
+  unitDamagedVFXKey: unit_damage
+  unitDeathVFXKey: unit_death
+  unitStepVFXKey: footstep
+--- !u!114 &7571876406203231759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4671199977724133958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14af326048327bd4ca73a77448cc3c3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vfxLibrary: {fileID: 11400000, guid: 0b9955e9995ddc84292df696e3db7dc2, type: 2}
+--- !u!114 &2055062467123661161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4671199977724133958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f983f051510da34b8e1d97574220a0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vfxLibrary: {fileID: 11400000, guid: 0b9955e9995ddc84292df696e3db7dc2, type: 2}
+  cameraTransform: {fileID: 0}
+  currentShakeOffset: {x: 0, y: 0, z: 0}
+--- !u!114 &3771505655688418106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4671199977724133958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5284e830060cac047b051558568cfd8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vfxLibrary: {fileID: 11400000, guid: 0b9955e9995ddc84292df696e3db7dc2, type: 2}
+  globalVolume: {fileID: 0}

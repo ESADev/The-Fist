@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using DG.Tweening;
+using Unity.VisualScripting;
 
 /// <summary>
 /// Handles constructing and upgrading a building through simple interactions.
@@ -26,6 +27,9 @@ public class BuildingSlot : MonoBehaviour, IInteractable
     Coroutine hideInteractionButtonAfterCooldownCor;
     float lastInteractionRequestTime = -1f;
     float hideInteractionButtonCooldown = 0.05f;
+    
+    // Track health component of the currently spawned building so we can listen for death
+    private Health _currentBuildingHealth;
 
     /// <summary>
     /// Gets the current building level. Zero means nothing built yet.
@@ -118,7 +122,7 @@ public class BuildingSlot : MonoBehaviour, IInteractable
 
     private void OnConfirmed()
     {
-        UpdateToNextLevel();
+        StartCoroutine(UpdateToNextLevelCoroutine());
     }
 
     private void OnCancelled()
@@ -139,28 +143,34 @@ public class BuildingSlot : MonoBehaviour, IInteractable
         return maxedOut;
     }
 
-    private void UpdateToNextLevel()
+    private IEnumerator UpdateToNextLevelCoroutine()
     {
         if (!ResourceManager.Instance.SpendResource(nextLevel.cost))
         {
             Debug.LogError("Not enough resources to upgrade!");
-            return;
+            yield break;
         }
+
+        float destroyAnimationDuraiton = 0.15f;
 
         if (currentBuilding != null)
         {
-            try
-            {
-                currentBuilding.GetComponent<Entity>().Health.TakeDamage(Mathf.Infinity, null, null);
-            }
-            catch
-            {
-                Destroy(currentBuilding.gameObject);
-            }
+            //currentBuilding.GetComponent<Entity>().Health.TakeDamage(Mathf.Infinity, null, null);
+            // Detach previous listener so upgrade removal does not count as a death downgrade
+            DetachCurrentBuildingHealthListener();
+            currentBuilding.transform.DOScale(Vector3.zero, destroyAnimationDuraiton);
+            yield return new WaitForSecondsRealtime(destroyAnimationDuraiton);
+        }
+
+
+        if (currentBuilding != null)
+        {
+            Destroy(currentBuilding.gameObject);
         }
 
         currentBuilding = Instantiate(nextLevel.characterPrefab, transform).gameObject;
         currentLevel++;
+        AttachCurrentBuildingHealthListener();
         RefreshNextLevel();
 
         // SFX
@@ -169,5 +179,69 @@ public class BuildingSlot : MonoBehaviour, IInteractable
         // VFX
         VFXManager.Instance.PlayEffect("upgrade", transform.position);
     }
+
+    #region Building Death Handling
+    private void AttachCurrentBuildingHealthListener()
+    {
+        if (currentBuilding == null) return;
+
+        // Prefer direct Health; fall back to Entity -> Health
+        _currentBuildingHealth = currentBuilding.GetComponent<Health>();
+        if (_currentBuildingHealth == null)
+        {
+            Entity entity = currentBuilding.GetComponent<Entity>();
+            if (entity != null)
+            {
+                _currentBuildingHealth = entity.Health;
+            }
+        }
+
+        if (_currentBuildingHealth != null)
+        {
+            _currentBuildingHealth.OnDied += HandleCurrentBuildingDied;
+        }
+        else
+        {
+            Debug.LogWarning($"[BuildingSlot] Spawned building '{currentBuilding.name}' has no Health component to monitor.");
+        }
+    }
+
+    private void DetachCurrentBuildingHealthListener()
+    {
+        if (_currentBuildingHealth != null)
+        {
+            _currentBuildingHealth.OnDied -= HandleCurrentBuildingDied;
+            _currentBuildingHealth = null;
+        }
+    }
+
+    private void HandleCurrentBuildingDied(GameObject dead)
+    {
+        // Ignore if somehow different reference
+        if (currentBuilding == null || dead != currentBuilding) return;
+
+        Debug.Log($"[BuildingSlot] Building '{dead.name}' died. Downgrading slot level.");
+
+        DetachCurrentBuildingHealthListener();
+        currentBuilding = null; // Already dead
+
+        // Downgrade one level so player can rebuild same tier
+        int previousLevel = currentLevel;
+        currentLevel = Mathf.Max(-1, currentLevel - 1);
+        if (previousLevel != currentLevel)
+        {
+            RefreshNextLevel();
+        }
+
+        // Optional feedback (reuse upgrade VFX/SFX or dedicated ones if available)
+        SFXManager.Instance.PlaySound("building_destroyed", transform.position); // Will silently fail if not defined
+        VFXManager.Instance.PlayEffect("building_destroyed", transform.position);
+    }
+
+    private void OnDestroy()
+    {
+        DetachCurrentBuildingHealthListener();
+    }
+    #endregion
 }
 

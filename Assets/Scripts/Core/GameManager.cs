@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -19,13 +20,37 @@ public class GameManager : MonoBehaviour
     public GameState CurrentState { get; private set; } = GameState.MainMenu;
 
     [Header("Levels")]
-    [Tooltip("Collection of levels available in the game.")]
+    [Tooltip("Collection of levels available in the game. Order defines progression.")]
     public List<GameLevelDataSO> levels = new List<GameLevelDataSO>();
 
+    [Tooltip("Index of the currently selected / to-be-played level (not necessarily loaded scene).")]
+    [SerializeField] private int currentLevelIndex = 1;
+
+    [Tooltip("Highest unlocked level index (inclusive).")]
+    [SerializeField] private int highestUnlockedLevelIndex = 1;
+
+    private const string Key_CurrentLevel = "GF_CurrentLevel";
+    private const string Key_HighestUnlocked = "GF_HighestUnlocked";
+
     /// <summary>
-    /// Currently loaded level index.
+    /// Fired when the current level selection changes. Param: new index.
     /// </summary>
-    private int currentLevelIndex = -1;
+    public static event Action<int> OnLevelChanged;
+
+    /// <summary>
+    /// Fired when the highest unlocked level changes. Param: new highest unlocked index.
+    /// </summary>
+    public static event Action<int> OnHighestUnlockedLevelChanged;
+
+    /// <summary>
+    /// The index currently selected (may not yet be loaded scene until Play invoked).
+    /// </summary>
+    public int CurrentLevelIndex => currentLevelIndex;
+
+    /// <summary>
+    /// The highest unlocked level index (inclusive).
+    /// </summary>
+    public int HighestUnlockedLevelIndex => highestUnlockedLevelIndex;
 
     private void Awake()
     {
@@ -37,6 +62,8 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        // LoadProgress();
     }
 
     private void OnEnable()
@@ -90,7 +117,7 @@ public class GameManager : MonoBehaviour
         CurrentState = GameState.Gameplay;
         Debug.Log($"[GameManager] Loading level {levelData.levelName} ({levelIndex}).");
 
-        SceneManager.LoadScene(levelData.levelName);
+        SceneManager.LoadScene(levelData.levelIndex);
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
@@ -125,6 +152,19 @@ public class GameManager : MonoBehaviour
     {
         CurrentState = GameState.Victory;
         Debug.Log("[GameManager] Victory state reached.");
+
+        // Progression: mark completed and unlock next level if any.
+        if (currentLevelIndex == highestUnlockedLevelIndex)
+        {
+            int next = currentLevelIndex + 1;
+            if (next < levels.Count)
+            {
+                highestUnlockedLevelIndex = next;
+                PlayerPrefs.SetInt(Key_HighestUnlocked, highestUnlockedLevelIndex);
+                PlayerPrefs.Save();
+                OnHighestUnlockedLevelChanged?.Invoke(highestUnlockedLevelIndex);
+            }
+        }
     }
 
     /// <summary>
@@ -135,4 +175,48 @@ public class GameManager : MonoBehaviour
         CurrentState = GameState.Defeat;
         Debug.Log("[GameManager] Defeat state reached.");
     }
+
+    #region Progression & Selection
+
+    /// <summary>
+    /// Select a level index (does not load). Must be unlocked unless force.
+    /// </summary>
+    public bool SetCurrentLevel(int index, bool force = false)
+    {
+        if (index < 0 || index >= levels.Count)
+        {
+            Debug.LogWarning($"[GameManager] Cannot select level {index}. Out of range.");
+            return false;
+        }
+        if (!force && index > highestUnlockedLevelIndex)
+        {
+            Debug.LogWarning($"[GameManager] Cannot select locked level {index} (highest unlocked {highestUnlockedLevelIndex}).");
+            return false;
+        }
+        if (index == currentLevelIndex) return true;
+        currentLevelIndex = index;
+        PlayerPrefs.SetInt(Key_CurrentLevel, currentLevelIndex);
+        PlayerPrefs.Save();
+        OnLevelChanged?.Invoke(currentLevelIndex);
+        return true;
+    }
+
+    /// <summary>
+    /// Loads the currently selected level.
+    /// </summary>
+    public void PlayCurrentLevel()
+    {
+        LoadLevel(currentLevelIndex);
+    }
+
+    private void LoadProgress()
+    {
+        highestUnlockedLevelIndex = PlayerPrefs.GetInt(Key_HighestUnlocked, 0);
+        currentLevelIndex = PlayerPrefs.GetInt(Key_CurrentLevel, 0);
+        // Clamp to valid range.
+        highestUnlockedLevelIndex = Mathf.Clamp(highestUnlockedLevelIndex, 0, Mathf.Max(0, levels.Count - 1));
+        currentLevelIndex = Mathf.Clamp(currentLevelIndex, 0, highestUnlockedLevelIndex);
+    }
+
+    #endregion
 }

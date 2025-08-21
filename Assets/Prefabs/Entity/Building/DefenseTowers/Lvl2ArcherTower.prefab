@@ -554,6 +554,7 @@ GameObject:
   - component: {fileID: 1956612187003163409}
   - component: {fileID: 4817204567621786798}
   - component: {fileID: 3907191758050992510}
+  - component: {fileID: -3775804772143604215}
   m_Layer: 6
   m_Name: Lvl2ArcherTower
   m_TagString: Untagged
@@ -645,6 +646,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e770eace7bdd61469ed370f00553fe5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-3775804772143604215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3241481588073184813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52f71dadc27ddac4d984b9369c351c69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerProfile: {fileID: 11400000, guid: 650b6c32b08bf5c4da549de13f9e5427, type: 2}
+  archerAttacker: {fileID: 6798770406293790040}
+  archerMovementController: {fileID: 670869309513023526}
 --- !u!1 &5760633097484258067
 GameObject:
   m_ObjectHideFlags: 0
@@ -830,6 +846,28 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea8c0300142947745bd67ac3757e1467, type: 3}
+--- !u!114 &670869309513023526 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -4002118669325388436, guid: ea8c0300142947745bd67ac3757e1467, type: 3}
+  m_PrefabInstance: {fileID: 4700339997891032394}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1ff732849389654fa918b037292d844, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6798770406293790040 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2261057679467128850, guid: ea8c0300142947745bd67ac3757e1467, type: 3}
+  m_PrefabInstance: {fileID: 4700339997891032394}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6db1287dce2048448bf170469f8a2b02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &7865736037126624761 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3175674437411348659, guid: ea8c0300142947745bd67ac3757e1467, type: 3}

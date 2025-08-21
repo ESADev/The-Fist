@@ -28,7 +28,7 @@ MonoBehaviour:
     overallVolume: 1
     clips:
     - clip: {fileID: 8300000, guid: 2bddaf37260d4704eb63d783dd695b1b, type: 3}
-      volume: 2
+      volume: 0.5
       pitch: 1
       UseRandomVolume: 0
       RandomVolumeVariance: 0.2

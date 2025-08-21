@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pathRadius: 50
   densityScalar: 1.5
-  nonGeneratableCenterRadius: 25
+  nonGeneratableCenterRadius: 5
   prefabProfiles:
   - name: Tree
     prefabVariants:

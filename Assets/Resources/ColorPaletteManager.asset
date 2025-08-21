@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ca34e11d6b77464a98b0155057d8238, type: 3}
   m_Name: ColorPaletteManager
   m_EditorClassIdentifier: 
-  coreColor1: {r: 0.17254902, g: 0.17254902, b: 0.19215688, a: 1}
-  coreColor2: {r: 0.93725497, g: 0.8745099, b: 0.48235297, a: 1}
-  coreColor3: {r: 0.7254902, g: 0.57254905, b: 0.3647059, a: 1}
-  ctaColor1: {r: 0.53333336, g: 0.2509804, b: 0.27450982, a: 1}
-  ctaColor2: {r: 0, g: 0.5921569, b: 0.882353, a: 1}
+  coreColor1: {r: 0.043137256, g: 0.12941177, b: 0.0627451, a: 1}
+  coreColor2: {r: 0.9058824, g: 0.8745099, b: 0.77647066, a: 1}
+  coreColor3: {r: 0.4039216, g: 0.24705884, b: 0.27450982, a: 1}
+  ctaColor1: {r: 0.6784314, g: 0.22352943, b: 0.19215688, a: 1}
+  ctaColor2: {r: 0.38823533, g: 0.54901963, b: 0.2901961, a: 1}

@@ -8,8 +8,9 @@ using DG.Tweening;
 public class EndGamePanelsHandler : MonoBehaviour
 {
     [Header("Panel References")]
-    [SerializeField] private CanvasGroup winPanelCanvasGroup;
-    [SerializeField] private CanvasGroup losePanelCanvasGroup;
+    [SerializeField] private CanvasGroup canvasGroup;
+    [SerializeField] private GameObject winText;
+    [SerializeField] private GameObject loseText;
     
     [Header("Animation Settings")]
     [SerializeField] private float fadeInDuration = 1.0f;
@@ -18,8 +19,7 @@ public class EndGamePanelsHandler : MonoBehaviour
     private void Awake()
     {
         // Initialize both panels as invisible and non-interactive
-        InitializePanel(winPanelCanvasGroup);
-        InitializePanel(losePanelCanvasGroup);
+        InitializePanel(canvasGroup);
     }
     
     private void OnEnable()
@@ -62,7 +62,9 @@ public class EndGamePanelsHandler : MonoBehaviour
     public void ShowWinPanel()
     {
         Debug.Log("[EndGamePanelsHandler] Showing victory panel");
-        ShowPanel(winPanelCanvasGroup);
+        winText.SetActive(true);
+        loseText.SetActive(false);
+        ShowPanel(canvasGroup);
     }
     
     /// <summary>
@@ -71,7 +73,9 @@ public class EndGamePanelsHandler : MonoBehaviour
     public void ShowLosePanel()
     {
         Debug.Log("[EndGamePanelsHandler] Showing defeat panel");
-        ShowPanel(losePanelCanvasGroup);
+        winText.SetActive(false);
+        loseText.SetActive(true);
+        ShowPanel(canvasGroup);
     }
     
     /// <summary>
@@ -80,8 +84,7 @@ public class EndGamePanelsHandler : MonoBehaviour
     public void HideAllPanels()
     {
         Debug.Log("[EndGamePanelsHandler] Hiding all endgame panels");
-        HidePanel(winPanelCanvasGroup);
-        HidePanel(losePanelCanvasGroup);
+        HidePanel(canvasGroup);
     }
     
     private void HandleVictory()
@@ -156,9 +159,7 @@ public class EndGamePanelsHandler : MonoBehaviour
     private void OnDestroy()
     {
         // Kill any ongoing tweens to prevent errors
-        if (winPanelCanvasGroup != null)
-            winPanelCanvasGroup.DOKill();
-        if (losePanelCanvasGroup != null)
-            losePanelCanvasGroup.DOKill();
+        if (canvasGroup != null)
+            canvasGroup.DOKill();
     }
 }

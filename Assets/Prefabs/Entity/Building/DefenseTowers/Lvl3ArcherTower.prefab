@@ -273,6 +273,7 @@ GameObject:
   - component: {fileID: 7485049577949038814}
   - component: {fileID: 3714689944521458777}
   - component: {fileID: 2849546901129388568}
+  - component: {fileID: -4714783336718222870}
   m_Layer: 6
   m_Name: Lvl3ArcherTower
   m_TagString: Untagged
@@ -364,6 +365,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e770eace7bdd61469ed370f00553fe5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-4714783336718222870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3575832982215489729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52f71dadc27ddac4d984b9369c351c69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerProfile: {fileID: 11400000, guid: b9ae018cdb250e344874e904f39c0a08, type: 2}
+  archerAttacker: {fileID: 5269385293159539864}
+  archerMovementController: {fileID: 7387833708264256002}
 --- !u!1 &3708235963160391849
 GameObject:
   m_ObjectHideFlags: 0
@@ -830,8 +846,30 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c774a739561bd2145834cf15a005a30b, type: 3}
+--- !u!114 &5269385293159539864 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2125745151317584338, guid: c774a739561bd2145834cf15a005a30b, type: 3}
+  m_PrefabInstance: {fileID: 6098076148224888138}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6db1287dce2048448bf170469f8a2b02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &6412430303229028661 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 890921697510728831, guid: c774a739561bd2145834cf15a005a30b, type: 3}
   m_PrefabInstance: {fileID: 6098076148224888138}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7387833708264256002 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -5609677061233475768, guid: c774a739561bd2145834cf15a005a30b, type: 3}
+  m_PrefabInstance: {fileID: 6098076148224888138}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1ff732849389654fa918b037292d844, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

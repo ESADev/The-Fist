@@ -59,7 +59,7 @@ public class ConfirmationPanel : MonoBehaviour
         // Create cost display for each resource
         foreach (var resourceAmount in cost)
         {
-            costText.text += $"{resourceAmount.type}: {resourceAmount.amount},";
+            costText.text += $"{resourceAmount.amount} <sprite name=\"{resourceAmount.type.ToString().ToLower()}\">,";
         }
 
         // Remove the last comma if there is any cost
