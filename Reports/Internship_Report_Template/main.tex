@@ -1,0 +1,409 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% LaTeX Template: ITU Computer Engineering Department Internship Report Template
+% IN ORDER TO COMPILE FILE SUCCESSFULLY YOU MUST SELECT: MENU->COMPILER->XELATEX 
+%                                                        
+%
+% Version: 1.0.0
+% Release: 211021
+% Minor update history:
+%  - None
+% Author: N.Ahmet BASTUG
+% Editors: Fırat ÖNCEL, Kadir ÖZLEM, Batuhan Faik DERİNBAY, Vahit Buğra YEŞİLKAYNAK, Tacettin Ayar
+% Special thanks to: Ongun KANAT
+% Must be compiled with xelatex in order to use Times New Roman font.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\geometry{
+  a4paper,       % Paper Size    is A4 (210 × 297 mm)
+  top=20mm,      % Top margin    is 2.0 cm
+  bottom=20mm,   % Bottom margin is 2.0 cm
+  left=25mm,     % Left   margin is 2.5 cm
+  right=25mm     % Right  margin is 2.5 cm
+}
+\usepackage{sectsty}
+\usepackage{fontspec}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{ulem}
+\usepackage{soul}
+\usepackage{xcolor}
+\usepackage{amssymb}
+\usepackage{titlesec}
+\usepackage{babel}
+%\usepackage[utf8]{inputenc}
+\usepackage{blindtext}
+\usepackage[numbib]{tocbibind}
+\usepackage{indentfirst}
+\usepackage{enumitem}
+\usepackage{url}
+\usepackage{sectsty}
+
+\allsectionsfont{\normalfont\sffamily\bfseries}
+\sectionfont{\fontsize{18pt}{21.6pt}\sffamily\bfseries}
+\subsectionfont{\fontsize{16pt}{19.2pt}\sffamily\bfseries}
+\subsubsectionfont{\fontsize{14pt}{16.8pt}\sffamily\bfseries}
+
+
+
+\renewcommand{\baselinestretch}{1.0}
+\setlength{\parindent}{1cm}
+\setmainfont{Times New Roman}
+\addto\captionsenglish{\renewcommand{\figurename}{Figure}}
+\setlist[1,2,3]{leftmargin=2cm}
+
+\usepackage{tocloft}
+\renewcommand{\contentsname}{Table of Contents}
+\renewcommand{\refname}{REFERENCES}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cfttoctitlefont}{\sffamily\Large\bfseries}
+\setlength{\cftbeforesecskip}{6pt}
+
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
+\widowpenalty=10000
+\clubpenalty=10000
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Change the information below with: your name, your surname, 
+%                                    your student id, and your itu username
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\name}{YOUR NAME AND YOUR SURNAME}
+\newcommand{\id}{YOUR STUDENT ID}
+\newcommand{\mail}{your-itu-username@itu.edu.tr}
+
+
+\begin{document}
+\pagenumbering{gobble}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% % Cover Page 1: Summary
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{titlepage}
+  \centering
+  \underline{\bfseries ISTANBUL TECHNICAL UNIVERSITY} \\
+  \underline{\bfseries Faculty of Computer Science and Informatics}
+  \vfill
+      {\bfseries YOUR INTERNSHIP TITLE (SELECT A TITLE THAT REFLECTS YOUR WORK)} \\
+      {\bfseries SECOND LINE OF YOUR INTERNSHIP TITLE (IF NECESSARY)} \\
+      {\bfseries THIRD AND LAST LINE OF YOUR INTERNSHIP TITLE (IF NECESSARY)}
+      \vfill
+          {\fontsize{25}{30}\bfseries INTERNSHIP PROGRAM REPORT} \\
+          \vspace{0.4cm}
+          {\bfseries \name} \\
+          {\bfseries \id}
+      \vfill
+  {\bfseries YOUR INTERNSHIP TERM / YOUR INTERNSHIP YEAR (e.g., SUMMER / 2021)}
+  
+\end{titlepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Cover Page 2: Information About Student, Institution, and Internship
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+{\centering
+{\bfseries Istanbul Technical University} \\
+\hspace{0.1cm}\\
+{\bfseries Faculty of Computer Science and Informatics} \\
+\hspace{0.1cm}\\
+{\bfseries INTERNSHIP REPORT} \\[1\baselineskip] \par}
+\begin{minipage}[t]{.3\textwidth}
+  \begin{flushright}
+    Academic Year: \\
+    Internship Term:
+  \end{flushright}
+\end{minipage}%
+\hspace{0.5cm}
+\begin{minipage}[t]{.7\textwidth}
+  YOUR INTERNSHIP'S ACADEMIC YEAR (e.g., 2020/2021) \\
+  $\boxtimes$ Summer  $\square$ Spring  $\square$ Fall (CHECK RELATED CHECKBOX) \\ 
+\end{minipage}
+
+{\centering
+  \textcolor{red}{\bfseries \ul{ Student Information}}
+  \\[1\baselineskip]
+  \par}
+\begin{minipage}[t]{.3\textwidth}
+  \vspace{0pt}
+  \begin{flushright}
+  Name Surname: \\
+  Student ID: \\
+  Department: \\
+  Program: \\ 
+  E-Mail: \\
+  Mobile Phone: \\
+  Pursuing a Double Major?\\[2\baselineskip]
+  In the Graduation Term? \\[1\baselineskip]
+  Taking a class at Summer School? \\
+  \end{flushright}
+\end{minipage}%
+\hspace{0.5cm}
+\begin{minipage}[t]{.7\textwidth}
+  \vspace{0pt}
+  \name\\
+  \id\\
+  YOUR DEPARTMENT (e.g., Computer Engineering) \\
+  YOUR PROGRAM (e.g., 100\% English) \\
+  \mail\\
+  +90 $($5xx$)$ xxx xxxx \\
+  $\square$ Yes $($Faculty/Department of DM: \underline{\hspace{3cm}}$)$ \\
+  $\boxtimes$ No (CHECK RELATED CHECKBOX) \\[1\baselineskip]
+  $\square$ Yes \\
+  $\boxtimes$ No \\[1\baselineskip]
+  $\square$ Yes $($Number of Courses:\underline{\hspace{1cm}}$)$ \\
+  $\boxtimes$ No (CHECK RELATED CHECKBOX)\\
+\end{minipage}
+
+\vspace{75pt}
+
+{\centering
+  \textcolor{red}{\bfseries \ul{Institution Information}}
+  \\[1\baselineskip]
+  \par}
+
+\begin{minipage}[t]{.20\textwidth}
+  \begin{flushright}
+      Company Name: \\
+      Department: \\
+      Web Address: \\
+      PostalAddress:
+  \end{flushright}
+\end{minipage}%
+\hspace{0.5cm}
+\begin{minipage}[t]{.80\textwidth}
+  INSTITUTION NAME \\
+  INSTITUTION DEPARTMENT \\
+  INSTITUTION WEB ADDRESS\\
+  INSTITUTION POSTAL ADDRESS PART 1\\
+  INSTITUTION POSTAL ADDRESS PART 2 (IF ANY)
+\end{minipage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Cover Page 3: Information About Institution, and Internship
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+    {\centering
+  \textcolor{red}{\bfseries \ul{Authorized Person Information}}
+  \\[1\baselineskip]
+  \par}
+
+\begin{minipage}[t]{.25\textwidth}
+  \begin{flushright}
+      Department: \\
+      Title: \\
+      Name Surname: \\
+      Corporate E-Mail: \\
+      Corporate Phone:
+  \end{flushright}
+\end{minipage}%
+\hspace{0.5cm}
+\begin{minipage}[t]{.75\textwidth}
+  DEPARTMENT OF AUTHORIZED PERSON \\
+  TITLE OF AUTHORIZED PERSON \\
+  NAME AND SURNAME OF AUTHORIZED PERSON \\
+  CORPORATE E-MAIL ADDRESS OF AUTHORIZED PERSON \\
+  CORPORATE PHONE NUMBER OF AUTHORIZED PERSON \\[2\baselineskip]
+\end{minipage}
+
+\vspace{150pt}
+
+{\centering
+  \textcolor{red}{\bfseries \ul{Internship Work Information}}
+  \\[1\baselineskip]
+  \par}
+
+\begin{minipage}[t]{0.4\textwidth}
+  \begin{flushright}
+    Internship Location: \\[1\baselineskip]
+    Internship Start Date: \\
+    Internship End Date: \\
+    Number of Days Worked: \\
+    During your internship, did you have insurance?
+  \end{flushright}
+\end{minipage}%
+\hspace{0.5cm}
+\begin{minipage}[t]{0.6\textwidth}
+  $\boxtimes$ Turkey \\
+  $\square$ Abroad (CHECK RELATED CHECKBOX)\\
+  IN DD.MM.YYYY FORMAT (e.g., 26.07.2021) \\
+  IN DD.MM.YYYY FORMAT (e.g., 20.08.2021) \\
+  MUST EXCLUDE OFFICIAL HOLIDAYS (e.g., 20) \\
+  $\boxtimes$ Yes, I was insured by İTÜ. \\
+  $\square$ Yes, I was insured by institution. \\
+  $\square$ No, I did my internship abroad. \\
+  $\boxtimes$ No. (CHECK RELATED CHECKBOX)\\
+\end{minipage}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% REPORT TOC
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\addtocontents{toc}{\protect\setcounter{tocdepth}{-1}} % Don't include TOC page
+\tableofcontents
+\addtocontents{toc}{\protect\setcounter{tocdepth}{5}}  % Include remaining pages
+\newpage
+
+\pagenumbering{arabic}
+\section{INFORMATION ABOUT THE INSTITUTION}
+\label{sec-institute-info}
+\par % You can add a new paragraph with \par
+In this section,  you must give information about the 
+institution that you completed your internship at: 
+\begin{itemize}
+    \item Institution's name 
+    \item Institution's location
+    \item Institution's structure, organization, and duties.
+    \item Institution’s area of activity, projects, and methods 
+          applied by the institution. 
+    \item Importance and role of your internship work within 
+          the projects carried by the institution.
+    \item Institution’s infrastructure and equipment 
+          (hosts,  routers,  ...),  if  the institution gives 
+          permission to share this information.
+\end{itemize}
+
+You can write italic text as follows: \textit{italic}. You can end a paragraph and start the next one with $\backslash par$.
+\par % You can add a new paragraph with \par
+You can include figures and tables in your report:
+\begin{itemize}
+    \item They must be valuable for understanding your 
+          internship work. 
+          Do not use meaning-\\less figures such as corporate 
+          or software logos, only include useful figures. 
+
+    \item You must give reference to used figures from 
+          the text as follows: Figure~\ref{fig-itu-logo}.
+          Do not just include figures, reference them from the text! 
+
+    \item You can use nested unordered lists:
+          \begin{itemize}
+             \item here is an unordered item 
+             \item here is an unordered item 
+          \end{itemize}
+    \item You can use ordered lists:
+          \begin{enumerate}
+             \item here is an ordered item 
+             \item here is an ordered item 
+          \end{enumerate}
+\end{itemize}
+
+ \begin{figure}[h!]
+  \centering
+  \includegraphics [width=0.6\linewidth]{itu_logo.jpg}
+  \caption{ITU logo is given here to remind you that
+           corporate logos are not allowed as figures!}
+  \label{fig-itu-logo}
+\end{figure}
+
+\section{INTRODUCTION}
+\label{sec-introduction}
+\par % You can add a new paragraph with \par
+In this section, you must give short information about the aim and scope 
+of  the internship work.
+
+\section
+        [DESCRIPTION AND ANALYSIS OF THE INTERNSHIP PROJECT]
+        {DESCRIPTION AND ANALYSIS OF THE INTERN-\\SHIP PROJECT}
+\label{sec-project-description}
+\par % You can add a new paragraph with \par
+In this section, you detail the work you have done during the internship. 
+\par % You can add a new paragraph with \par
+This section must be carefully written and give enough details 
+so that the reader can clearly understand what has been
+done during the internship.
+
+\subsection{Sub Section 1}
+\label{subsec-ss1}
+\par % You can add a new paragraph with \par
+You can divide the sections into subsections.
+
+\subsection{Sub Section 2}
+\label{subsec-ss2}
+\par % You can add a new paragraph with \par
+You can divide the sections into subsections. 
+
+\subsection{Sub Section 3}
+\label{subsec-ss3}
+\par % You can add a new paragraph with \par
+You can divide the sections into subsections.
+\par % You can add a new paragraph with \par
+You can give a reference to a [sub]section 
+as follows: Section~\ref{sec-introduction} or 
+Section~\ref{subsec-ss2}.
+
+\section{CONCLUSIONS}
+\label{sec-conclusion}
+\par % You can add a new paragraph with \par
+In this section, you must give an evaluation of the work done, 
+list the new data and capabilities gained during the internship,  
+and analyze the institution from the engineering point of view. 
+\par % You can add a new paragraph with \par
+Suggestions must be given based on the experiences gained 
+during the internship. You can use tables to summarize your work.
+As in figures, tables must be referenced from the text as follows:
+Table~\ref{tbl-sample}. 
+To create tables, you can use the online Latex table generator~\cite{ref-tablegenerator}. 
+ 
+\begin{table}[h!]
+   \centering
+   \caption{Sample Table}
+   \begin{tabular}{|c | c | c | c|} 
+      \hline
+      \textbf{Col1} & \textbf{Col2} & \textbf{Col3} & \textbf{Col4} \\ [0.5ex] 
+      \hline
+       1 & 6 & 87837 & 787 \\ 
+      \hline
+      2 & 7 & 78 & 5415 \\
+      \hline
+      3 & 545 & 778 & 7507 \\
+      \hline
+      4 & 545 & 18744 & 7560 \\
+      \hline
+      5 & 88 & 788 & 6344 \\ [1ex] 
+      \hline
+   \end{tabular}
+   \label{tbl-sample}
+\end{table}
+
+
+\bibliographystyle{IEEEtran}
+\begin{thebibliography}{00}
+% ===============================================================%
+\bibitem{ref-information}
+In this section, you must give sources that are 
+used to fulfill duties in the internship. 
+As stated before, the focus must be on the practical 
+experience and work in the report. 
+\par % You can add a new paragraph with \par
+The report can contain theoretical information that 
+constitutes background for understanding the practical work, 
+but it must be mentioned shortly and references for further 
+details must be given in this section. 
+\par % You can add a new paragraph with \par
+Even if you used other sources to learn/apply/develop something, 
+you must construct your own phrases when you write the report.
+\par % You can add a new paragraph with \par
+As in figures and tables, references must be referenced from 
+the text as exemplified in Section~\ref{sec-conclusion} with 
+the reference~\cite{ref-tablegenerator}.
+%================================================================%
+\bibitem{ref-tablegenerator}
+Create LaTeX tables online,
+\url{https://www.tablesgenerator.com/}
+%================================================================%
+\end{thebibliography}
+
+
+\section{APPENDIX}
+\label{sec-appendix}
+\par % You can add a new paragraph with \par
+In this section, you may include tables and figures 
+(especially the large ones in size). 
+Any kind of information that complement the internship 
+work must be given here. 
+
+\end{document}
+
