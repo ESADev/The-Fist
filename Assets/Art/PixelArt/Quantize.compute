@@ -1,0 +1,19 @@
+// Quantize.compute
+#pragma kernel CSMain
+
+// the texture you’ll read/write
+RWTexture2D<float4> Result;
+
+// quantization levels from C#
+int Levels;
+
+[numthreads(8,8,1)]
+void CSMain(uint3 id : SV_DispatchThreadID)
+{
+    // grab the pixel
+    float4 c = Result[id.xy];
+    // quantize each channel
+    c.rgb = round(c.rgb * (Levels - 1)) / (Levels - 1);
+    // write it back
+    Result[id.xy] = c;
+}
