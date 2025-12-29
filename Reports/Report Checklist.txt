@@ -1,0 +1,70 @@
+ITU COMPUTER ENGINEERING
+INTERNSHIP REPORT
+CHECKLIST
+INFORMATION
+There are 2 sections in this guideline. The first section describes the compulsory elements. You
+MUST complete all these elements so that your report can be graded.
+In the second section, each element corresponds to some points that are only known by
+reviewers. Reviewers grade your report according to these elements. If the final score is above a
+certain threshold, your report will be accepted. If not, the reviewer will give you feedback
+including the missing elements and you are expected to submit your edited report according to
+the given feedback.
+After your second upload, the reviewer will reevaluate your report and you will get your final
+grade. You will not be given a second feedback. Please note that we expect you to complete all of
+the elements and have determined a high threshold. We apply the threshold to evaluate your
+reports fairly. Lastly, grades will not be shown on any platform. We just use it as a criterion of
+acceptance.
+1. FORMAT (COMPULSORY)
+1. The report should be written in LaTex format and shared on Ninova.
+2. For Computer Engineering internships, the days of internship must be at least 20 days, for
+Information Systems Engineering, the days of internship must be at least 15 days.
+Otherwise, the reports are declined directly.
+3. The report must be accompanied by an Approval Form.
+4. The Approval Form should include the company's signature and stamp.
+5. For 100% English programs, the report must be written in English. For programs with
+30% English content, the report can be in Turkish, but there must be a 5-page English
+summary.
+2. CONTENT
+6. The report should not have any spelling errors.
+7. Headings must be in the order provided in the draft, and main headings should not be
+changed. If needed, new subheadings can be added.
+8. There should be no significant punctuation errors.
+9. There should be no significant grammatical errors.
+10. Sentences provided in the draft to explain the content of sections should be deleted.
+Information About the Institution:
+11. The section should be written in paragraph form, not in bullet points.
+12. The section should only provide information about the company, not the internship.
+13. Sources must be cited for the information provided about the company, using the IEEE
+format for citations.
+14. Unnecessary visuals should be avoided.
+Introduction:
+15. The project undertaken during the internship should be briefly described.
+16. Daily tasks performed during the internship should not be mentioned.
+Description and Analysis of the Internship Project:
+17. Comprehensive technical details about the project should be provided.
+18. Technical challenges faced during development should be discussed.
+19. Solutions to these challenges should be explained.
+20. Technologies used in the project should be explained in detail.
+21. Project outputs (interfaces, etc.) should be shared.
+22. Quotations in the text should be numbered following the IEEE citation standard (like [1],
+[2], etc.).
+23. Captions should be provided for figures and tables used in the report.
+24. In-text references to figures and tables should be included (e.g., "Figure 1 shows that...").
+25. The text should not contain extensive code snippets, only critical code sections should be
+included.
+26. Special punctuation marks shown in LaTex should be used correctly (`deneme' etc.).
+Conclusion:
+27. The work should be summarized in a few sentences.
+28. Insights gained during the internship, both positive and negative, and personal
+experiences should be added.
+References:
+29. References should be provided in the IEEE citation format. (Please see YouTube,
+Overleaf)
+30. The number of references should be sufficient (at least 3).
+Appendix:
+31. Descriptions should be added to the visuals and tables shared in the Appendix.
+32. If the Appendix section is not used, the heading should be deleted.
+Report Length:
+33. The report length should be a minimum of 7 pages (blank pages are not counted
+towards the minimum limit) excluding the references, the first 3 pages (cover table of
+contents) and the Appendix.
