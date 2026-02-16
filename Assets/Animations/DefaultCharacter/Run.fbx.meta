@@ -15,14 +15,14 @@ ModelImporter:
     resampleCurves: 1
     optimizeGameObjects: 0
     removeConstantScaleCurves: 0
-    motionNodeName: 
+    motionNodeName: <Root Transform>
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    importAnimatedCustomProperties: 0
-    importConstraints: 0
-    animationCompression: 3
+    importAnimatedCustomProperties: 1
+    importConstraints: 1
+    animationCompression: 0
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -44,9 +44,9 @@ ModelImporter:
       hasAdditiveReferencePose: 0
       loopTime: 1
       loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
@@ -286,18 +286,18 @@ ModelImporter:
         length: 0
         modified: 0
     skeleton:
-    - name: T-Pose(Clone)
+    - name: DefaultHumanoid(Clone)
       parentName: 
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: tmpig12_u0t.ply
-      parentName: T-Pose(Clone)
+      parentName: DefaultHumanoid(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: mixamorig:Hips
-      parentName: T-Pose(Clone)
+      parentName: DefaultHumanoid(Clone)
       position: {x: 0.00000008797513, y: 0.00823809, z: -0.00041233204}
       rotation: {x: -0.000000123977, y: 0.0000018758645, z: -0.000022284628, w: 1}
       scale: {x: 1, y: 1, z: 1}

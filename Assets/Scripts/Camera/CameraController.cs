@@ -1,3 +1,5 @@
+using System.Runtime.InteropServices;
+using Unity.Mathematics;
 using UnityEngine;
 
 /// <summary>
@@ -16,7 +18,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Transform target;
 
     [Tooltip("The camera to control.")]
-    [SerializeField] private Camera _camera;
+    [SerializeField] private Camera targetCamera;
 
     [Header("Speed-Based Zoom")]
     [Tooltip("Enable automatic zoom based on player movement speed.")]
@@ -25,24 +27,25 @@ public class CameraController : MonoBehaviour
     [Tooltip("Speed threshold above which zoom starts changing.")]
     [SerializeField] private float speedThreshold = 0.25f;
 
-    private Vector3 _cameraOffset;
+    //private Vector3 targetCameraOffset;
     private Vector3 _velocity = Vector3.zero;
     private float _targetZoom;
     private float _lastMoveTime;
     private float _speedBasedZoom = 0f;
+    public float baseDistance = 5;
 
     private void Awake()
     {
-        if (_camera == null)
+        if (targetCamera == null)
         {
             Debug.LogError("[CameraController] Camera is not assigned!", this);
             this.enabled = false;
             return;
         }
 
-        if (!_camera.orthographic)
+        if (targetCamera.orthographic)
         {
-            Debug.LogError("[CameraController] This script requires an orthographic Camera component.", this);
+            Debug.LogError("[CameraController] This script requires a perspective Camera component.", this);
             this.enabled = false;
             return;
         }
@@ -54,20 +57,17 @@ public class CameraController : MonoBehaviour
             return;
         }
 
-        if (target != null)
+        /*if (target != null)
         {
-            // Calculate the initial distance from the target.
-            float initialDistance = Vector3.Distance(transform.position, target.position);
-
             // Position the camera to look at the target from that distance, based on its rotation.
             // This centers the target perfectly on startup.
-            transform.position = target.position - (transform.forward * initialDistance);
+            transform.position = target.position - (transform.forward * CalculateDistanceBasedOnFOV(targetCamera.fieldOfView, baseDistance));
 
             // Recalculate the offset based on this new, ideal position.
-            _cameraOffset = transform.position - target.position;
-        }
+            targetCameraOffset = transform.position - target.position;
+        }*/
 
-        _targetZoom = _camera.orthographicSize;
+        _targetZoom = targetCamera.orthographicSize;
     }
 
     private void OnEnable()
@@ -92,8 +92,9 @@ public class CameraController : MonoBehaviour
     {
         if (target == null) return;
 
+        HandleCameraXRotation();
         HandleFollowing();
-        HandleZoom();
+        //HandleZoom();
     }
 
     /// <summary>
@@ -102,7 +103,7 @@ public class CameraController : MonoBehaviour
     private void HandleFollowing()
     {
         // The desired position is the target's position plus the initial offset.
-        Vector3 desiredPosition = target.position + _cameraOffset;
+        Vector3 desiredPosition = target.position + CalculateCameraOffsetBasedOnFOVAndBaseDistance(targetCamera.fieldOfView, baseDistance);
 
         // Check if the camera needs to move
         if (Vector3.Distance(transform.position, desiredPosition) > 0.01f)
@@ -129,7 +130,7 @@ public class CameraController : MonoBehaviour
     {
         _targetZoom = Mathf.Lerp(settings.minZoom, settings.maxZoom, _speedBasedZoom);
 
-        _camera.orthographicSize = Mathf.Lerp(_camera.orthographicSize, _targetZoom, settings.zoomSpeed * Time.deltaTime);
+        targetCamera.orthographicSize = Mathf.Lerp(targetCamera.orthographicSize, _targetZoom, settings.zoomSpeed * Time.deltaTime);
     }
 
     /// <summary>
@@ -157,5 +158,32 @@ public class CameraController : MonoBehaviour
         {
             _speedBasedZoom = 0f;
         }
+    }
+
+    private void HandleCameraXRotation()
+    {
+        transform.rotation = Quaternion.Euler(CalculateXRotationDegreesBasedOnFOV(targetCamera.fieldOfView), transform.eulerAngles.y, transform.eulerAngles.z);
+    }
+
+    private float CalculateDistanceBasedOnFOV(float FOV, float referenceDistance)
+    {
+        float dividend = 3;
+        float divisor = Mathf.Tan(FOV / 2 * Mathf.Deg2Rad);
+        return referenceDistance * dividend / divisor;
+    }
+
+    private Vector3 CalculateCameraOffsetBasedOnFOVAndBaseDistance(float FOV, float referenceDistance)
+    {
+        // Position the camera to look at the target from that distance, based on its rotation.
+            // This centers the target perfectly on startup.
+            transform.position = target.position - (transform.forward * CalculateDistanceBasedOnFOV(targetCamera.fieldOfView, referenceDistance));
+            
+            // Recalculate the offset based on this new, ideal position.
+            return transform.position - target.position;
+    }
+
+    private float CalculateXRotationDegreesBasedOnFOV(float FOV)
+    {
+        return FOV/2;
     }
 }
