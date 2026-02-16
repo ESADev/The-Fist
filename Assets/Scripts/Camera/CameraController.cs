@@ -29,9 +29,10 @@ public class CameraController : MonoBehaviour
 
     //private Vector3 targetCameraOffset;
     private Vector3 _velocity = Vector3.zero;
+    private float _zoomVelocity;
     private float _targetZoom;
     private float _lastMoveTime;
-    private float _speedBasedZoom = 0f;
+    private float _speedBasedZoom = 1f;
     public float baseDistance = 5;
 
     private void Awake()
@@ -68,6 +69,13 @@ public class CameraController : MonoBehaviour
         }*/
 
         _targetZoom = targetCamera.orthographicSize;
+        _lastMoveTime = Time.time;
+
+        if (target != null)
+        {
+            Vector3 startupOffset = CalculateCameraOffsetBasedOnFOVAndBaseDistance(targetCamera.fieldOfView, baseDistance);
+            transform.position = target.position + startupOffset;
+        }
     }
 
     private void OnEnable()
@@ -94,7 +102,7 @@ public class CameraController : MonoBehaviour
 
         HandleCameraXRotation();
         HandleFollowing();
-        //HandleZoom();
+        HandleZoom();
     }
 
     /// <summary>
@@ -102,7 +110,7 @@ public class CameraController : MonoBehaviour
     /// </summary>
     private void HandleFollowing()
     {
-        // The desired position is the target's position plus the initial offset.
+        // The desired position is the target's position plus the offset.
         Vector3 desiredPosition = target.position + CalculateCameraOffsetBasedOnFOVAndBaseDistance(targetCamera.fieldOfView, baseDistance);
 
         // Check if the camera needs to move
@@ -110,7 +118,7 @@ public class CameraController : MonoBehaviour
         {
             _lastMoveTime = Time.time;
         }
-
+        
         // If the target has been still for a while, recenter the camera smoothly.
         if (Time.time - _lastMoveTime > settings.centerDelay)
         {
@@ -129,8 +137,15 @@ public class CameraController : MonoBehaviour
     private void HandleZoom()
     {
         _targetZoom = Mathf.Lerp(settings.minZoom, settings.maxZoom, _speedBasedZoom);
-
-        targetCamera.orthographicSize = Mathf.Lerp(targetCamera.orthographicSize, _targetZoom, settings.zoomSpeed * Time.deltaTime);
+        float smoothTime = Mathf.Max(0.01f, 1f / settings.zoomSpeed);
+        targetCamera.fieldOfView = Mathf.SmoothDamp(
+            targetCamera.fieldOfView,
+            _targetZoom,
+            ref _zoomVelocity,
+            smoothTime,
+            Mathf.Infinity,
+            Time.deltaTime
+        );
     }
 
     /// <summary>
@@ -174,12 +189,8 @@ public class CameraController : MonoBehaviour
 
     private Vector3 CalculateCameraOffsetBasedOnFOVAndBaseDistance(float FOV, float referenceDistance)
     {
-        // Position the camera to look at the target from that distance, based on its rotation.
-            // This centers the target perfectly on startup.
-            transform.position = target.position - (transform.forward * CalculateDistanceBasedOnFOV(targetCamera.fieldOfView, referenceDistance));
-            
-            // Recalculate the offset based on this new, ideal position.
-            return transform.position - target.position;
+        float distance = CalculateDistanceBasedOnFOV(FOV, referenceDistance);
+        return -(transform.forward * distance);
     }
 
     private float CalculateXRotationDegreesBasedOnFOV(float FOV)

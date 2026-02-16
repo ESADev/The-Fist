@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e349efe19b878b42a67a01cff5a6e2f, type: 3}
   m_Name: CameraSettings
   m_EditorClassIdentifier: 
-  followSpeed: 4
+  followSpeed: 7.5
   centerDelay: 1
-  zoomSpeed: 0.25
-  minZoom: 12
-  maxZoom: 15
+  zoomSpeed: 0.33
+  minZoom: 30
+  maxZoom: 90

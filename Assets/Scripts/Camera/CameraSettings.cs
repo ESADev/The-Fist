@@ -12,7 +12,7 @@ public class CameraSettings : ScriptableObject
 {
     [Header("Following")]
     [Tooltip("How smoothly the camera follows the target. Lower values are smoother.")]
-    [Range(0.1f, 10f)]
+    //[Range(0.1f, 10f)]
     public float followSpeed = 5f;
 
     [Tooltip("The time to wait before the camera starts recentering on the target.")]
