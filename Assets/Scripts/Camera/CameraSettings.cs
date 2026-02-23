@@ -24,11 +24,11 @@ public class CameraSettings : ScriptableObject
     [Range(0.1f, 10f)]
     public float zoomSpeed = 5f;
 
-    [Tooltip("The minimum orthographic size for the camera.")]
-    [Range(5f, 50f)]
+    [Tooltip("The minimum perspective angle for the camera.")]
+    [Range(0.1f, 180f)]
     public float minZoom = 25f;
 
-    [Tooltip("The maximum orthographic size for the camera.")]
-    [Range(5f, 150f)]
-    public float maxZoom = 75f;
+    [Tooltip("The maximum perspective angle for the camera.")]
+    [Range(0.1f, 180f)]
+    public float maxZoom = 40f;
 }

@@ -15537,7 +15537,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 706322087371640663, guid: c37d9f8776fbb364a98d84ede3134980, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5335904127813698024, guid: c37d9f8776fbb364a98d84ede3134980, type: 3}
       propertyPath: m_LocalPosition.x
@@ -15685,7 +15685,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7622966244891911978, guid: 96e886778b779db47a4404f1601bf2b3, type: 3}
       propertyPath: m_FOVAxisMode
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7622966244891911978, guid: 96e886778b779db47a4404f1601bf2b3, type: 3}
+      propertyPath: far clip plane
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 7622966244891911978, guid: 96e886778b779db47a4404f1601bf2b3, type: 3}
       propertyPath: near clip plane
